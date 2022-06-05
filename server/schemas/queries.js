@@ -5,4 +5,8 @@ const allUsers = async ()=>{
     return users
 }
 
+const getDay = async (parent,{userId,date})=>{
+    const day =
+}
+
 module.exports = {allUsers}

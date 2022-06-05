@@ -8,7 +8,22 @@ const typeDefs = gql`
     password: String!
     birthdate: String!
     habits:[Habit]
+    lastPopulated:String
+    days: [Day]
   }
+
+
+  type HabitDay {
+    habit: Habit!
+    isOn: Boolean!
+    isComplete: Boolean!
+  }
+
+  
+  type Day {
+    habitDays: [HabitDay]
+    date: String!
+  }  
 
   type Habit {
     _id: ID!
@@ -25,6 +40,7 @@ const typeDefs = gql`
       createUser(name:String!, email: String!, password: String!, birthdate: String!):User
       addHabit(name:String!,prohibition:Boolean,creator:ID!):Habit
       removeHabit(userId:ID!,habitId:ID!):User
+      populateDay(userId: ID!, date:String!):User
     }
 
 `
