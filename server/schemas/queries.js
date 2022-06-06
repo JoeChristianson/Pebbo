@@ -8,6 +8,8 @@ const allUsers = async ()=>{
 
 
 const getDay = async (parent,{userId,date})=>{
+    console.log("in the day")
+    
     const user = await User.findById(userId).populate({
         path: 'days.habitDays.habit',
         model: "Habit"

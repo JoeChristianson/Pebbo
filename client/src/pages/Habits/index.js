@@ -1,62 +1,45 @@
 // import { useQuery } from '@apollo/client';
 const {useState} = require("react")
 const HabitDay = require("../../components/HabitDay").default
-const {useQuery} = require("@apollo/client")
+const {useQuery,useMutation} = require("@apollo/client")
 const SubNav = require("../../components/SubNav").default
+const {QUERY_DAY} = require("../../utils/queries")
+const {TOGGLE_IS_COMPLETE} = require("../../utils/mutations")
+const {formatToday} = require("../../utils/date")
+const auth = require("../../utils/auth").default
 
 function Habits(){
+    const userId = auth.getProfile().data._id
+    console.log(userId)
+    const date = formatToday()
 
+    const {loading:dayLoading,error,data:dayData,refetch:refetchDay} = useQuery(QUERY_DAY,
+        {variables:{userId,date}
+})
 
-    const {loading:dayLoading,data:dayData} = useQuery(QUERY_DAY)
+    const [toggleIsComplete,{data:toggleData,loading:toggleLoading,error:toggleError}] = useMutation(TOGGLE_IS_COMPLETE)
 
-    const data = [
-        {
-            habit:{
-                _id:"34934j9fj93j9fndf",
-                name:"Eat Breakfast"
-            },
-            isOn:true,
-            isDone:false
-        },
-        {
-            habit:{
-                _id:"xxx34j9f193j9fndf",
-                name:"Meditate"
-            },
-            isOn:false,
-            isDone:false
-        },
-        {
-            habit:{
-                _id:"34934j9fj93jhfndf",
-                name:"Drink Eight Glasses"
-            },
-            isOn:true,
-            isDone:true
-        },
-        {
-            habit:{
-                _id:"xxx34j9fj93j9fndf",
-                name:"No Meat",
-                prohibition:true
-            },
-            isOn:true,
-            isDone:false
-        },
-    ]
+    let data = null;
+    if (dayLoading){
+        console.log("loading")
+    }
+    if(error){
+        console.error(error)
+    }
+
+    if(!dayLoading){
+        console.log(dayData)
+        data = dayData.getDay.habitDays
+        console.log(data)
+    }
+
 
     const [habitDays,setHabitDays] = useState(data)
 
-    const handleComplete=(e)=>{
-        const newHabitDays = [...habitDays];
-        
-        newHabitDays.forEach(n=>{
-            if(n.habit._id===e.target.dataset.habitDayId){
-                console.log("condition goes true")
-                n.isDone=!n.isDone
-            }
-            setHabitDays(newHabitDays)
-        })
+    const handleComplete= async (e)=>{
+
+        await toggleIsComplete({variables:{userId,date,habitDayId:e.target.dataset.habitDayId}})
+        await refetchDay()
     }
 
     const [subsection,setSubsection] = useState("active")
@@ -68,18 +51,26 @@ function Habits(){
         setSubsection(choice)
     }
 
-    return(
-        <section>
+    if(dayLoading){
+        return(<h1>Loading</h1>)
+    }
+
+    if(data){
+        console.log("this is the data",data)
+        return(
+            <section>
             <SubNav options={options} handleSubMenu={handleSubMenu}></SubNav>
             <section>
-                {habitDays.filter(h=>{
+                {data.filter(h=>{
                     return h.isOn===true
                 }).map((habitDay,index)=>{
+                    console.log(index)
                     return(<HabitDay key={index} handleComplete={handleComplete} habitDay={habitDay}></HabitDay>)
                 })}
             </section>
         </section>
     )
+}
 }
 
 export default Habits

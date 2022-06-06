@@ -1,11 +1,12 @@
 const Nav = require("../Nav/index.js").default
+const {formatToday} = require("../../utils/date")
 
 function Header({setCurrentSection}) {
-    console.log("in it")
-    console.log(Nav)
+
     return(
         <div>
-            <h1>Header</h1>
+            <h1>{formatToday()}</h1>
+            <button>Log out</button>
             <Nav setCurrentSection={setCurrentSection}></Nav>
         </div>
     )

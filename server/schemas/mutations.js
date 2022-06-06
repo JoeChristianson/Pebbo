@@ -2,6 +2,34 @@ const {User,Habit}=require("../models")
 const { HabitDay } = require("../models/HabitDay")
 const { randBoolean } = require("../utils/math")
 const mongoose = require("mongoose")
+const { AuthenticationError } = require("apollo-server-express")
+const {signToken} = require("../utils/auth")
+const {formatDBDateForComparison} = require("../utils/date")
+
+const login = async (parent, { email, password }) => {
+    try{
+
+        console.log("in it")
+        console.log({email,password})
+        const user = await User.findOne({ email });
+        
+    if (!user) {
+        throw new AuthenticationError('No profile with this email found!');
+    }
+
+    const correctPw = await user.isCorrectPassword(password);
+
+    if (!correctPw) {
+      throw new AuthenticationError('Incorrect password!');
+    }
+    console.log(user)
+    const token = signToken(user);
+    return { token, user };
+}catch(err){
+    throw new AuthenticationError(err)
+}
+  }
+
 
 const createUser = async (parent,{name,email,password,birthdate})=>{
     const user = await User.create({name,email,password,birthdate})
@@ -42,8 +70,8 @@ const removeHabit = async (parent,{userId,habitId})=>{
 
 const populateDay = async (parent,{userId,date})=>{
     const user = await User.findById(userId).populate("habits");
-    console.log(user)
-    if(user.lastPopulated === date){
+    if(user.lastPopulated && formatDBDateForComparison(user.lastPopulated) === date){
+        console.log("already populated")
         return user
     }
     user.lastPopulated = date;
@@ -57,7 +85,6 @@ const populateDay = async (parent,{userId,date})=>{
         habitDays.push(habitDay)
     }
     const day = {date,habitDays}
-    console.log("day",day)
     user.days.push(day);
     user.save()
     return user;
@@ -106,4 +133,4 @@ const toggleHabitDay = async (parent,{userId,date,habitDayId})=>{
     return result
 }
 
-module.exports={createUser,addHabit,removeHabit,populateDay,toggleHabitDay}
+module.exports={login,createUser,addHabit,removeHabit,populateDay,toggleHabitDay}

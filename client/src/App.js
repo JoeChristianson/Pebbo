@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Header from "./components/Header"
 import Main from "./components/Main"
+import Login from './pages/Login';
 import {useState} from "react"
 import {
   ApolloClient,
@@ -10,9 +11,10 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import auth from "./utils/auth"
 
 const httpLink = createHttpLink({
-  uri: '/graphql'
+  uri: 'http://localhost:3001/graphql'
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -36,13 +38,18 @@ const client = new ApolloClient({
 function App() {
   const [currentSection,setCurrentSection] = useState("queue")
 
+  const loggedIn = auth.loggedIn()
+  console.log(loggedIn)
 
   return (
     <ApolloProvider client={client}>
+    {!loggedIn?<Login/>:
+    
     <div className="App">
       <Header setCurrentSection={setCurrentSection}></Header>
       <Main currentSection={currentSection}></Main>
     </div>
+  }
     </ApolloProvider>
   );
 }

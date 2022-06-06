@@ -12,6 +12,10 @@ const typeDefs = gql`
     days: [Day]
   }
 
+  type Auth {
+    token: ID!
+    user: User
+  }
 
   type HabitDay {
     habit: Habit!
@@ -39,6 +43,7 @@ const typeDefs = gql`
 
   type Mutation {
       createUser(name:String!, email: String!, password: String!, birthdate: String!):User
+      login(email: String!, password: String!): Auth
       addHabit(name:String!,prohibition:Boolean,creator:ID!):Habit
       removeHabit(userId:ID!,habitId:ID!):User
       populateDay(userId: ID!, date:String!):User
