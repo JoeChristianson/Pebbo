@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/JoeChristianson/HABD#readme",
   "dependencies": {
+    "apollo-client": "^2.6.10",
     "concurrently": "^7.2.1"
   }
 }

@@ -34,6 +34,7 @@ const typeDefs = gql`
 
   type Query {
     allUsers:[User]
+    getDay(userId:ID!,date:String!):Day
   }
 
   type Mutation {
@@ -41,6 +42,7 @@ const typeDefs = gql`
       addHabit(name:String!,prohibition:Boolean,creator:ID!):Habit
       removeHabit(userId:ID!,habitId:ID!):User
       populateDay(userId: ID!, date:String!):User
+      toggleHabitDay(userId: ID!,date:String!,habitDayId:ID!): Day
     }
 
 `

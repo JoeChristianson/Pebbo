@@ -1,6 +1,7 @@
 const {Schema,model} = require("mongoose")
 
 const HabitDaySchema = new Schema({
+
     date:{
         type:Date
     },

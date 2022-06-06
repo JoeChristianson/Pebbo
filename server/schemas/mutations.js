@@ -63,4 +63,47 @@ const populateDay = async (parent,{userId,date})=>{
     return user;
 }
 
-module.exports={createUser,addHabit,removeHabit,populateDay}
+const toggleHabitDay = async (parent,{userId,date,habitDayId})=>{
+    const user = await User.findById(userId).populate({
+        path: 'days.habitDays.habit',
+        model: "Habit"
+    });
+    const dateSplit = date.split("/")
+    const dateObj = {
+        month:dateSplit[0],
+        day:dateSplit[1],
+        year:dateSplit[2]
+    }
+    let result = null
+    for (let day of user.days){
+        const dayStr = JSON.stringify(day.date)
+        const splitSearchDate = dayStr.split("T")[0].split("-")
+        const searchObj = {
+            month:parseInt(splitSearchDate[1]),
+            day:parseInt(splitSearchDate[2]),
+            year:splitSearchDate[0].replace('"','')
+        }
+        let found = true
+        for (let p in searchObj){
+            if(parseInt(searchObj[p])!=parseInt(dateObj[p])){
+                found = false
+            }
+        }
+        if (found){
+            console.log("found")
+            result = day;
+            for (let habitDay of day.habitDays){
+                console.log(habitDay.habit._id)
+                if (habitDay.habit._id.toString()===habitDayId){
+                    console.log("found the habit too")
+                    habitDay.isComplete=!habitDay.isComplete
+                }
+            }
+        }
+    }
+
+    await user.save()
+    return result
+}
+
+module.exports={createUser,addHabit,removeHabit,populateDay,toggleHabitDay}
