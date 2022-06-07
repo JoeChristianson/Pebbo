@@ -2,7 +2,7 @@ const {User} = require("../models")
 
 
 const allUsers = async ()=>{
-    let users = await User.find().populate("habits");
+    let users = await User.find().populate("habits").populate({path:"queue.queueItem",model:"QueueItem"});
     return users
 }
 

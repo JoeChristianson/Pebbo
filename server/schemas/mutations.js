@@ -1,4 +1,4 @@
-const {User,Habit}=require("../models")
+const {User,Habit,QueueItem}=require("../models")
 const { HabitDay } = require("../models/HabitDay")
 const { randBoolean } = require("../utils/math")
 const mongoose = require("mongoose")
@@ -134,4 +134,34 @@ const toggleHabitDay = async (parent,{userId,date,habitDayId})=>{
     return result
 }
 
-module.exports={login,createUser,addHabit,removeHabit,populateDay,toggleHabitDay}
+const addQueueItem = async (parent,{name,userId})=>{
+    const existing = await QueueItem.find({name});
+    console.log(existing)
+    let queueItem = existing[0]?._id
+    if(!queueItem){
+    const newQueueItem = await QueueItem.create({name})
+    }
+    console.log(queueItem)
+    const user = await User.findById(userId)
+    const queue = user.queue;
+    console.log(queue)
+    let ordinal = queue.map(el=>el.ordinal).reduce((a,b)=>{
+        return Math.max(a,b)
+    },0)
+    console.log(ordinal)
+    user.queue.push({queueItem,ordinal:ordinal+1})
+    await user.save()
+    const result = await user.populate({path:"queue.queueItem",model:"QueueItem"})
+    console.log(result)
+    return result
+}
+
+const removeQueueItem = async (parent,{userId,queueId})=>{
+    const user  = await User.findByIdAndUpdate(userId,{
+        $pull:{queue:{_id:queueId}}
+    });
+    return user
+}
+
+
+module.exports={removeQueueItem,addQueueItem,login,createUser,addHabit,removeHabit,populateDay,toggleHabitDay}

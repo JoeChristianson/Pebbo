@@ -10,11 +10,25 @@ const typeDefs = gql`
     habits:[Habit]
     lastPopulated:String
     days: [Day]
+    queue:[Queue]
+  }
+
+  type Queue {
+    queueItem: QueueItem
+    ordinal: Int
+  }
+
+  type QueueItem {
+    name: String!
   }
 
   type Auth {
     token: ID!
     user: User
+  }
+
+  type QueueItem {
+    name: String!
   }
 
   type HabitDay {
@@ -48,6 +62,8 @@ const typeDefs = gql`
       removeHabit(userId:ID!,habitId:ID!):User
       populateDay(userId: ID!, date:String!):User
       toggleHabitDay(userId: ID!,date:String!,habitDayId:ID!): Day
+      addQueueItem(name: String!,userId: ID!):User
+      removeQueueItem(userId: ID!,queueId: ID!):User
     }
 
 `

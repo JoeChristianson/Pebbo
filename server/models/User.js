@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 const {DaySchema} = require("./Day")
+const {QueueSchema} = require("./Queue")
 
 const UserSchema = new Schema({
   name: {
@@ -31,8 +32,8 @@ habits:[{
 lastPopulated:{
   type:Date
 },
-days:[DaySchema]
-
+days:[DaySchema],
+queue:[QueueSchema]
 
 
 // create subdocument

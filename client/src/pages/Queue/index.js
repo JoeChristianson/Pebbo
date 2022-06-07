@@ -1,4 +1,7 @@
 function Queue(){
+
+    
+
     return(
         <section>
             queue details
