@@ -1,5 +1,14 @@
 const {gql} = require("@apollo/client")
 
+export const REGISTER = gql`
+mutation CreateUser($name: String!, $email: String!, $password: String!, $birthdate: String!) {
+  createUser(name: $name, email: $email, password: $password, birthdate: $birthdate) {
+    _id
+  }
+}
+`
+
+
 export const TOGGLE_IS_COMPLETE = gql`
 mutation Mutation($userId: ID!, $date: String!, $habitDayId: ID!) {
     toggleHabitDay(userId: $userId, date: $date, habitDayId: $habitDayId) {

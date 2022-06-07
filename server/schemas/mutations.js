@@ -32,6 +32,7 @@ const login = async (parent, { email, password }) => {
 
 
 const createUser = async (parent,{name,email,password,birthdate})=>{
+    console.log({name,email,password,birthdate})
     const user = await User.create({name,email,password,birthdate})
     return user
 }

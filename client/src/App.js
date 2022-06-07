@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Header from "./components/Header"
 import Main from "./components/Main"
-import Login from './pages/Login';
+import AuthComponent from './components/Auth';
 import {useState} from "react"
 import {
   ApolloClient,
@@ -43,7 +43,7 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-    {!loggedIn?<Login/>:
+    {!loggedIn?<AuthComponent/>:
     
     <div className="App">
       <Header setCurrentSection={setCurrentSection}></Header>
