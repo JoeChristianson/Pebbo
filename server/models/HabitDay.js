@@ -17,7 +17,4 @@ const HabitDaySchema = new Schema({
     }
 })
 
-
-// const HabitDay = model("HabitDay",HabitDaySchema)
-
 module.exports = {HabitDaySchema}

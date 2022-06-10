@@ -11,6 +11,22 @@ const typeDefs = gql`
     lastPopulated:String
     days: [Day]
     queue:[Queue]
+    assessments:[Assessment]
+    toDos:[ToDo]
+  }
+
+  type toDoForm {
+    _id: ID!
+    name: String
+    creator: ID!
+
+  }
+
+  type ToDo {
+    _id: ID!
+    toDoForm: ToDoForm
+    dateCreated: String
+    dateDone: String
   }
 
   type Queue {
@@ -20,6 +36,13 @@ const typeDefs = gql`
 
   type QueueItem {
     name: String!
+  }
+
+  type QueueDay {
+    date: String!
+    queueItem: QueueItem!
+    isOn: Boolean!
+    isComplete: Boolean!
   }
 
   type Auth {
@@ -37,10 +60,15 @@ const typeDefs = gql`
     isComplete: Boolean!
   }
 
-  
+  type AssessmentDay {
+    assessment: Assessment!
+    value: Int
+  }
+
   type Day {
     habitDays: [HabitDay]
     date: String!
+    assessmentDays: [AssessmentDay]
   }  
 
   type Habit {
@@ -50,9 +78,26 @@ const typeDefs = gql`
     creator: User!
   }
 
+  type Assessment {
+    _id: ID!
+    name: String!
+    metric: String!
+    creator: ID!
+  }
+
+  type ToDoForm {
+    _id: ID!
+    name: String!
+    creator: ID!
+  }
+
   type Query {
     allUsers:[User]
     getDay(userId:ID!,date:String!):Day
+    feedAssessment(userId:ID!,date:String!):Assessment
+    getQueue(userId:ID!):User
+    getToDos(userId:ID!):[ToDo]
+    getDailyQueue(userId:ID!,date:String!): [QueueDay]
   }
 
   type Mutation {
@@ -62,8 +107,15 @@ const typeDefs = gql`
       removeHabit(userId:ID!,habitId:ID!):User
       populateDay(userId: ID!, date:String!):User
       toggleHabitDay(userId: ID!,date:String!,habitDayId:ID!): Day
-      addQueueItem(name: String!,userId: ID!):User
-      removeQueueItem(userId: ID!,queueId: ID!):User
+      toggleQueueDay(userId: ID!,date:String!,queueDayId:ID!): Day
+      addQueueItem(name: String!,userId: ID!, date: String!):User
+      removeQueueItem(userId: ID!,queueId: ID!, date: String!):User
+      reorderQueue(userId: ID!,oldOrdinal:Int!,newOrdinal:Int! ):User
+      addAssessment(userId: ID!,name: String!,metric: String!):Assessment
+      addToDo(name:String!,creator: ID!,date:String!):ToDoForm
+      makeAssessment(userId: ID!,date:String!,assessmentId:ID!,value:Int!):Day
+      completeToDo(userId: ID!, toDoId: ID!, date: String!): String
+      
     }
 
 `

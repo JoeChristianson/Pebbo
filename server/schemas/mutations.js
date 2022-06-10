@@ -5,12 +5,12 @@ const mongoose = require("mongoose")
 const { AuthenticationError } = require("apollo-server-express")
 const {signToken} = require("../utils/auth")
 const {formatDBDateForComparison} = require("../utils/date")
+const { Assessment } = require("../models/Assessment")
+const { ToDoForm } = require("../models/ToDoForm")
 
 const login = async (parent, { email, password }) => {
     try{
 
-        console.log("in it")
-        console.log({email,password})
         const user = await User.findOne({ email });
         
     if (!user) {
@@ -60,6 +60,40 @@ const addHabit = async (parent,{name,prohibition,creator})=>{
 }
 }
 
+const addToDo = async (parent,{name,creator,date})=>{
+    try{
+        let toDoForm = await ToDoForm.find({name})
+        const creatorId = mongoose.Types.ObjectId(creator)
+    if (toDoForm.length === 0){
+        console.log("new to do")
+        toDoForm = await ToDoForm.create({name,creator:creatorId})
+    }
+    const user = await User.findById(creator);
+    user.toDos.push({toDoForm:toDoForm._id,dateCreated:date})
+    user.save()
+    toDoForm = ToDoForm.findById(toDoForm._id).populate("creator")
+    return toDoForm
+}catch(err){
+    console.log(err)
+}
+}
+
+const addAssessment = async (parent,{userId,name,metric})=>{
+    let assessment = await Assessment.find({name})[0];
+    const creator = mongoose.Types.ObjectId(userId)
+    if (!assessment){
+        assessment = await Assessment.create({name,metric,creator})
+    }
+    const user = await User.findById(userId)
+    console.log(assessment)
+    console.log(user)
+    console.log(user.assessment)
+    user.assessments.push(assessment._id)
+    user.save();
+    assessment = await Assessment.findById(assessment._id).populate("creator")
+    return assessment
+}
+
 const removeHabit = async (parent,{userId,habitId})=>{
     let user = await User.findById(userId);
     const habit = await Habit.findById(habitId)
@@ -70,7 +104,7 @@ const removeHabit = async (parent,{userId,habitId})=>{
 }
 
 const populateDay = async (parent,{userId,date})=>{
-    const user = await User.findById(userId).populate("habits");
+    const user = await User.findById(userId).populate("habits").populate("queue");
     if(user.lastPopulated && formatDBDateForComparison(user.lastPopulated) === date){
         console.log("already populated")
         return user
@@ -85,9 +119,18 @@ const populateDay = async (parent,{userId,date})=>{
         }
         habitDays.push(habitDay)
     }
-    const day = {date,habitDays}
+    const queue = user.queue;
+    const queueDays = [];
+    for (let q of queue){
+        const queueDay = {
+            date,queueItem:q.queueItem
+        }
+        queueDays.push(queueDay)
+    }
+    const day = {date,habitDays,queueDays}
+    console.log(day)
     user.days.push(day);
-    user.save()
+    await user.save()
     return user;
 }
 
@@ -134,29 +177,101 @@ const toggleHabitDay = async (parent,{userId,date,habitDayId})=>{
     return result
 }
 
-const addQueueItem = async (parent,{name,userId})=>{
-    const existing = await QueueItem.find({name});
-    console.log(existing)
-    let queueItem = existing[0]?._id
-    if(!queueItem){
-    const newQueueItem = await QueueItem.create({name})
+
+const toggleQueueDay = async (parent,{userId,date,queueDayId})=>{
+    const user = await User.findById(userId).populate({
+        path: 'days.habitDays.habit',
+        model: "Habit"
+    });
+    const dateSplit = date.split("/")
+    const dateObj = {
+        month:dateSplit[0],
+        day:dateSplit[1],
+        year:dateSplit[2]
     }
-    console.log(queueItem)
-    const user = await User.findById(userId)
-    const queue = user.queue;
-    console.log(queue)
-    let ordinal = queue.map(el=>el.ordinal).reduce((a,b)=>{
-        return Math.max(a,b)
-    },0)
-    console.log(ordinal)
-    user.queue.push({queueItem,ordinal:ordinal+1})
+    let result = null
+    for (let day of user.days){
+        const dayStr = JSON.stringify(day.date)
+        const splitSearchDate = dayStr.split("T")[0].split("-")
+        const searchObj = {
+            month:parseInt(splitSearchDate[1]),
+            day:parseInt(splitSearchDate[2]),
+            year:splitSearchDate[0].replace('"','')
+        }
+        let found = true
+        for (let p in searchObj){
+            if(parseInt(searchObj[p])!=parseInt(dateObj[p])){
+                found = false
+            }
+        }
+        if (found){
+            result = day;
+            for (let queueDay of day.queueDays){
+
+                if (queueDay._id.toString()===queueDayId){
+                    console.log("found the queue day too")
+                    queueDay.isComplete=!queueDay.isComplete;
+                    console.log(queueDay)
+                }
+            }
+        }
+    }
+
     await user.save()
-    const result = await user.populate({path:"queue.queueItem",model:"QueueItem"})
-    console.log(result)
     return result
 }
 
-const removeQueueItem = async (parent,{userId,queueId})=>{
+const reorderQueue = async(parent,{userId,oldOrdinal,newOrdinal})=>{
+    try{
+
+        const user = await User.findById(userId);
+        const {queue} = user
+    queue.forEach(q=>{
+        if (q.ordinal===oldOrdinal){
+            q.ordinal=newOrdinal
+        }
+        else if(q.ordinal>oldOrdinal&&q.ordinal<=newOrdinal){
+            q.ordinal=q.ordinal-1
+        }
+        else if(q.ordinal<oldOrdinal&&q.ordinal>=newOrdinal){
+            q.ordinal=q.ordinal+1
+        }
+    })
+    await    user.save()
+    return user
+}catch(err){
+    console.log(err)
+}
+}
+
+const getQueueDay = async (parent,{userId,date})=>{
+    const user = await User.findById(userId);
+    const day = user.days.filter()
+}
+
+const addQueueItem = async (parent,{name,userId,date})=>{
+    try{
+        console.log({name,userId,date})
+        const existing = await QueueItem.find({name});
+        let queueItem = existing[0]?._id
+    if(!queueItem){
+    const newQueueItem = await QueueItem.create({name})
+    }
+    const user = await User.findById(userId)
+    const queue = user.queue;
+    let ordinal = queue.map(el=>el.ordinal).reduce((a,b)=>{
+        return Math.max(a,b)
+    },0)
+    user.queue.push({queueItem,ordinal:ordinal+1})
+    await user.save()
+    const result = await user.populate({path:"queue.queueItem",model:"QueueItem"})
+    return result
+}catch(err){
+    console.log(err)
+}
+}
+
+const removeQueueItem = async (parent,{userId,queueId,date})=>{
     const user  = await User.findByIdAndUpdate(userId,{
         $pull:{queue:{_id:queueId}}
     });
@@ -164,4 +279,28 @@ const removeQueueItem = async (parent,{userId,queueId})=>{
 }
 
 
-module.exports={removeQueueItem,addQueueItem,login,createUser,addHabit,removeHabit,populateDay,toggleHabitDay}
+
+const makeAssessment = async (parent,{userId,date,assessmentId,value})=>{
+    
+    const user = await User.findById(userId);
+    const day = user.days.filter(d=>{
+        return formatDBDateForComparison(d.date) === date
+    })[0];
+    const assessmentDay = {date,assessment:assessmentId,value};
+    day.assessmentDays.push(assessmentDay);
+    user.save();
+    return day
+}
+
+const completeToDo = async (parent,{userId,toDoId,date})=>{
+    const user = await User.findById(userId);
+    const toDo = user.toDos.filter(t=>{
+        return t._id.toString()===toDoId
+    })[0]
+    toDo.dateDone = date;
+    await user.save()
+    return "Done"
+
+}
+
+module.exports={completeToDo,addToDo,makeAssessment,addAssessment,reorderQueue,toggleQueueDay,removeQueueItem,addQueueItem,login,createUser,addHabit,removeHabit,populateDay,toggleHabitDay}

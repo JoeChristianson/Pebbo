@@ -2,6 +2,7 @@ const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 const {DaySchema} = require("./Day")
 const {QueueSchema} = require("./Queue")
+const {ToDoSchema} = require("./ToDo")
 
 const UserSchema = new Schema({
   name: {
@@ -29,14 +30,20 @@ habits:[{
   type:Schema.Types.ObjectId,
   ref:"Habit",
 }],
+assessments:[{
+  type:Schema.Types.ObjectId,
+  ref:"Assessment"
+}],
 lastPopulated:{
   type:Date
 },
+lastAssessed:{
+  type:Date
+},
 days:[DaySchema],
-queue:[QueueSchema]
+queue:[QueueSchema],
+toDos:[ToDoSchema]
 
-
-// create subdocument
 });
 
 // set up pre-save middleware to create password

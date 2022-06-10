@@ -1,5 +1,6 @@
-const {User} = require("../models")
-
+const {User, QueueItem} = require("../models")
+const {formatDBDateForComparison} = require("../utils/date")
+const { Assessment } = require("../models/Assessment")
 
 const allUsers = async ()=>{
     let users = await User.find().populate("habits").populate({path:"queue.queueItem",model:"QueueItem"});
@@ -47,5 +48,64 @@ const getDay = async (parent,{userId,date})=>{
     return null
 }
 
+const feedAssessment = async (parent,{userId,date})=>{
+    const user = await User.findById(userId);
+    const day = user.days.filter(d=>{
+        return formatDBDateForComparison(d.date) === date
+    })[0]
+    for (let assessment of user.assessments){
+        let found = false;
+        for (let assessmentDay of day.assessmentDays){
+            console.log(assessmentDay.assessment)
+            console.log(assessment)
+            if(assessmentDay.assessment.toString()===assessment.toString()){
+                found=true
+            }
+        }
+        if (found===false){
+            const result = await Assessment.findById(assessment)
+            return result
+        }
+    }
+}
 
-module.exports = {allUsers,getDay}
+const getQueue = async (parent,{userId})=>{
+    const user = await User.findById(userId).populate({path:"queue.queueItem",model:"QueueItem"});
+    console.log(user)
+    return user
+}
+
+const getToDos = async (parent,{userId})=>{
+    console.log("in it")
+    const user = await User.findById(userId).populate({
+        path:"toDos.toDoForm",
+        model:"ToDoForm"
+    });
+    console.log(user)
+    return user.toDos.filter(t=> !t.dateDone)
+}
+
+const getDailyQueue = async(parent,{userId,date})=>{
+    const user = await User.findById(userId);
+    const day = user.days.filter(day=>{
+        console.log(date,formatDBDateForComparison(day.date))
+        return (date === formatDBDateForComparison(day.date))
+    })[0];
+    const dailyQueue = day.queueDays;
+    const queueItems = [];
+    for (let queueDay of dailyQueue){
+        const queueItem = await QueueItem.findById(queueDay.queueItem);
+        queueItems.push(queueItem)
+    }
+    const result = []
+    for (let i = 0;i<queueItems.length;i++){
+        console.log(dailyQueue[i])
+        const el = {date:formatDBDateForComparison(dailyQueue[i].date),isOn:dailyQueue[i].isOn,isComplete:dailyQueue[i].isComplete,queueItem:queueItems[i]}
+        result.push(el)
+    }
+    console.log(result)
+    return result
+
+}
+
+module.exports = {feedAssessment,allUsers,getDay,getQueue,getToDos,getDailyQueue}
