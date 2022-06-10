@@ -88,3 +88,19 @@ mutation Mutation($userId: ID!, $toDoId: ID!, $date: String!) {
   completeToDo(userId: $userId, toDoId: $toDoId, date: $date)
 }
 `
+
+export const COMPLETE_QUEUE_ITEM = gql`
+mutation Mutation($date: String!, $userId: ID!, $name: String!) {
+  completeQueueItem(date: $date, userId: $userId, name: $name)
+}
+
+`
+
+export const ADD_HABIT = gql`
+mutation Mutation($name: String!, $creator: ID!,$date: String!) {
+  addHabit(name: $name, creator: $creator, date:$date) {
+    _id
+    name
+  }
+}
+`

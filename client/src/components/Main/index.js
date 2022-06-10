@@ -1,6 +1,7 @@
+import { POPULATE_DAY } from "../../utils/mutations"
 import "./Main.css"
-
-const {useQuery} = require("@apollo/client")
+import { useEffect,useState } from "react"
+const {useQuery,useMutation} = require("@apollo/client")
 const auth = require("../../utils/auth").default
 const {formatToday} = require("../../utils/date")
 
@@ -13,15 +14,23 @@ const ToDos = require("../../pages/ToDos").default
 const Assessment = require("../../pages/Assessment").default
 
 
+
 const Main =  ({currentSection})=>{
-    console.log(currentSection)
+    
     const userId = auth.getProfile().data._id
-    // const variables = {userId,date:formatToday()}
-    const variables = {  "userId": "62a0a5bf94de6f2e7c0a1dc4",
-    "date": "6/9/2022"
-  }
-    const {loading:assessmentLoading,data:pendingAssessmentData} = useQuery(FEED_ASSESSMENT,
-        {variables})
+    const variables = {userId,date:formatToday()}
+
+  const [isPopulated,setIsPopulated] = useState(false)
+  
+  
+  const {loading:assessmentLoading,data:pendingAssessmentData} = useQuery(FEED_ASSESSMENT,
+    {variables})
+    const [populateDay,{data:popData,loading:popLoading,error:errPop}]=useMutation(POPULATE_DAY)
+
+    if (!isPopulated){
+        populateDay({variables})
+        setIsPopulated(true)
+    }
 
     if(assessmentLoading){
         return(<h1>Loading</h1>)
@@ -29,15 +38,15 @@ const Main =  ({currentSection})=>{
     if(pendingAssessmentData?.feedAssessment?._id){
         return(<Assessment date={formatToday()} userId={userId} assessment={pendingAssessmentData.feedAssessment}></Assessment>)
     }
-
-
+    
+    
     if (currentSection==="queue"){
         return(<Queue userId={userId} date={formatToday()}></Queue>)
     }
     if (currentSection==="toDos"){
         return(<ToDos userId={userId}></ToDos>)
     }
-
+    
     else{
         return(<Habits></Habits>)
     }

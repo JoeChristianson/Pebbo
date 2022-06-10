@@ -1,3 +1,5 @@
+const { findDay } = require("../utils/date")
+
 const {User,Habit,QueueItem}=require("../models")
 const { HabitDay } = require("../models/HabitDay")
 const { randBoolean } = require("../utils/math")
@@ -37,7 +39,7 @@ const createUser = async (parent,{name,email,password,birthdate})=>{
     return user
 }
 
-const addHabit = async (parent,{name,prohibition,creator})=>{
+const addHabit = async (parent,{name,prohibition,creator,date})=>{
     try{
 
         let habit = await Habit.find({name})
@@ -51,6 +53,9 @@ const addHabit = async (parent,{name,prohibition,creator})=>{
     const user = await User.findById(creator);
     console.log(habit)
     user.habits.push(habit._id)
+
+    const day = findDay(user,date);
+    day.habitDays.push({date,habit:habit._id,isOn:randBoolean(.5),isComplete:false})
     user.save()
     console.log(user);
     habit = Habit.findById(habit._id).populate("creator")
@@ -303,4 +308,20 @@ const completeToDo = async (parent,{userId,toDoId,date})=>{
 
 }
 
-module.exports={completeToDo,addToDo,makeAssessment,addAssessment,reorderQueue,toggleQueueDay,removeQueueItem,addQueueItem,login,createUser,addHabit,removeHabit,populateDay,toggleHabitDay}
+const completeQueueItem = async (parent,{date,name,userId})=>{
+    const user = await User.findById(userId).populate({
+        path:"days.queueDays.queueItem"
+    });
+    const day = user.days.filter(d=>{
+        return formatDBDateForComparison(d.date)===date})[0]
+    const queueItemDay = day.queueDays.filter(d=>{
+        console.log(d)
+        return (d.queueItem.name===name)
+    })[0]
+    console.log(queueItemDay)
+    queueItemDay.isComplete = !queueItemDay.isComplete;
+    user.save()
+    return "Done" 
+}
+
+module.exports={completeToDo,addToDo,makeAssessment,addAssessment,reorderQueue,toggleQueueDay,removeQueueItem,addQueueItem,login,createUser,addHabit,removeHabit,populateDay,toggleHabitDay,completeQueueItem}

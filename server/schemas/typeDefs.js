@@ -43,6 +43,7 @@ const typeDefs = gql`
     queueItem: QueueItem!
     isOn: Boolean!
     isComplete: Boolean!
+    ordinal: Int
   }
 
   type Auth {
@@ -103,7 +104,7 @@ const typeDefs = gql`
   type Mutation {
       createUser(name:String!, email: String!, password: String!, birthdate: String!):User
       login(email: String!, password: String!): Auth
-      addHabit(name:String!,prohibition:Boolean,creator:ID!):Habit
+      addHabit(name:String!,prohibition:Boolean,creator:ID!,date:String!):Habit
       removeHabit(userId:ID!,habitId:ID!):User
       populateDay(userId: ID!, date:String!):User
       toggleHabitDay(userId: ID!,date:String!,habitDayId:ID!): Day
@@ -115,7 +116,7 @@ const typeDefs = gql`
       addToDo(name:String!,creator: ID!,date:String!):ToDoForm
       makeAssessment(userId: ID!,date:String!,assessmentId:ID!,value:Int!):Day
       completeToDo(userId: ID!, toDoId: ID!, date: String!): String
-      
+      completeQueueItem(date:String!,userId:ID!,name:String!):String 
     }
 
 `

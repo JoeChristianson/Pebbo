@@ -35,6 +35,7 @@ query Query($userId: ID!, $date: String!) {
     isOn
     isComplete
     date
+    ordinal
   }
 }
 `

@@ -6,4 +6,9 @@ const formatDBDateForComparison = (raw)=>{
     return result
 }   
 
-module.exports = {formatDBDateForComparison}
+const findDay = (user,date)=>{
+    return user.days.filter(d=>{
+        return formatDBDateForComparison(d.date)===date})[0]
+}
+
+module.exports = {formatDBDateForComparison,findDay}

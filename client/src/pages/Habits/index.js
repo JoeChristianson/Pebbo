@@ -1,3 +1,5 @@
+import AddHabitComp from "../../components/AddHabit"
+
 // import { useQuery } from '@apollo/client';
 const {useState} = require("react")
 const HabitDay = require("../../components/HabitDay").default
@@ -10,7 +12,6 @@ const auth = require("../../utils/auth").default
 
 function Habits(){
     const userId = auth.getProfile().data._id
-    console.log(userId)
     const date = formatToday()
 
     const {loading:dayLoading,error,data:dayData,refetch:refetchDay} = useQuery(QUERY_DAY,
@@ -21,16 +22,13 @@ function Habits(){
 
     let data = null;
     if (dayLoading){
-        console.log("loading")
     }
     if(error){
         console.error(error)
     }
 
     if(!dayLoading){
-        console.log(dayData)
         data = dayData.getDay.habitDays
-        console.log(data)
     }
 
 
@@ -61,12 +59,17 @@ function Habits(){
             <section>
             <SubNav options={options} handleSubMenu={handleSubMenu}></SubNav>
             <section>
-                {data.filter(h=>{
+                {subsection==="active"?data.filter(h=>{
                     return h.isOn===true
                 }).map((habitDay,index)=>{
                     console.log(index)
                     return(<HabitDay key={index} handleComplete={handleComplete} habitDay={habitDay}></HabitDay>)
-                })}
+                }):null}
+                    {subsection==="add"?<AddHabitComp refetchDay={refetchDay} userId={userId}/>:null}
+                {(subsection==="all"||subsection==="add")?data.map((habitDay,index)=>{
+                    console.log(index)
+                    return(<HabitDay key={index} handleComplete={handleComplete} habitDay={habitDay}></HabitDay>)
+                }):null}
             </section>
         </section>
     )

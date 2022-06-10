@@ -3,8 +3,6 @@ const { useState } = require("react")
 
 const AddQueueItemComp = ({refetchQueue,userId,date,addQueueItem})=>{
 
-
-
     const [queueName,setQueueName] = useState("")
 
     const setForm = (e)=>{

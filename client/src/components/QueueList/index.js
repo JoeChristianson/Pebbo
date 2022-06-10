@@ -1,15 +1,20 @@
 
-const QueueList = ({queue})=>{
-    console.log(queue)
+const QueueList = ({queue,handleComplete})=>{
     const sortedQueue = [...queue].sort((a,b)=>{
         return (a.ordinal-b.ordinal)
     })
-    console.log(sortedQueue)
+    if (!queue){
+        return(<div>Day did not populate</div>)
+    }
     
     return(
         <div>
             {sortedQueue.map((q,i)=>{
-                return(<div>{q.queueItem.name}</div>)
+                return(<div className={q.isComplete?"done":""}><span>
+                    {q.queueItem.name}
+                    </span>
+                    <button onClick={handleComplete} data-name={q.queueItem.name} data-date={q.date}>x</button>
+                    </div>)
             })}
         </div>
     )

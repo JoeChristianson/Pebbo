@@ -100,7 +100,7 @@ const getDailyQueue = async(parent,{userId,date})=>{
     const result = []
     for (let i = 0;i<queueItems.length;i++){
         console.log(dailyQueue[i])
-        const el = {date:formatDBDateForComparison(dailyQueue[i].date),isOn:dailyQueue[i].isOn,isComplete:dailyQueue[i].isComplete,queueItem:queueItems[i]}
+        const el = {ordinal:user.queue[i].ordinal,date:formatDBDateForComparison(dailyQueue[i].date),isOn:dailyQueue[i].isOn,isComplete:dailyQueue[i].isComplete,queueItem:queueItems[i]}
         result.push(el)
     }
     console.log(result)
