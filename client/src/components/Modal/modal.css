@@ -1,0 +1,25 @@
+.modal{
+    width: 600px;
+    position: absolute;
+    height: 80vh;
+    top: 50%;
+    left: 50%;
+    background: hsl(219deg 80% 95%);
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px 4px #0000002b;
+    display: flex;
+    flex-direction: column;
+    padding:10px
+}
+
+.close-modal{
+    align-self:flex-end;
+    padding: .21rem .5rem;
+}
+
+
+
+.modal-button{
+    width:100px;
+}

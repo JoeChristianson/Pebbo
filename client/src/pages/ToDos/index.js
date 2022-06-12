@@ -46,11 +46,14 @@ function ToDos({userId}){
             ToDos
         </section>
         <SimpleInput text={newToDo} handleChange={handleChange} handleSubmit={handleSubmit}/>
+        <div className="list">
+
         {data.getToDos.map((t,i)=>{
-            return (<div key={i}>
+            return (<div className="list-item" key={i}>
                 <span>{t.toDoForm.name}</span><button data-id={t._id} onClick={handleComplete}>X</button>
             </div>)
         })}
+        </div>
         </>
     )
 }

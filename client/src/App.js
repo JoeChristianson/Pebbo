@@ -36,7 +36,7 @@ const client = new ApolloClient({
 });
 
 function App() {
-  const [currentSection,setCurrentSection] = useState("toDos")
+  const [currentSection,setCurrentSection] = useState("dash")
 
   const loggedIn = auth.loggedIn()
   console.log(loggedIn)

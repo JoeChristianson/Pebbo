@@ -1,4 +1,5 @@
 import auth from "../../utils/auth"
+import "./header.css"
 const Nav = require("../Nav/index.js").default
 const {formatToday} = require("../../utils/date")
 
@@ -9,11 +10,11 @@ function Header({setCurrentSection}) {
     }
 
     return(
-        <div>
-            <h1>{formatToday()}</h1>
-            <button onClick={handleLogout}>Log out</button>
+        <header>
             <Nav setCurrentSection={setCurrentSection}></Nav>
-        </div>
+            <h4>{formatToday()}</h4>
+            <button onClick={handleLogout}>Log out</button>
+        </header>
     )
 }
 

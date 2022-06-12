@@ -104,3 +104,11 @@ mutation Mutation($name: String!, $creator: ID!,$date: String!) {
   }
 }
 `
+
+export const REORDER_QUEUE = gql`
+mutation Mutation($userId: ID!, $oldOrdinal: Int!, $newOrdinal: Int!) {
+  reorderQueue(userId: $userId, oldOrdinal: $oldOrdinal, newOrdinal: $newOrdinal) {
+    _id
+  }
+}
+`

@@ -42,25 +42,21 @@ export default function Login({setComponent}){
     return(
         <div className="form-card">
             <header>
-                <h2>
+                <h2 className=' text-center'>
                      Login
                 </h2>
             </header>
             <main>
                 <form onSubmit={handleFormSubmit}>
                     <div>
-
-                    <label for="email">Email</label>
-                    <input onChange={handleChange} name="email" type="email"></input>
+                    <input placeholder="email" onChange={handleChange} name="email" type="email"></input>
                     </div>
                     <div>
-
-                    <label for="password">Password</label>
-                    <input onChange={handleChange} name="password" type="password"></input>
+                    <input placeholder="password" onChange={handleChange} name="password" type="password"></input>
                     </div>
-                    <input type="submit"></input>
+                    <input className="pointer embolden" type="submit"></input>
                 </form>
-                <span onClick={handleLink} data-dest="register">Register</span>
+                <div className='text-center pointer embolden' onClick={handleLink} data-dest="register">Click Here to Register</div>
             </main>
         </div>
 

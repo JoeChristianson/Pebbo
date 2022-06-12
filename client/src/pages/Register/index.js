@@ -41,7 +41,7 @@ export default function Register({setComponent}){
     return(
         <div className="form-card">
             <header>
-                <h2>
+                <h2 className='text-center'>
                      Register
                 </h2>
             </header>
@@ -49,31 +49,28 @@ export default function Register({setComponent}){
                 <form onSubmit={handleFormSubmit}>
                 <div>
 
-<label for="name">Name</label>
 <input onChange={handleChange} name="name" type="text"></input>
 </div>
                     <div>
 
-                    <label for="email">Email</label>
                     <input onChange={handleChange} name="email" type="email"></input>
                     </div>
                     <div>
 
-                    <label for="password">Choose Password</label>
                     <input onChange={handleChange} name="password" type="password"></input>
                     </div>
                     <div>
 
-<label for="confirmPassword">Confirm Password</label>
+
 <input onChange={handleChange} name="confirmPassword" type="password"></input>
 </div>
+<div className='center-self'>Birth Date</div>
 <div>
-<label for="birthdate">Enter Birthdate</label>
-<input onChange={handleChange} name="birthdate" type="date"></input>
+<input placeholder='birthdate' onChange={handleChange} name="birthdate" type="date"></input>
 </div>
-                    <input type="submit"></input>
+                    <input className="pointer embolden"  type="submit"></input>
                 </form>
-                <span onClick={handleLink} data-dest="login">Go to Login</span>
+                <div className='text-center pointer embolden'  onClick={handleLink} data-dest="login">Go to Login</div>
             </main>
         </div>
 

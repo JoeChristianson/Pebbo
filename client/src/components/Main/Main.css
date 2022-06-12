@@ -1,3 +1,110 @@
-.done{
+:root{
+    --light-background:rgb(246, 246, 255);
+    --dark-shadow:rgb(83, 88, 107);
+    --mid-modal: rgb(158, 192, 223);
+    --modal-button:hsl(209, 50%, 85%);
+    --modal-button-hover:hsl(209, 50%, 95%);
+    --modal-heading-color:white;
+    --section-background:hsl(48, 30%, 65%);
+}
+
+body{
+    background-color: var(--light-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-card{
+    background-color: var(--mid-modal);
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px var(--dark-shadow);
+    margin:auto
+}
+
+.form-card h2{
+    color:var(--modal-heading-color);
+    
+}
+
+.form-card form{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.form-card form > div{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0px
+}
+
+.form-card form > input:last-child{
+    margin-top: 15px;
+}
+
+.form-card form>div>input{
+    width:100%;
+    padding: 5px 2px;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.form-card form>input{
+    width:fit-content;
+    padding:4px 10px;
+    align-self:center;
+    background:var(--modal-button);
+    font-size: 1.1rem;
+}
+
+.form-card form>input:hover{
+    background-color: var(--modal-button-hover);
+}
+
+.pointer{
+    cursor: pointer;
+}
+.text-center{
+    text-align: center;
+}
+
+.list-item.done{
     background-color: red;
 }
+
+.embolden:hover{
+    font-weight: bolder;
+}
+
+.center-self{
+    align-self: center;
+}
+
+.list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.list-item{
+    padding: 4px;
+    margin: 4px;
+    width: 300px;
+    background-color: var(--modal-button);
+    position: relative;
+}
+
+.list-item span{
+    width:250px;
+    
+}
+
+.list-item button{
+    position: absolute;
+    right:10px
+}
+

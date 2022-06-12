@@ -1,0 +1,12 @@
+.dashboard-cont{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.dashboard-cont>section{
+    background-color: var(--section-background);
+    padding: 1rem;
+    margin:0 20px;
+    width: 250px;
+}

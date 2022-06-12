@@ -228,7 +228,7 @@ const toggleQueueDay = async (parent,{userId,date,queueDayId})=>{
 
 const reorderQueue = async(parent,{userId,oldOrdinal,newOrdinal})=>{
     try{
-
+        console.log({userId,oldOrdinal,newOrdinal})
         const user = await User.findById(userId);
         const {queue} = user
     queue.forEach(q=>{
@@ -256,11 +256,11 @@ const getQueueDay = async (parent,{userId,date})=>{
 
 const addQueueItem = async (parent,{name,userId,date})=>{
     try{
-        console.log({name,userId,date})
         const existing = await QueueItem.find({name});
         let queueItem = existing[0]?._id
     if(!queueItem){
     const newQueueItem = await QueueItem.create({name})
+    queueItem = newQueueItem._id
     }
     const user = await User.findById(userId)
     const queue = user.queue;
@@ -268,6 +268,10 @@ const addQueueItem = async (parent,{name,userId,date})=>{
         return Math.max(a,b)
     },0)
     user.queue.push({queueItem,ordinal:ordinal+1})
+    const day = findDay(user,date);
+    day.queueDays.push({
+        date,queueItem,isOn:true,isComplete:false
+    })
     await user.save()
     const result = await user.populate({path:"queue.queueItem",model:"QueueItem"})
     return result

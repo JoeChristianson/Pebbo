@@ -1,6 +1,7 @@
 import { POPULATE_DAY } from "../../utils/mutations"
 import "./Main.css"
 import { useEffect,useState } from "react"
+import Dash  from "../../pages/Dash"
 const {useQuery,useMutation} = require("@apollo/client")
 const auth = require("../../utils/auth").default
 const {formatToday} = require("../../utils/date")
@@ -39,6 +40,9 @@ const Main =  ({currentSection})=>{
         return(<Assessment date={formatToday()} userId={userId} assessment={pendingAssessmentData.feedAssessment}></Assessment>)
     }
     
+    if (currentSection==="dash"){
+        return(<Dash/>)
+    }
     
     if (currentSection==="queue"){
         return(<Queue userId={userId} date={formatToday()}></Queue>)

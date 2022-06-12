@@ -24,6 +24,7 @@ function Queue({userId,date}){
         await addQueueItem({variables:{
             name:item,userId,date
         }})
+        setItem("")
         refetch()
     }
 
@@ -37,7 +38,7 @@ function Queue({userId,date}){
     return(
         <>
         <SimpleInput handleChange={handleChange} handleSubmit={handleSubmit} text={item}/>
-        {!loading?<QueueList handleComplete={handleComplete} queue={queueData?.getDailyQueue}></QueueList>:null
+        {!loading?<QueueList refetch={refetch} userId={userId} handleComplete={handleComplete} queue={queueData?.getDailyQueue}></QueueList>:null
         }
         </>
     )
