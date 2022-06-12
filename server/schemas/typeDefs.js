@@ -13,6 +13,8 @@ const typeDefs = gql`
     queue:[Queue]
     assessments:[Assessment]
     toDos:[ToDo]
+    lastReviewed:String
+    lastAssessed:String
   }
 
   type toDoForm {
@@ -20,6 +22,13 @@ const typeDefs = gql`
     name: String
     creator: ID!
 
+  }
+
+  type Dates {
+    lastAssessed:String
+    lastPopulated:String
+    birthdate:String
+    lastReviewed:String
   }
 
   type ToDo {
@@ -52,6 +61,7 @@ const typeDefs = gql`
   }
 
   type QueueItem {
+    _id: ID!
     name: String!
   }
 
@@ -99,6 +109,7 @@ const typeDefs = gql`
     getQueue(userId:ID!):User
     getToDos(userId:ID!):[ToDo]
     getDailyQueue(userId:ID!,date:String!): [QueueDay]
+    getDates(userId:ID!):Dates
   }
 
   type Mutation {
@@ -117,6 +128,7 @@ const typeDefs = gql`
       makeAssessment(userId: ID!,date:String!,assessmentId:ID!,value:Int!):Day
       completeToDo(userId: ID!, toDoId: ID!, date: String!): String
       completeQueueItem(date:String!,userId:ID!,name:String!):String 
+      deleteQueueItem(userId:ID!,queueItemId: ID,date:String ):String
     }
 
 `

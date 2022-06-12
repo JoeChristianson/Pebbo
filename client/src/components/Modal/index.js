@@ -1,7 +1,7 @@
 import "./modal.css"
 
 
-export const Modal = ({setModalOpen,modalInput})=>{
+export const Modal = ({setModalOpen,modalInput,handleDelete,dataId})=>{
     
 
     const handleModalClose = ()=>{
@@ -12,7 +12,7 @@ export const Modal = ({setModalOpen,modalInput})=>{
         <button className="close-modal" onClick={handleModalClose}>x</button>
         <h3>{modalInput.name}</h3>
         <div className="modal-buttons">
-        <button className="modal-button">Delete</button>
+        <button onClick={handleDelete} data-id={dataId} className="modal-button">Delete</button>
         </div>
         </div>)
 }

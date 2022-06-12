@@ -112,3 +112,9 @@ mutation Mutation($userId: ID!, $oldOrdinal: Int!, $newOrdinal: Int!) {
   }
 }
 `
+
+export const DELETE_QUEUE_ITEM = gql`
+mutation Mutation($userId: ID!, $queueItemId: ID, $date: String) {
+  deleteQueueItem(userId: $userId, queueItemId: $queueItemId, date: $date)
+}
+`

@@ -30,6 +30,7 @@ export const GET_QUEUE = gql`
 query Query($userId: ID!, $date: String!) {
   getDailyQueue(userId: $userId, date: $date) {
     queueItem {
+      _id
       name
     }
     isOn
@@ -53,3 +54,13 @@ query Query($userId: ID!) {
   }
 }
 `
+
+export const GET_DATES = gql`
+query GetDates($userId: ID!) {
+  getDates(userId: $userId) {
+    lastAssessed
+    lastPopulated
+    birthdate
+    lastReviewed
+  }
+}`

@@ -40,6 +40,9 @@ lastPopulated:{
 lastAssessed:{
   type:Date
 },
+lastReviewed:{
+  type:Date
+},
 days:[DaySchema],
 queue:[QueueSchema],
 toDos:[ToDoSchema]

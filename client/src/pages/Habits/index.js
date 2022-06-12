@@ -1,5 +1,5 @@
 import AddHabitComp from "../../components/AddHabit"
-
+import "./habits.css"
 // import { useQuery } from '@apollo/client';
 const {useState} = require("react")
 const HabitDay = require("../../components/HabitDay").default
@@ -56,9 +56,9 @@ function Habits(){
     if(data){
         console.log("this is the data",data)
         return(
-            <section>
+            <section className="module">
             <SubNav options={options} handleSubMenu={handleSubMenu}></SubNav>
-            <section>
+            <section className="module">
                 {subsection==="active"?data.filter(h=>{
                     return h.isOn===true
                 }).map((habitDay,index)=>{

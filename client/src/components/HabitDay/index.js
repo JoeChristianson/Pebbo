@@ -1,7 +1,7 @@
 function HabitDay({habitDay,handleComplete}){
     console.log("habitDay",habitDay)
     return(
-        <div className={habitDay.isComplete?"done":""}>
+        <div className={habitDay.isComplete?"done list-item":"list-item"}>
             <span>{habitDay.habit.name}</span>
             <button data-habit-day-id={habitDay.habit._id} onClick={handleComplete}>x</button>
         </div>

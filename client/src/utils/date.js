@@ -6,3 +6,16 @@ export const formatToday = ()=>{
 today = mm + '/' + dd + '/' + yyyy;
 return today
 }
+
+export const formatYesterday = ()=>{
+    let yesterday = new Date();
+    yesterday.setDate(yesterday.getDate()-1)
+    const yyyy = yesterday.getFullYear();
+    let mm = yesterday.getMonth() + 1;
+    let dd = yesterday.getDate();
+yesterday = mm + '/' + dd + '/' + yyyy;
+console.log(yesterday)
+return yesterday
+}
+
+

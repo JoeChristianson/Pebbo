@@ -41,7 +41,7 @@ function ToDos({userId}){
     }
     
     return(
-        <>
+        <div className="module">
         <section>
             ToDos
         </section>
@@ -54,7 +54,7 @@ function ToDos({userId}){
             </div>)
         })}
         </div>
-        </>
+        </div>
     )
 }
 

@@ -328,4 +328,20 @@ const completeQueueItem = async (parent,{date,name,userId})=>{
     return "Done" 
 }
 
-module.exports={completeToDo,addToDo,makeAssessment,addAssessment,reorderQueue,toggleQueueDay,removeQueueItem,addQueueItem,login,createUser,addHabit,removeHabit,populateDay,toggleHabitDay,completeQueueItem}
+const deleteQueueItem = async (parent,{userId,queueItemId,date})=>{
+    // get user
+    const user = await User.findById(userId);
+    const queue = user.queue;
+    user.queue = queue.filter(q=>{
+        return q.queueItem.toString()!==queueItemId});
+    const day = findDay(user,date);
+    console.log(day)
+    day.queueDays = day.queueDays.filter(q=>{
+        console.log(q.queueItem.toString())
+        return q.queueItem.toString()!==queueItemId
+    })
+    user.save();
+    return "deleted"
+}
+
+module.exports={deleteQueueItem,completeToDo,addToDo,makeAssessment,addAssessment,reorderQueue,toggleQueueDay,removeQueueItem,addQueueItem,login,createUser,addHabit,removeHabit,populateDay,toggleHabitDay,completeQueueItem}

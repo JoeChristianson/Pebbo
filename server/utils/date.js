@@ -1,9 +1,15 @@
 const formatDBDateForComparison = (raw)=>{
-    const yyyy = raw.getFullYear()
-    const mm = raw.getMonth() + 1
-    const dd = raw.getDate()
-    const result = `${mm}/${dd}/${yyyy}`
-    return result
+    try{
+
+        console.log(raw)
+        const yyyy = raw.getFullYear()
+        const mm = raw.getMonth() + 1
+        const dd = raw.getDate()
+        const result = `${mm}/${dd}/${yyyy}`
+        return result
+    }catch(err){
+        return "none"
+    }
 }   
 
 const findDay = (user,date)=>{

@@ -108,4 +108,15 @@ const getDailyQueue = async(parent,{userId,date})=>{
 
 }
 
-module.exports = {feedAssessment,allUsers,getDay,getQueue,getToDos,getDailyQueue}
+const getDates = async (parent,{userId})=>{
+    const user = await User.findById(userId);
+    const {lastAssessed,lastPopulated,birthdate,lastReviewed} = user;
+    const dates = {lastAssessed,lastPopulated,birthdate,lastReviewed};
+    console.log(dates)
+    for (let prop in dates){
+        dates[prop] = formatDBDateForComparison(dates[prop])
+    }
+    return dates
+}
+
+module.exports = {getDates,feedAssessment,allUsers,getDay,getQueue,getToDos,getDailyQueue}
