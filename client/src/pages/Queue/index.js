@@ -36,11 +36,11 @@ function Queue({userId,date}){
         refetch()
     }
     return(
-        <>
+        <main className="main-section">
         <SimpleInput handleChange={handleChange} handleSubmit={handleSubmit} text={item}/>
         {!loading?<QueueList refetch={refetch} userId={userId} handleComplete={handleComplete} queue={queueData?.getDailyQueue}></QueueList>:null
         }
-        </>
+        </main>
     )
 }
 

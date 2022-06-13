@@ -50,6 +50,7 @@ const getDay = async (parent,{userId,date})=>{
 
 const feedAssessment = async (parent,{userId,date})=>{
     const user = await User.findById(userId);
+    console.log(`feeding assessment for ${user.name} on ${date}`)
     const day = user.days.filter(d=>{
         return formatDBDateForComparison(d.date) === date
     })[0]
@@ -63,7 +64,9 @@ const feedAssessment = async (parent,{userId,date})=>{
             }
         }
         if (found===false){
+            console.log(assessment,"assessment not found")
             const result = await Assessment.findById(assessment)
+            console.log(result)
             return result
         }
     }

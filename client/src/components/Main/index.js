@@ -3,6 +3,7 @@ import "./Main.css"
 import { useEffect,useState } from "react"
 import Dash  from "../../pages/Dash"
 import Review from "../../pages/Review"
+import { ManageAssessments } from "../../pages/ManageAssessments"
 const {useQuery,useMutation} = require("@apollo/client")
 const auth = require("../../utils/auth").default
 const {formatToday,formatYesterday} = require("../../utils/date")
@@ -26,7 +27,7 @@ const Main =  ({currentSection})=>{
   const [isPopulated,setIsPopulated] = useState(false)
   const {data:datesData,loading:datesLoading} = useQuery(GET_DATES,{variables:{userId}})
   console.log(datesData)
-  const {loading:assessmentLoading,data:pendingAssessmentData} = useQuery(FEED_ASSESSMENT,
+  const {loading:assessmentLoading,data:pendingAssessmentData,refetch:refetchAssessment} = useQuery(FEED_ASSESSMENT,
     {variables})
 
     const [populateDay,{data:popData,loading:popLoading,error:errPop}]=useMutation(POPULATE_DAY)
@@ -40,14 +41,14 @@ const Main =  ({currentSection})=>{
         return(<h1>Loading</h1>)
     }
     if(pendingAssessmentData?.feedAssessment?._id){
-        return(<Assessment date={formatToday()} userId={userId} assessment={pendingAssessmentData.feedAssessment}></Assessment>)
+        return(<Assessment refetchAssessment={refetchAssessment} date={formatToday()} userId={userId} assessment={pendingAssessmentData.feedAssessment}></Assessment>)
     }
     
-    if(formatYesterday()!==datesLoading.getDates?.lastReviewed){
-        return(
-            <Review/>
-        )
-    }
+    // if(formatYesterday()!==datesLoading.getDates?.lastReviewed){
+    //     return(
+    //         <Review/>
+    //     )
+    // }
 
     if (currentSection==="dash"){
         return(<Dash/>)
@@ -59,7 +60,9 @@ const Main =  ({currentSection})=>{
     if (currentSection==="toDos"){
         return(<ToDos userId={userId}></ToDos>)
     }
-    
+    if (currentSection==="assessments"){
+        return(<ManageAssessments userId={userId}></ManageAssessments>)
+    }
     else{
         return(<Habits></Habits>)
     }

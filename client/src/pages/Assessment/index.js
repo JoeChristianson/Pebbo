@@ -2,7 +2,7 @@ const {useState} = require("react")
 const {useMutation} = require("@apollo/client")
 const {MAKE_ASSESSMENT} = require("../../utils/mutations")
 
-const Assessment = ({userId,date,assessment})=>{
+const Assessment = ({userId,date,assessment,refetchAssessment})=>{
 
     const [makeAssessment,{data:assessmentData,loading:assessmentLoading,error:assessmentError}] = useMutation(MAKE_ASSESSMENT)
 
@@ -20,7 +20,10 @@ const Assessment = ({userId,date,assessment})=>{
         try{
             const variables = {userId,date,assessmentId:assessment._id,value:parseInt(value)}
             console.log(variables)
-            await makeAssessment({variables})
+            const resp = await makeAssessment({variables})
+            if(resp){
+                refetchAssessment()
+            }
         }catch(err){
             console.error(err)
         }
