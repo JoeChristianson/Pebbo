@@ -110,6 +110,7 @@ const typeDefs = gql`
     getToDos(userId:ID!):[ToDo]
     getDailyQueue(userId:ID!,date:String!): [QueueDay]
     getDates(userId:ID!):Dates
+    getAllUsersAssessments(userId:ID!):[Assessment]
   }
 
   type Mutation {

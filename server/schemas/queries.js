@@ -122,4 +122,10 @@ const getDates = async (parent,{userId})=>{
     return dates
 }
 
-module.exports = {getDates,feedAssessment,allUsers,getDay,getQueue,getToDos,getDailyQueue}
+const getAllUsersAssessments = async (parent,{userId})=>{
+    const user = await User.findById(userId).populate("assessments");
+    console.log(user)
+    return user.assessments;
+}
+
+module.exports = {getAllUsersAssessments,getDates,feedAssessment,allUsers,getDay,getQueue,getToDos,getDailyQueue}

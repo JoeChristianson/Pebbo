@@ -64,3 +64,13 @@ query GetDates($userId: ID!) {
     lastReviewed
   }
 }`
+
+export const GET_ALL_USERS_ASSESSMENTS = gql`
+query Query($userId: ID!) {
+  getAllUsersAssessments(userId: $userId) {
+    _id
+    name
+    metric
+  }
+}
+`

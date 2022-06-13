@@ -118,3 +118,13 @@ mutation Mutation($userId: ID!, $queueItemId: ID, $date: String) {
   deleteQueueItem(userId: $userId, queueItemId: $queueItemId, date: $date)
 }
 `
+
+export const ADD_ASSESSMENT = gql`
+mutation Mutation($userId: ID!, $name: String!, $metric: String!) {
+  addAssessment(userId: $userId, name: $name, metric: $metric) {
+    _id
+    name
+    metric
+  }
+}
+`

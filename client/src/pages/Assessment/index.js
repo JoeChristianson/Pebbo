@@ -12,6 +12,10 @@ const Assessment = ({userId,date,assessment,refetchAssessment})=>{
         await setValue(newValue)
     }
 
+    const handleQuantity = (e)=>{
+        setValue(e.target.value)
+    }
+
     const handleSubmit = async ()=>{
         if(value===null){
             console.log("make choice")
@@ -35,7 +39,17 @@ const Assessment = ({userId,date,assessment,refetchAssessment})=>{
         <h1>{assessment.name}</h1>
 
         {assessment.metric==="boolean"?(<div><button data-value={1} onClick={handleButton} >Success</button><button data-value={0} onClick={handleButton} >Failure</button></div>):null}
-
+        {assessment.metric==="grade"?(
+            <div>
+                <button data-value={4} onClick={handleButton} >A</button>
+                <button data-value={3} onClick={handleButton} >B</button>
+                <button data-value={2} onClick={handleButton} >C</button>
+                <button data-value={1} onClick={handleButton} >D</button>
+                <button data-value={0} onClick={handleButton} >F</button>
+            </div>
+        ):null    
+    }
+    {assessment.metric==="quantity"?(<div><input onChange={handleQuantity}></input></div>):null}
         <button onClick={handleSubmit}>Submit</button>
 
     </div>)

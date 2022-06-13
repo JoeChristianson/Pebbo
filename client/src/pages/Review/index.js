@@ -5,8 +5,8 @@ const Review = ()=>{
 
     return(
         <div>must review
-            <QueueList/>
 
+        
         </div>
     )
 }
