@@ -31,8 +31,10 @@ const Main =  ({currentSection})=>{
     {variables})
 
     const [populateDay,{data:popData,loading:popLoading,error:errPop}]=useMutation(POPULATE_DAY)
-
-    if (!isPopulated){
+    const [populatedAttempt,setPopulatedAttempt] = useState(false)
+    if (!isPopulated&&!populatedAttempt){
+        console.log("populating")
+        setPopulatedAttempt(true)
         populateDay({variables})
         setIsPopulated(true)
     }
