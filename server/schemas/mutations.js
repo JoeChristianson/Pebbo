@@ -344,4 +344,11 @@ const deleteQueueItem = async (parent,{userId,queueItemId,date})=>{
     return "deleted"
 }
 
-module.exports={deleteQueueItem,completeToDo,addToDo,makeAssessment,addAssessment,reorderQueue,toggleQueueDay,removeQueueItem,addQueueItem,login,createUser,addHabit,removeHabit,populateDay,toggleHabitDay,completeQueueItem}
+const confirmDay = async (parent,{userId,date})=>{
+    const user = await User.findById(userId);
+    user.lastReviewed = date;
+    user.save()
+    return "confirmed"
+}
+
+module.exports={confirmDay,deleteQueueItem,completeToDo,addToDo,makeAssessment,addAssessment,reorderQueue,toggleQueueDay,removeQueueItem,addQueueItem,login,createUser,addHabit,removeHabit,populateDay,toggleHabitDay,completeQueueItem}

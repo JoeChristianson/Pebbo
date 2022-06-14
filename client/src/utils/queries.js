@@ -1,5 +1,32 @@
 const {gql} = require("@apollo/client")
 
+export const QUERY_REVIEW = gql`
+query Query($userId: ID!, $date: String!) {
+  getReview(userId: $userId, date: $date) {
+    habitDays {
+      habit {
+        _id
+        name
+        prohibition
+      }
+      isOn
+      isComplete
+    }
+    date
+    queueDays {
+      date
+      queueItem {
+        name
+        _id
+      }
+      isOn
+      isComplete
+      ordinal
+    }
+  }
+}
+`
+
 export const QUERY_DAY = gql`
 query Query($userId: ID!, $date: String!) {
     getDay(userId: $userId, date: $date) {

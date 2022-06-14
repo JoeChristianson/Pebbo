@@ -1,5 +1,5 @@
 const {User, QueueItem} = require("../models")
-const {formatDBDateForComparison} = require("../utils/date")
+const {formatDBDateForComparison, findDay} = require("../utils/date")
 const { Assessment } = require("../models/Assessment")
 
 const allUsers = async ()=>{
@@ -128,4 +128,16 @@ const getAllUsersAssessments = async (parent,{userId})=>{
     return user.assessments;
 }
 
-module.exports = {getAllUsersAssessments,getDates,feedAssessment,allUsers,getDay,getQueue,getToDos,getDailyQueue}
+const getReview = async (parent,{userId,date})=>{
+    const user = await User.findById(userId).populate({
+        path:"days.habitDays.habit",
+        model:"Habit"
+    }).populate({
+        path:"days.queueDays.queueItem",
+        model:"QueueItem"
+    });
+    const day = findDay(user,date)
+    return day
+}
+
+module.exports = {getReview,getAllUsersAssessments,getDates,feedAssessment,allUsers,getDay,getQueue,getToDos,getDailyQueue}

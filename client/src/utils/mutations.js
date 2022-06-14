@@ -128,3 +128,9 @@ mutation Mutation($userId: ID!, $name: String!, $metric: String!) {
   }
 }
 `
+
+export const CONFIRM_DAY = gql`
+mutation Mutation($userId: ID!, $date: String!) {
+  confirmDay(userId: $userId, date: $date)
+}
+`

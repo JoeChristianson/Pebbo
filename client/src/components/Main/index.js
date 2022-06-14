@@ -33,7 +33,6 @@ const Main =  ({currentSection})=>{
     const [populateDay,{data:popData,loading:popLoading,error:errPop}]=useMutation(POPULATE_DAY)
     const [populatedAttempt,setPopulatedAttempt] = useState(false)
     if (!isPopulated&&!populatedAttempt){
-        console.log("populating")
         setPopulatedAttempt(true)
         populateDay({variables})
         setIsPopulated(true)
@@ -46,11 +45,11 @@ const Main =  ({currentSection})=>{
         return(<Assessment refetchAssessment={refetchAssessment} date={formatToday()} userId={userId} assessment={pendingAssessmentData.feedAssessment}></Assessment>)
     }
     
-    // if(formatYesterday()!==datesLoading.getDates?.lastReviewed){
-    //     return(
-    //         <Review/>
-    //     )
-    // }
+    if(formatToday()!==datesData.getDates?.lastReviewed){
+        return(
+            <Review userId={userId}/>
+        )
+    }
 
     if (currentSection==="dash"){
         return(<Dash/>)
