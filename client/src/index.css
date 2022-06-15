@@ -36,3 +36,7 @@ code {
 .main-section{
   height: 85vh;
 }
+
+button{
+  background-color: transparent;
+}

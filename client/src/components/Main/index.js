@@ -20,22 +20,31 @@ const Assessment = require("../../pages/Assessment").default
 
 const Main =  ({currentSection})=>{
 
-
     const userId = auth.getProfile().data._id
     const variables = {userId,date:formatToday()}
-
   const [isPopulated,setIsPopulated] = useState(false)
   const {data:datesData,loading:datesLoading} = useQuery(GET_DATES,{variables:{userId}})
-  console.log(datesData)
   const {loading:assessmentLoading,data:pendingAssessmentData,refetch:refetchAssessment} = useQuery(FEED_ASSESSMENT,
     {variables})
 
     const [populateDay,{data:popData,loading:popLoading,error:errPop}]=useMutation(POPULATE_DAY)
     const [populatedAttempt,setPopulatedAttempt] = useState(false)
-    if (!isPopulated&&!populatedAttempt){
+
+    const handleDoublePop = async ()=>{
+        if(localStorage.getItem("lastUpdatedHabd")==variables.date){
+            return
+        }
+        localStorage.setItem("lastUpdatedHabd",variables.date)
+        if (popLoading){
+            return
+        }
         setPopulatedAttempt(true)
-        populateDay({variables})
+        await populateDay({variables})
         setIsPopulated(true)
+    }
+
+    if (!isPopulated&&!populatedAttempt){
+        handleDoublePop()
     }
 
     if(assessmentLoading||popLoading||datesLoading){
@@ -44,15 +53,15 @@ const Main =  ({currentSection})=>{
     if(pendingAssessmentData?.feedAssessment?._id){
         return(<Assessment refetchAssessment={refetchAssessment} date={formatToday()} userId={userId} assessment={pendingAssessmentData.feedAssessment}></Assessment>)
     }
-    
-    if(formatToday()!==datesData.getDates?.lastReviewed){
+
+    if(formatToday()!==datesData.getDates?.lastReviewed && datesData.getDates?.days){
         return(
             <Review userId={userId}/>
         )
     }
 
     if (currentSection==="dash"){
-        return(<Dash/>)
+        return(<Dash userId={userId} date={formatToday()}/>)
     }
     
     if (currentSection==="queue"){

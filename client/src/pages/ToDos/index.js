@@ -15,12 +15,16 @@ function ToDos({userId}){
     const [completeToDo,{data:completedData,loading:completedLoading,error:completedError}] = useMutation(COMPLETE_TO_DO)
 
 
-    const handleComplete = async (e)=>{   
-        const {id:toDoId} = e.target.dataset
-        await completeToDo({variables:{
-            userId,toDoId,date:formatToday()
-        }})
-        refetch()
+    const handleComplete = async (e)=>{  
+        try{
+            const {id:toDoId} = e.target.dataset
+            await completeToDo({variables:{
+                userId,toDoId,date:formatToday()
+            }})
+            refetch()
+        } catch(err){
+            console.error(err)
+        }
     }
     
     const handleChange = (e)=>{
@@ -39,7 +43,7 @@ function ToDos({userId}){
     if(loading){
         return(<h1>Loading</h1>)
     }
-    
+    console.log(data)
     return(
         <main className="main-section">
         <section>
@@ -49,9 +53,15 @@ function ToDos({userId}){
         <div className="list">
 
         {data.getToDos.map((t,i)=>{
-            return (<div className="list-item" key={i}>
+            try{
+
+                console.log(t.toDoForm.name)
+                return (<div className="list-item" key={i}>
                 <span>{t.toDoForm.name}</span><button data-id={t._id} onClick={handleComplete}>X</button>
             </div>)
+            }catch(err){
+                console.error(err)
+            }
         })}
         </div>
         </main>

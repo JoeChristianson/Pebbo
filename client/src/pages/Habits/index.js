@@ -62,12 +62,10 @@ function Habits(){
                 {subsection==="active"?data.filter(h=>{
                     return h.isOn===true
                 }).map((habitDay,index)=>{
-                    console.log(index)
                     return(<HabitDay key={index} handleComplete={handleComplete} habitDay={habitDay}></HabitDay>)
                 }):null}
                     {subsection==="add"?<AddHabitComp refetchDay={refetchDay} userId={userId}/>:null}
                 {(subsection==="all"||subsection==="add")?data.map((habitDay,index)=>{
-                    console.log(index)
                     return(<HabitDay key={index} handleComplete={handleComplete} habitDay={habitDay}></HabitDay>)
                 }):null}
             </section>

@@ -49,22 +49,22 @@ export default function Register({setComponent}){
                 <form onSubmit={handleFormSubmit}>
                 <div>
 
-<input onChange={handleChange} name="name" type="text"></input>
+<input onChange={handleChange} placeholder="Name" name="name" type="text"></input>
 </div>
                     <div>
 
-                    <input onChange={handleChange} name="email" type="email"></input>
+                    <input placeholder='Email' onChange={handleChange} name="email" type="email"></input>
                     </div>
                     <div>
 
-                    <input onChange={handleChange} name="password" type="password"></input>
+                    <input placeholder='Password' onChange={handleChange} name="password" type="password"></input>
                     </div>
                     <div>
 
 
-<input onChange={handleChange} name="confirmPassword" type="password"></input>
+<input onChange={handleChange} placeholder="Confirm Password" name="confirmPassword" type="password"></input>
 </div>
-<div className='center-self'>Birth Date</div>
+<h3 className='center-self'>Birth Date</h3>
 <div>
 <input placeholder='birthdate' onChange={handleChange} name="birthdate" type="date"></input>
 </div>

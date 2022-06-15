@@ -17,6 +17,12 @@ const typeDefs = gql`
     lastAssessed:String
   }
 
+  type Dash {
+    toDos:[ToDo]
+    queueDays:[QueueDay]
+    habitDays:[HabitDay]
+  }
+
   type toDoForm {
     _id: ID!
     name: String
@@ -113,6 +119,7 @@ const typeDefs = gql`
     getDates(userId:ID!):Dates
     getAllUsersAssessments(userId:ID!):[Assessment]
     getReview(userId:ID!,date:String!):Day
+    getDash(userId:ID!,date:String!):Dash
   }
 
   type Mutation {

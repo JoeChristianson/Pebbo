@@ -24,7 +24,6 @@ const login = async (parent, { email, password }) => {
     if (!correctPw) {
       throw new AuthenticationError('Incorrect password!');
     }
-    console.log(user)
     const token = signToken(user);
     return { token, user };
 }catch(err){
@@ -44,14 +43,13 @@ const addHabit = async (parent,{name,prohibition,creator,date})=>{
 
         let habit = await Habit.find({name})
         const creatorId = mongoose.Types.ObjectId(creator)
-        console.log(creatorId)
-    console.log(mongoose.Types.ObjectId.isValid(creator))
+
     if (habit.length === 0){
         console.log("new habit")
         habit = await Habit.create({name,prohibition,creator:creatorId})
     }
     const user = await User.findById(creator);
-    console.log(habit)
+
     user.habits.push(habit._id)
 
     const day = findDay(user,date);
@@ -109,11 +107,14 @@ const removeHabit = async (parent,{userId,habitId})=>{
 }
 
 const populateDay = async (parent,{userId,date})=>{
-    const user = await User.findById(userId).populate("habits").populate("queue");
-    if(user.lastPopulated && formatDBDateForComparison(user.lastPopulated) === date){
-        console.log("already populated")
-        return user
-    }
+    try{
+
+        const user = await User.findById(userId).populate("habits").populate("queue");
+        if(user.lastPopulated && formatDBDateForComparison(user.lastPopulated) === date){
+            console.log("already populated")
+            return user
+        }
+        console.log(user.lastPopulated)
     user.lastPopulated = date;
     await user.save()
     const habits = user.habits
@@ -133,10 +134,12 @@ const populateDay = async (parent,{userId,date})=>{
         queueDays.push(queueDay)
     }
     const day = {date,habitDays,queueDays}
-    console.log(day)
-    user.days.push(day);
+    user.days.push(day);    
     await user.save()
     return user;
+}catch(err){
+    console.log(err)
+}
 }
 
 const toggleHabitDay = async (parent,{userId,date,habitDayId})=>{
@@ -302,13 +305,18 @@ const makeAssessment = async (parent,{userId,date,assessmentId,value})=>{
 }
 
 const completeToDo = async (parent,{userId,toDoId,date})=>{
-    const user = await User.findById(userId);
-    const toDo = user.toDos.filter(t=>{
+    try{
+
+        const user = await User.findById(userId);
+        const toDo = user.toDos.filter(t=>{
         return t._id.toString()===toDoId
     })[0]
     toDo.dateDone = date;
     await user.save()
     return "Done"
+}catch(err){
+    console.log(err)
+}
 
 }
 

@@ -101,3 +101,39 @@ query Query($userId: ID!) {
   }
 }
 `
+
+export const GET_DASH = gql`
+query Query($userId: ID!, $date: String!) {
+  getDash(userId: $userId, date: $date) {
+    toDos {
+      _id
+      toDoForm {
+        _id
+        name
+        creator
+      }
+      dateCreated
+      dateDone
+    }
+    queueDays {
+      date
+      queueItem {
+        name
+        _id
+      }
+      isOn
+      isComplete
+      ordinal
+    }
+    habitDays {
+      habit {
+        _id
+        name
+        prohibition
+      }
+      isOn
+      isComplete
+    }
+  }
+}
+`

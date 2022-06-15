@@ -8,7 +8,6 @@ const {useQuery, useMutation} = require("@apollo/client")
 const {ADD_QUEUE_ITEM,COMPLETE_QUEUE_ITEM} = require("../../utils/mutations")
 
 function Queue({userId,date}){
-    console.log("nfo",userId,date)
     const [addQueueItem,{data:queueItemData,loading:queueItemLoading,error:queueAddError}] = useMutation(ADD_QUEUE_ITEM);
     const [completeQueueItem,{data:completeData,loading:completeLoading,error:completeError}] = useMutation(COMPLETE_QUEUE_ITEM)
     const {loading,error,data:queueData,refetch} = useQuery(GET_QUEUE,{

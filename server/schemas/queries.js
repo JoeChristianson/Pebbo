@@ -140,4 +140,34 @@ const getReview = async (parent,{userId,date})=>{
     return day
 }
 
-module.exports = {getReview,getAllUsersAssessments,getDates,feedAssessment,allUsers,getDay,getQueue,getToDos,getDailyQueue}
+const getDash = async (parent,{userId,date})=>{
+    const user = await User.findById(userId).populate({
+        path:"days.habitDays.habit",
+        model:"Habit"
+    }).populate({
+        path:"days.queueDays.queueItem",
+        model:"QueueItem"
+    }).populate({
+        path:"toDos.toDoForm",
+        model:"ToDoForm"
+    });
+    const {habitDays,queueDays} = findDay(user,date);
+    const queueDay = queueDays.filter(q=>{
+        return !q.isComplete
+    })[0]
+    
+
+    const toDo = user.toDos.filter(t=>{
+        return !t.dateDone
+    })[0]
+    const result = {
+        toDos:toDo?[toDo]:[],
+        queueDays:queueDay?[queueDay]:[],
+        habitDays:[...habitDays]
+    }
+    return result
+}
+
+
+
+module.exports = {getDash,getReview,getAllUsersAssessments,getDates,feedAssessment,allUsers,getDay,getQueue,getToDos,getDailyQueue}
