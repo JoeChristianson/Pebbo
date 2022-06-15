@@ -20,6 +20,10 @@ if(loading){
     )
 }
 
+if(error){
+    console.log(error)
+}
+
 const handleQueueComplete = async (e)=>{
     
     const {name} = e.target
@@ -52,10 +56,10 @@ const {queueDays,habitDays,toDos} = data.getDash
     return(
         <div className="dashboard-cont">
         <section className="dash-section">
-            <QueueDay handleComplete={handleQueueComplete} queueDay={queueDays[0]}/>
+           {queueDays[0]?<QueueDay handleComplete={handleQueueComplete} queueDay={queueDays[0]}/>:null}
         </section>
         <section className="dash-section">
-        <ToDo toDo={toDos[0]} handleComplete={handleToDoComplete} />
+            {toDos[0]?(        <ToDo toDo={toDos[0]} handleComplete={handleToDoComplete} />):null}
         </section>
         <section className="dash-section">
         {habitDays.map((h,i)=>{
