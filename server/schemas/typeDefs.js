@@ -140,6 +140,7 @@ const typeDefs = gql`
       completeQueueItem(date:String!,userId:ID!,name:String!):String 
       deleteQueueItem(userId:ID!,queueItemId: ID,date:String ):String
       confirmDay(userId:ID!,date:String!):String
+      deleteToDo(userId:ID!,toDoId:ID!):String
     }
 
 `

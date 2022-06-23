@@ -359,4 +359,12 @@ const confirmDay = async (parent,{userId,date})=>{
     return "confirmed"
 }
 
-module.exports={confirmDay,deleteQueueItem,completeToDo,addToDo,makeAssessment,addAssessment,reorderQueue,toggleQueueDay,removeQueueItem,addQueueItem,login,createUser,addHabit,removeHabit,populateDay,toggleHabitDay,completeQueueItem}
+const deleteToDo = async (parent,{userId,toDoId})=>{
+    const user = await User.findById(userId);
+    // user.toDos is an array can delete by _id
+    user.toDos.pull({_id:toDoId})
+    user.save()
+    return "success"
+}
+
+module.exports={deleteToDo,confirmDay,deleteQueueItem,completeToDo,addToDo,makeAssessment,addAssessment,reorderQueue,toggleQueueDay,removeQueueItem,addQueueItem,login,createUser,addHabit,removeHabit,populateDay,toggleHabitDay,completeQueueItem}

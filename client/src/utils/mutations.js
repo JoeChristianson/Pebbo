@@ -134,3 +134,10 @@ mutation Mutation($userId: ID!, $date: String!) {
   confirmDay(userId: $userId, date: $date)
 }
 `
+
+export const DELETE_TO_DO = gql`
+mutation DeleteToDo($userId: ID!, $toDoId: ID!) {
+  deleteToDo(userId: $userId, toDoId: $toDoId)
+}
+
+`
