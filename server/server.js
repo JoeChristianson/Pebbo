@@ -32,7 +32,7 @@ app.get("*", (req, res) => {
   res.sendFile(url);
 });
 
-
+ 
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async (typeDefs, resolvers) => {
   console.log("starting the apollo server")
