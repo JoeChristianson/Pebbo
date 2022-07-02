@@ -2,12 +2,13 @@ import { useQuery,useMutation } from "@apollo/client"
 import { GET_ALL_USERS_ASSESSMENTS } from "../../utils/queries"
 import "./manageAssessments.css"
 import { useState } from "react"
-import { ADD_ASSESSMENT } from "../../utils/mutations"
+import { ADD_ASSESSMENT,DELETE_ASSESSMENT } from "../../utils/mutations"
 
 export const ManageAssessments = ({userId})=>{
     const {data,loading,error,refetch} = useQuery(GET_ALL_USERS_ASSESSMENTS,{variables:{userId}})
     const [newAssessment,setNewAssessment] = useState({name:"",metric:"boolean"})
     const [addAssessment,{data:addData,loading:addLoading,error:addError}]=useMutation(ADD_ASSESSMENT)
+    const [deleteAssessment,{}] = useMutation(DELETE_ASSESSMENT)
 
     const handleAddChange = (e)=>{
         const key = e.target.dataset.key;
@@ -17,9 +18,15 @@ export const ManageAssessments = ({userId})=>{
     }
 
     const handleAddSubmit = async ()=>{
-        console.log("in it")
         const variables = {...newAssessment,userId}
         await addAssessment({variables})
+        refetch()
+    }
+
+    const handleDelete = async (e)=>{
+        const variables = {userId,assessmentId:e.target.dataset._id};
+        console.log(variables)
+        await deleteAssessment({variables})
         refetch()
     }
 
@@ -46,7 +53,7 @@ export const ManageAssessments = ({userId})=>{
                     return(<>
                     <h3>{a.name}</h3>
                     <h3>{a.metric}</h3>
-                    <button>Delete</button>
+                    <button data-_id={a._id} onClick={handleDelete}>Delete</button>
                     </>
                     )
                 })}

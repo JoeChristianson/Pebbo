@@ -1,5 +1,6 @@
 import AddHabitComp from "../../components/AddHabit"
 import "./habits.css"
+import { Modal } from "../../components/Modal"
 // import { useQuery } from '@apollo/client';
 const {useState} = require("react")
 const HabitDay = require("../../components/HabitDay").default
@@ -10,22 +11,22 @@ const {TOGGLE_IS_COMPLETE} = require("../../utils/mutations")
 const {formatToday} = require("../../utils/date")
 const auth = require("../../utils/auth").default
 
-function Habits(){
+function Habits({refetchDash,dayLoading,dayData,refetchDay}){
     const userId = auth.getProfile().data._id
     const date = formatToday()
+    const [modalOpen,setModalOpen] = useState(false)
+    const [dataId,setDataId] = useState(null)
+    const [modalInput,setModalInput] = useState({name:""})
 
-    const {loading:dayLoading,error,data:dayData,refetch:refetchDay} = useQuery(QUERY_DAY,
-        {variables:{userId,date}
-})
 
     const [toggleIsComplete,{data:toggleData,loading:toggleLoading,error:toggleError}] = useMutation(TOGGLE_IS_COMPLETE)
 
     let data = null;
     if (dayLoading){
     }
-    if(error){
-        console.error(error)
-    }
+    // if(error){
+    //     console.error(error)
+    // }
 
     if(!dayLoading){
         data = dayData.getDay.habitDays
@@ -38,6 +39,7 @@ function Habits(){
 
         await toggleIsComplete({variables:{userId,date,habitDayId:e.target.dataset.habitDayId}})
         await refetchDay()
+        await refetchDash()
     }
 
     const [subsection,setSubsection] = useState("active")
@@ -47,6 +49,19 @@ function Habits(){
         const choice = e.target.dataset.option
         console.log(choice)
         setSubsection(choice)
+    }
+
+    const openThisModal = (e)=>{
+        const {id} = e.target.dataset;
+        console.log(id)
+        setDataId(id)
+        setModalOpen(true)
+        setModalInput({name:e.target.dataset.name})
+    }
+
+    const handleDelete = (e)=>{
+        const {id} = e.target.dataset
+        console.log(id)
     }
 
     if(dayLoading){
@@ -62,13 +77,14 @@ function Habits(){
                 {subsection==="active"?data.filter(h=>{
                     return h.isOn===true
                 }).map((habitDay,index)=>{
-                    return(<HabitDay key={index} handleComplete={handleComplete} habitDay={habitDay}></HabitDay>)
+                    return(<HabitDay key={index} handleComplete={handleComplete} habitDay={habitDay} openThisModal={openThisModal}></HabitDay>)
                 }):null}
                     {subsection==="add"?<AddHabitComp refetchDay={refetchDay} userId={userId}/>:null}
                 {(subsection==="all"||subsection==="add")?data.map((habitDay,index)=>{
                     return(<HabitDay key={index} handleComplete={handleComplete} habitDay={habitDay}></HabitDay>)
                 }):null}
             </section>
+            {modalOpen?<Modal setModalOpen={setModalOpen} modalInput={modalInput} handleDelete={handleDelete} dataId={dataId} />:null}
         </section>
     )
 }

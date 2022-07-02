@@ -151,11 +151,11 @@ const getDash = async (parent,{userId,date})=>{
         path:"toDos.toDoForm",
         model:"ToDoForm"
     });
-    const {habitDays,queueDays} = findDay(user,date);
+    let {habitDays,queueDays} = findDay(user,date);
     const queueDay = queueDays.filter(q=>{
         return !q.isComplete
     })[0]
-    
+    habitDays = habitDays.filter(h=>h.isOn)
 
     const toDo = user.toDos.filter(t=>{
         return !t.dateDone

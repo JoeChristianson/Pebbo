@@ -6,13 +6,12 @@ import { GET_DASH } from "../../utils/queries"
 import { COMPLETE_QUEUE_ITEM, COMPLETE_TO_DO, TOGGLE_IS_COMPLETE } from "../../utils/mutations"
 import HabitDay from "../../components/HabitDay"
 
-const Dash = ({userId,date})=>{
+const Dash = ({userId,date,data,loading,error,refetch,refetchDay})=>{
 
 const [completeQueueItem,{data:qData,loading:qLoading,error:qError}] = useMutation(COMPLETE_QUEUE_ITEM)
 const [completeHabitDay,{data:hData,loading:hLoading,error:hError}] = useMutation(TOGGLE_IS_COMPLETE)
 const [completeToDo,{data:tData,loading:tLoading,error:tError}] = useMutation(COMPLETE_TO_DO)
 
-const {data,loading,error,refetch} = useQuery(GET_DASH,{variables:{userId,date}})
 
 if(loading){
     return(
@@ -48,6 +47,7 @@ const handleToDoComplete = async (e)=>{
 const handleHabitComplete = async (e)=>{
     await completeHabitDay({variables:{userId,date,habitDayId:e.target.dataset.habitDayId}})
     await refetch()
+    await refetchDay()
 }
 
 const {queueDays,habitDays,toDos} = data.getDash

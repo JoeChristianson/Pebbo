@@ -141,3 +141,10 @@ mutation DeleteToDo($userId: ID!, $toDoId: ID!) {
 }
 
 `
+
+export const DELETE_ASSESSMENT = gql`
+mutation Mutation($userId: ID!, $assessmentId: ID!) {
+  deleteAssessment(userId: $userId, assessmentId: $assessmentId)
+}
+
+`

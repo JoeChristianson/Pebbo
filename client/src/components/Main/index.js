@@ -8,7 +8,7 @@ const {useQuery,useMutation} = require("@apollo/client")
 const auth = require("../../utils/auth").default
 const {formatToday,formatYesterday} = require("../../utils/date")
 
-const {FEED_ASSESSMENT, GET_DATES} = require("../../utils/queries")
+const {FEED_ASSESSMENT, GET_DATES, GET_DASH,QUERY_DAY} = require("../../utils/queries")
 
 
 const Habits = require("../../pages/Habits").default
@@ -19,17 +19,20 @@ const Assessment = require("../../pages/Assessment").default
 
 
 const Main =  ({currentSection})=>{
-
+    
     const userId = auth.getProfile().data._id
     const variables = {userId,date:formatToday()}
-  const [isPopulated,setIsPopulated] = useState(false)
-  const {data:datesData,loading:datesLoading} = useQuery(GET_DATES,{variables:{userId}})
-  const {loading:assessmentLoading,data:pendingAssessmentData,refetch:refetchAssessment} = useQuery(FEED_ASSESSMENT,
-    {variables})
-
-    const [populateDay,{data:popData,loading:popLoading,error:errPop}]=useMutation(POPULATE_DAY)
-    const [populatedAttempt,setPopulatedAttempt] = useState(false)
-
+    const [isPopulated,setIsPopulated] = useState(false)
+    const {data:datesData,loading:datesLoading} = useQuery(GET_DATES,{variables:{userId}})
+    const {loading:assessmentLoading,data:pendingAssessmentData,refetch:refetchAssessment} = useQuery(FEED_ASSESSMENT,
+        {variables})
+        
+        const [populateDay,{data:popData,loading:popLoading,error:errPop}]=useMutation(POPULATE_DAY)
+        const [populatedAttempt,setPopulatedAttempt] = useState(false)
+        const {data:dashData,loading:dashLoading,error:dashError,refetch:refetchDash} = useQuery(GET_DASH,{variables:{userId,date:formatToday()}})
+        const {loading:dayLoading,error,data:dayData,refetch:refetchDay} = useQuery(QUERY_DAY,
+            {variables:{userId,date:formatToday()}
+        })    
     const handleDoublePop = async ()=>{
         if(localStorage.getItem("lastUpdatedHabd")==variables.date){
             return
@@ -41,6 +44,7 @@ const Main =  ({currentSection})=>{
         setPopulatedAttempt(true)
         await populateDay({variables})
         setIsPopulated(true)
+        refetchDay()
     }
 
     if (!isPopulated&&!populatedAttempt){
@@ -60,8 +64,10 @@ const Main =  ({currentSection})=>{
         )
     }
 
+
+
     if (currentSection==="dash"){
-        return(<Dash userId={userId} date={formatToday()}/>)
+        return(<Dash data={dashData} loading={dashLoading} error={dashError} refetch={refetchDash} userId={userId} date={formatToday()} refetchDay={refetchDay}/>)
     }
     
     if (currentSection==="queue"){
@@ -74,7 +80,7 @@ const Main =  ({currentSection})=>{
         return(<ManageAssessments userId={userId}></ManageAssessments>)
     }
     else{
-        return(<Habits></Habits>)
+        return(<Habits dayLoading={dayLoading} dayData={dayData} refetchDay={refetchDay} refetchDash={refetchDash}></Habits>)
     }
 
 }

@@ -141,6 +141,8 @@ const typeDefs = gql`
       deleteQueueItem(userId:ID!,queueItemId: ID,date:String ):String
       confirmDay(userId:ID!,date:String!):String
       deleteToDo(userId:ID!,toDoId:ID!):String
+      deleteAssessment(userId:ID!,assessmentId:ID!):String
+      deleteHabit(userId:ID!,habitId:ID!,date:String!):String
     }
 
 `
