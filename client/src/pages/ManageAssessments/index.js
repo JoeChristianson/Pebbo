@@ -25,7 +25,6 @@ export const ManageAssessments = ({userId})=>{
 
     const handleDelete = async (e)=>{
         const variables = {userId,assessmentId:e.target.dataset._id};
-        console.log(variables)
         await deleteAssessment({variables})
         refetch()
     }

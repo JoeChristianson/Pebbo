@@ -18,12 +18,12 @@ const Assessment = ({userId,date,assessment,refetchAssessment})=>{
 
     const handleSubmit = async ()=>{
         if(value===null){
-            console.log("make choice")
+
             return
         }
         try{
             const variables = {userId,date,assessmentId:assessment._id,value:parseInt(value)}
-            console.log(variables)
+
             const resp = await makeAssessment({variables})
             if(resp){
                 refetchAssessment()

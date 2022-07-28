@@ -20,26 +20,22 @@ if(loading){
 }
 
 if(error){
-    console.log(error)
+
 }
 
 const handleQueueComplete = async (e)=>{
     
     const {name} = e.target
     const variables = {userId,name,date}
-    console.log(variables)
     const resp = await completeQueueItem({variables})
-    console.log(resp)
     refetch()
 }
 
 const handleToDoComplete = async (e)=>{
-    console.log(e)
     const {id:toDoId} = e.target.dataset
     const variables = {
         userId,toDoId,date
     }
-    console.log(variables)
     await completeToDo({variables})
     refetch()
 }

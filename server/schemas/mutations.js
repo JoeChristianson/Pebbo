@@ -9,6 +9,7 @@ const {signToken} = require("../utils/auth")
 const {formatDBDateForComparison} = require("../utils/date")
 const { Assessment } = require("../models/Assessment")
 const { ToDoForm } = require("../models/ToDoForm")
+const toDoMutations = require("./toDoMutations")
 
 
 const mutations = {
@@ -35,7 +36,7 @@ const mutations = {
         }
     }, 
     createUser: async (parent,{name,email,password,birthdate})=>{
-        console.log({name,email,password,birthdate})
+        
         const user = await User.create({name,email,password,birthdate})
         return user
     },
@@ -46,7 +47,7 @@ const mutations = {
             const creatorId = mongoose.Types.ObjectId(creator)
             
             if (habit.length === 0){
-                console.log("new habit")
+                
                 habit = await Habit.create({name,prohibition,creator:creatorId})
             }
             const user = await User.findById(creator);
@@ -56,11 +57,11 @@ const mutations = {
             const day = findDay(user,date);
             day.habitDays.push({date,habit:habit._id,isOn:randBoolean(.5),isComplete:false})
             user.save()
-            console.log(user);
+            
             habit = Habit.findById(habit._id).populate("creator")
             return habit
         }catch(err){
-            console.log(err)
+            
         }
     },
     addToDo: async (parent,{name,creator,date})=>{
@@ -69,7 +70,7 @@ const mutations = {
 
         const creatorId = mongoose.Types.ObjectId(creator)
     if (!toDoForm){
-        console.log("new to do")
+        
         toDoForm = await ToDoForm.create({name,creator:creatorId})
     }
     const user = await User.findById(creator)
@@ -78,13 +79,13 @@ const mutations = {
     toDoForm = ToDoForm.findById(toDoForm._id).populate("creator")
     return toDoForm
 }catch(err){
-    console.log(err)
+    
 }
 },
 addAssessment: async (parent,{userId,name,metric})=>{
-    console.log(name)
+    
     let assessment = (await Assessment.find({name}))[0];
-    console.log(assessment)
+    
     if (!assessment){
         const creator = mongoose.Types.ObjectId(userId)
         assessment = await Assessment.create({name,metric,creator})
@@ -110,10 +111,10 @@ populateDay: async (parent,{userId,date})=>{
         
         const user = await User.findById(userId).populate("habits").populate("queue");
         if(user.lastPopulated && formatDBDateForComparison(user.lastPopulated) === date){
-            console.log("already populated")
+            
             return user
         }
-        console.log(user.lastPopulated)
+        
         user.lastPopulated = date;
         await user.save()
         const habits = user.habits
@@ -137,7 +138,7 @@ populateDay: async (parent,{userId,date})=>{
         await user.save()
         return user;
     }catch(err){
-        console.log(err)
+        
     }
 },
 toggleHabitDay: async (parent,{userId,date,habitDayId})=>{
@@ -167,12 +168,12 @@ toggleHabitDay: async (parent,{userId,date,habitDayId})=>{
             }
         }
         if (found){
-            console.log("found")
+            
             result = day;
             for (let habitDay of day.habitDays){
-                console.log(habitDay.habit._id)
+                
                 if (habitDay.habit._id.toString()===habitDayId){
-                    console.log("found the habit too")
+                    
                     habitDay.isComplete=!habitDay.isComplete
                 }
             }
@@ -213,9 +214,9 @@ toggleHabitDay: async (parent,{userId,date,habitDayId})=>{
             for (let queueDay of day.queueDays){
                 
                 if (queueDay._id.toString()===queueDayId){
-                    console.log("found the queue day too")
+                    
                     queueDay.isComplete=!queueDay.isComplete;
-                    console.log(queueDay)
+                    
                 }
             }
         }
@@ -226,7 +227,7 @@ toggleHabitDay: async (parent,{userId,date,habitDayId})=>{
 },
 reorderQueue: async(parent,{userId,oldOrdinal,newOrdinal})=>{
     try{
-        console.log({userId,oldOrdinal,newOrdinal})
+        
         const user = await User.findById(userId);
         const {queue} = user
         queue.forEach(q=>{
@@ -243,7 +244,7 @@ reorderQueue: async(parent,{userId,oldOrdinal,newOrdinal})=>{
         await    user.save()
         return user
     }catch(err){
-        console.log(err)
+        
     }
 }
 // ,
@@ -274,7 +275,7 @@ reorderQueue: async(parent,{userId,oldOrdinal,newOrdinal})=>{
         const result = await user.populate({path:"queue.queueItem",model:"QueueItem"})
         return result
     }catch(err){
-        console.log(err)
+        
     }
 }
 ,
@@ -310,7 +311,7 @@ reorderQueue: async(parent,{userId,oldOrdinal,newOrdinal})=>{
         await user.save()
         return "Done"
     }catch(err){
-        console.log(err)
+        
     }
     
 }
@@ -322,10 +323,10 @@ reorderQueue: async(parent,{userId,oldOrdinal,newOrdinal})=>{
     const day = user.days.filter(d=>{
         return formatDBDateForComparison(d.date)===date})[0]
         const queueItemDay = day.queueDays.filter(d=>{
-            console.log(d)
+            
             return (d.queueItem.name===name)
         })[0]
-        console.log(queueItemDay)
+        
         queueItemDay.isComplete = !queueItemDay.isComplete;
         user.save()
         return "Done" 
@@ -338,9 +339,9 @@ reorderQueue: async(parent,{userId,oldOrdinal,newOrdinal})=>{
         user.queue = queue.filter(q=>{
             return q.queueItem.toString()!==queueItemId});
             const day = findDay(user,date);
-            console.log(day)
+            
             day.queueDays = day.queueDays.filter(q=>{
-                console.log(q.queueItem.toString())
+                
                 return q.queueItem.toString()!==queueItemId
             })
             user.save();
@@ -367,7 +368,7 @@ reorderQueue: async(parent,{userId,oldOrdinal,newOrdinal})=>{
             user.habits.pull({_id:habitId})
             const day = findDay(user,date);
             day.habitDays = day.habitDays.filter(h=>{
-                console.log(h.habit.toString())
+                
                 return h.habit.toString()!==habitId
             })
             user.save()
@@ -379,8 +380,8 @@ reorderQueue: async(parent,{userId,oldOrdinal,newOrdinal})=>{
             user.assessments.pull({_id:assessmentId})
             user.save()
             return "success"
-        }
-        
+        },
+        ...toDoMutations
     }
 
 module.exports=mutations

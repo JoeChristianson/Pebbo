@@ -9,7 +9,7 @@ const allUsers = async ()=>{
 
 
 const getDay = async (parent,{userId,date})=>{
-    console.log("in the day")
+    
     
     const user = await User.findById(userId).populate({
         path: 'days.habitDays.habit',
@@ -31,15 +31,15 @@ const getDay = async (parent,{userId,date})=>{
             year:splitSearchDate[0].replace('"','')
         }
         let found = true
-        console.log(searchObj)
-        console.log(dateObj)
+        
+        
         for (let p in searchObj){
             if(parseInt(searchObj[p])!=parseInt(dateObj[p])){
                 found = false
             }
         }
         if (found){
-            console.log("day found",day)
+            
             return day
         }
 
@@ -50,23 +50,23 @@ const getDay = async (parent,{userId,date})=>{
 
 const feedAssessment = async (parent,{userId,date})=>{
     const user = await User.findById(userId);
-    console.log(`feeding assessment for ${user.name} on ${date}`)
+    
     const day = user.days.filter(d=>{
         return formatDBDateForComparison(d.date) === date
     })[0]
     for (let assessment of user.assessments){
         let found = false;
         for (let assessmentDay of day.assessmentDays){
-            console.log(assessmentDay.assessment)
-            console.log(assessment)
+            
+            
             if(assessmentDay.assessment.toString()===assessment.toString()){
                 found=true
             }
         }
         if (found===false){
-            console.log(assessment,"assessment not found")
+            
             const result = await Assessment.findById(assessment)
-            console.log(result)
+            
             return result
         }
     }
@@ -74,24 +74,24 @@ const feedAssessment = async (parent,{userId,date})=>{
 
 const getQueue = async (parent,{userId})=>{
     const user = await User.findById(userId).populate({path:"queue.queueItem",model:"QueueItem"});
-    console.log(user)
+    
     return user
 }
 
 const getToDos = async (parent,{userId})=>{
-    console.log("in it")
+    
     const user = await User.findById(userId).populate({
         path:"toDos.toDoForm",
         model:"ToDoForm"
     });
-    console.log(user)
+    
     return user.toDos.filter(t=> !t.dateDone)
 }
 
 const getDailyQueue = async(parent,{userId,date})=>{
     const user = await User.findById(userId);
     const day = user.days.filter(day=>{
-        console.log(date,formatDBDateForComparison(day.date))
+        
         return (date === formatDBDateForComparison(day.date))
     })[0];
     const dailyQueue = day.queueDays;
@@ -102,11 +102,11 @@ const getDailyQueue = async(parent,{userId,date})=>{
     }
     const result = []
     for (let i = 0;i<queueItems.length;i++){
-        console.log(dailyQueue[i])
+        
         const el = {ordinal:user.queue[i].ordinal,date:formatDBDateForComparison(dailyQueue[i].date),isOn:dailyQueue[i].isOn,isComplete:dailyQueue[i].isComplete,queueItem:queueItems[i]}
         result.push(el)
     }
-    console.log(result)
+    
     return result
 
 }
@@ -115,7 +115,7 @@ const getDates = async (parent,{userId})=>{
     const user = await User.findById(userId);
     const {lastAssessed,lastPopulated,birthdate,lastReviewed} = user;
     const dates = {lastAssessed,lastPopulated,birthdate,lastReviewed};
-    console.log(dates)
+    
     for (let prop in dates){
         dates[prop] = formatDBDateForComparison(dates[prop])
     }
@@ -124,7 +124,7 @@ const getDates = async (parent,{userId})=>{
 
 const getAllUsersAssessments = async (parent,{userId})=>{
     const user = await User.findById(userId).populate("assessments");
-    console.log(user)
+    
     return user.assessments;
 }
 

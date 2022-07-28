@@ -15,7 +15,7 @@ const AddQueueItemComp = ({refetchQueue,userId,date,addQueueItem})=>{
             userId,
             date
         }
-        console.log(variables)
+
         addQueueItem({variables})
     }
 

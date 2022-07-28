@@ -15,7 +15,6 @@ export default function Register({setComponent}){
         setFormState({
             ...formState,[name]:value
         })
-        console.log(formState)
     }
 
     const handleFormSubmit = async (e)=>{

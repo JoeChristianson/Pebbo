@@ -31,7 +31,6 @@ function Queue({userId,date}){
         const {name} = e.target.dataset
         const variables = {userId,name,date:formatToday()}
         const resp = await completeQueueItem({variables})
-        console.log(resp)
         refetch()
     }
     return(

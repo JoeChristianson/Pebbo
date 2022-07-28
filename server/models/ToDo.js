@@ -7,6 +7,7 @@ const ToDoSchema = new Schema({
     },
     dateCreated:Date,
     dateDone:Date,
+    priority:Number
 })
 
 module.exports = {ToDoSchema}

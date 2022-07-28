@@ -110,7 +110,28 @@ body{
 
 .list-item button{
     height: 30px;
-    width:30px;
+    width: 30px;
+    box-shadow: 1px 1px 1px #00000066;
+    border: solid hsl(150deg 14% 30%) 2px;
+    background: hsl(150deg 14% 91%);
+    color:grey;
+    cursor: pointer;
+    position: relative;
+}
+
+.list-item button:hover:after{
+    content:"✔";
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+
+.list-item button:hover{
+    color: black;
+    font-weight: 700;
+    background: hsl(150deg 100% 97%);
 }
 
 .side-by-side{

@@ -13,7 +13,9 @@ import { setContext } from '@apollo/client/link/context';
 import auth from "./utils/auth"
 
 const httpLink = createHttpLink({
-  uri: '/graphql'
+  // toggle for production/absolute path for development
+  uri: 'http://localhost:3001/graphql'
+  // uri: '/graphql'
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -38,7 +40,7 @@ function App() {
   const [currentSection,setCurrentSection] = useState("dash")
 
   const loggedIn = auth.loggedIn()
-  console.log(loggedIn)
+
 
   return (
     <ApolloProvider client={client}>

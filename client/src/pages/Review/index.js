@@ -35,7 +35,6 @@ const Review = ({userId})=>{
 
     const handleConfirm = async ()=>{
        const data = await confirmDay({variables:{userId,date:formatToday()}})
-        console.log(data)
     }
 
     return(

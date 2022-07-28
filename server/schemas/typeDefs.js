@@ -42,6 +42,7 @@ const typeDefs = gql`
     toDoForm: ToDoForm
     dateCreated: String
     dateDone: String
+    priority:Int
   }
 
   type Queue {
@@ -143,6 +144,7 @@ const typeDefs = gql`
       deleteToDo(userId:ID!,toDoId:ID!):String
       deleteAssessment(userId:ID!,assessmentId:ID!):String
       deleteHabit(userId:ID!,habitId:ID!,date:String!):String
+      prioritizeToDo(userId:ID!,toDoId:ID!,priority:Int!):String
     }
 
 `

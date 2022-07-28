@@ -148,3 +148,9 @@ mutation Mutation($userId: ID!, $assessmentId: ID!) {
 }
 
 `
+
+export const PRIORITIZE_TO_DO = gql`
+mutation Mutation($toDoId: ID!, $priority: Int!, $userId: ID!) {
+  prioritizeToDo(toDoId: $toDoId, priority: $priority, userId: $userId)
+}
+`

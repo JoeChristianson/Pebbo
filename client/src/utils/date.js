@@ -14,7 +14,6 @@ export const formatYesterday = ()=>{
     let mm = yesterday.getMonth() + 1;
     let dd = yesterday.getDate();
 yesterday = mm + '/' + dd + '/' + yyyy;
-console.log(yesterday)
 return yesterday
 }
 

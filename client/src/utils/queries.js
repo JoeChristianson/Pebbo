@@ -78,6 +78,7 @@ query Query($userId: ID!) {
     dateCreated
     dateDone
     _id
+    priority
   }
 }
 `

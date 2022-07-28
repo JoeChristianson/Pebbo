@@ -22,30 +22,36 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.get('/', (req, res) => {
+  
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-app.get("*", (req, res) => {
-  let url = path.join(__dirname, '../client/build', 'index.html');
-  if (!url.startsWith('/app/'))
+// comment this in for production
+if (PORT!==3001){
+  app.get("*", (req, res) => {
+    
+    let url = path.join(__dirname, '../client/build', 'index.html');
+    if (!url.startsWith('/app/'))
     url = url.substring(1);
-  res.sendFile(url);
-});
+    res.sendFile(url);
+  });
+}
  
  
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async (typeDefs, resolvers) => {
-  console.log("starting the apollo server")
+  
   await server.start();
   server.applyMiddleware({ app });
   
   db.once('open', () => {
     app.listen(PORT, () => {
-      console.log(`API server running on port ${PORT}!`);
-      console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+      
+      
     }) 
   })
   };
   
 // Call the async function to start the server
   startApolloServer(typeDefs, resolvers);
+  // C:\Users\jcfar\OneDrive\Desktop\Current Projects\HABD\client

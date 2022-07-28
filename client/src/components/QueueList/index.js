@@ -55,7 +55,7 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
         const oldOrdinal = parseInt(draggedOrdinal);
         const newOrdinal = parseInt(e.target.dataset.ordinal);
         const variables = {userId,oldOrdinal,newOrdinal}
-        console.log(variables)
+
         await reorderQueue({variables})
         refetch()
     }
@@ -63,7 +63,7 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
     if (!queue){
         return(<div>Day did not populate</div>)
     }
-    console.log(modalInput)
+
     return(
         <div className="list">
             {sortedQueue.map((q,i)=>{
@@ -77,7 +77,7 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
                 data-ordinal={q.ordinal} onDrop={handleDrop} className={q.isComplete?"done list-item":"list-item"}><span data-ordinal={q.ordinal}       data-id={q.queueItem._id} className="pointer" data-name={q.queueItem.name} onClick={handleOpenModal} >
                     {q.queueItem.name}
                     </span>
-                    <button className="pointer" onClick={handleComplete} data-name={q.queueItem.name} data-date={q.date}>x</button>
+                    <button className="pointer" onClick={handleComplete} data-name={q.queueItem.name} data-date={q.date}></button>
                     </div>)
             })}
             {openModal?<Modal handleDelete={handleDelete} dataId={modalInput.id} modalInput={modalInput} setModalOpen={setModalOpen}/>:null}

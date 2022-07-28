@@ -6,7 +6,6 @@ const {useState} = require("react")
 
 export default function Login({setComponent}){
 
-    console.log(auth)
     const [formState, setFormState] = useState({ email: '', password: '' });
 
     const [login, { error, data }] = useMutation(LOGIN_USER);
@@ -16,7 +15,6 @@ export default function Login({setComponent}){
         setFormState({
             ...formState,[name]:value
         })
-        console.log(formState)
     }
 
     const handleFormSubmit = async (e)=>{

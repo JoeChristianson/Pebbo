@@ -47,13 +47,11 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay}){
     
     const handleSubMenu = (e)=>{
         const choice = e.target.dataset.option
-        console.log(choice)
         setSubsection(choice)
     }
 
     const openThisModal = (e)=>{
         const {id} = e.target.dataset;
-        console.log(id)
         setDataId(id)
         setModalOpen(true)
         setModalInput({name:e.target.dataset.name})
@@ -61,7 +59,6 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay}){
 
     const handleDelete = (e)=>{
         const {id} = e.target.dataset
-        console.log(id)
     }
 
     if(dayLoading){
@@ -69,7 +66,6 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay}){
     }
 
     if(data){
-        console.log("this is the data",data)
         return(
             <section className="module">
             <SubNav options={options} handleSubMenu={handleSubMenu}></SubNav>
