@@ -138,3 +138,18 @@ query Query($userId: ID!, $date: String!) {
   }
 }
 `
+
+export const GET_QUEUE_ITEM_SETTINGS = gql`
+query GetAllSettingsAndOffSettings($userId: ID!, $queueItemId: ID!) {
+  getAllSettingsAndOffSettings(userId: $userId, queueItemId: $queueItemId) {
+  
+    settings {
+      name
+      id
+    }
+    offSettings {
+      name
+    }
+  }
+}
+`

@@ -1,9 +1,10 @@
 const mutations = require("./mutations");
-const queries = require("./queries")
+const queries = require("./queries");
+const settingQueries = require("./settingQueries");
 
 const resolvers = {
     Query:{
-        ...queries
+        ...queries,...settingQueries
     },
     Mutation:{
         ...mutations

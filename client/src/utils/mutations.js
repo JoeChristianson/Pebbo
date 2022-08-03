@@ -154,3 +154,31 @@ mutation Mutation($toDoId: ID!, $priority: Int!, $userId: ID!) {
   prioritizeToDo(toDoId: $toDoId, priority: $priority, userId: $userId)
 }
 `
+
+export const SKIP_QUEUE_ITEM = gql`
+mutation Mutation($userId: ID!, $queueItem: ID!, $date: String!) {
+  skipQueueItem(userId: $userId, queueItem: $queueItem, date: $date) {
+    date
+    queueItem {
+      _id
+      name
+    }
+    isOn
+    isComplete
+    ordinal
+    skips
+  }
+}
+`
+
+export const ADD_SETTING = gql`
+mutation Mutation($userId: ID!, $settingName: String!) {
+  addSetting(userId: $userId, settingName: $settingName)
+}
+`
+
+export const OFF_SETTING = gql`
+mutation Mutation($userId: ID!, $settingId: ID!, $queueItemId: ID) {
+  offSetting(userId: $userId, settingId: $settingId, queueItemId: $queueItemId)
+}
+`

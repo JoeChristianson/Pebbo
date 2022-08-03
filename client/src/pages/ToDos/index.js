@@ -62,6 +62,8 @@ function ToDos({userId}){
         refetch()
     }
 
+
+
     const handleDelete = async (e)=>{
         const toDoId = e.target.dataset.id
         const variables = {userId,toDoId};
@@ -69,7 +71,6 @@ function ToDos({userId}){
          setModalOpen(false)
         refetch()
     }
-
 
 
     if(loading){

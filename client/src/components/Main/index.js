@@ -34,6 +34,7 @@ const Main =  ({currentSection})=>{
             {variables:{userId,date:formatToday()}
         })    
     const handleDoublePop = async ()=>{
+        console.log("handling double pop")
         if(localStorage.getItem("lastUpdatedHabd")==variables.date){
             return
         }
@@ -41,8 +42,10 @@ const Main =  ({currentSection})=>{
         if (popLoading){
             return
         }
+        console.log("must pop")
         setPopulatedAttempt(true)
-        await populateDay({variables})
+        const results = await populateDay({variables})
+        console.log(results)
         setIsPopulated(true)
         refetchDay()
     }

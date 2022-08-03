@@ -40,3 +40,7 @@ code {
 button{
   background-color: transparent;
 }
+
+.grid{
+  display: grid;
+}

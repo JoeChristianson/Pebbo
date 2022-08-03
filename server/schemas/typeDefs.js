@@ -17,6 +17,8 @@ const typeDefs = gql`
     lastAssessed:String
   }
 
+
+
   type Dash {
     toDos:[ToDo]
     queueDays:[QueueDay]
@@ -45,9 +47,20 @@ const typeDefs = gql`
     priority:Int
   }
 
+  type Setting{
+    name:String
+    id:ID
+  }
+
   type Queue {
     queueItem: QueueItem
     ordinal: Int
+    offSettings:[
+      Setting
+    ]
+    onSettings:[
+      Setting
+    ]
   }
 
   type QueueItem {
@@ -60,6 +73,7 @@ const typeDefs = gql`
     isOn: Boolean!
     isComplete: Boolean!
     ordinal: Int
+    skips:Int
   }
 
   type Auth {
@@ -110,6 +124,11 @@ const typeDefs = gql`
     creator: ID!
   }
 
+  type QueueSettings {
+    settings:[Setting]
+    offSettings:[Setting]
+  }
+
   type Query {
     allUsers:[User]
     getDay(userId:ID!,date:String!):Day
@@ -121,6 +140,8 @@ const typeDefs = gql`
     getAllUsersAssessments(userId:ID!):[Assessment]
     getReview(userId:ID!,date:String!):Day
     getDash(userId:ID!,date:String!):Dash
+    getAllSettings(userId:ID!):[Setting]
+    getAllSettingsAndOffSettings(userId:ID!,queueItemId:ID!):QueueSettings
   }
 
   type Mutation {
@@ -145,6 +166,9 @@ const typeDefs = gql`
       deleteAssessment(userId:ID!,assessmentId:ID!):String
       deleteHabit(userId:ID!,habitId:ID!,date:String!):String
       prioritizeToDo(userId:ID!,toDoId:ID!,priority:Int!):String
+      skipQueueItem(userId:ID!,queueItem:ID!,date:String!):QueueDay
+      addSetting(userId:ID!,settingName:String!):String
+      offSetting(userId:ID!,settingId:ID!,queueItemId:ID):String
     }
 
 `

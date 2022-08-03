@@ -33,6 +33,11 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
         refetch()
     }
 
+    
+    const handleSettings = async(e)=>{
+        console.log(e.target)
+    }
+
     const handleDragEnter = (e)=>{
         e.preventDefault()
 
@@ -80,7 +85,7 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
                     <button className="pointer" onClick={handleComplete} data-name={q.queueItem.name} data-date={q.date}></button>
                     </div>)
             })}
-            {openModal?<Modal handleDelete={handleDelete} dataId={modalInput.id} modalInput={modalInput} setModalOpen={setModalOpen}/>:null}
+            {openModal?<Modal userId={userId} handleSettings={handleSettings}  handleDelete={handleDelete} dataId={modalInput.id} modalInput={modalInput} setModalOpen={setModalOpen}/>:null}
         </div>
     )
 }

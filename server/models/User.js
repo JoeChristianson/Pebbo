@@ -45,8 +45,11 @@ lastReviewed:{
 },
 days:[DaySchema],
 queue:[QueueSchema],
-toDos:[ToDoSchema]
-
+toDos:[ToDoSchema],
+settings:[{
+  type:Schema.Types.ObjectId,
+  ref:"Setting"
+}]
 });
 
 // set up pre-save middleware to create password

@@ -1,7 +1,7 @@
 import "./modal.css"
+import { SettingsGrid } from "../SettingsGrid"
 
-
-export const Modal = ({setModalOpen,modalInput,handleDelete,dataId,handlePrioritize})=>{
+export const Modal = ({userId,setModalOpen,modalInput,handleDelete,dataId,handlePrioritize,handleSettings})=>{
     
 
     const handleModalClose = ()=>{
@@ -12,9 +12,14 @@ export const Modal = ({setModalOpen,modalInput,handleDelete,dataId,handlePriorit
         <button className="close-modal" onClick={handleModalClose}>x</button>
         <h3>{modalInput.name}</h3>
         <div className="modal-buttons">
-        <button onClick={handlePrioritize} data-id={dataId} className="modal-button">Prioritize</button>
+        {handlePrioritize?<button onClick={handlePrioritize} data-id={dataId} className="modal-button">Prioritize</button>:null}
         <button onClick={handleDelete} data-id={dataId} className="modal-button">Delete</button>
         </div>
+        {handleSettings?(<>
+        <h3>Settings</h3>
+        <SettingsGrid userId={userId} dataId={dataId}/>
+        </>
+        ):null}
         </div>)
 }
 

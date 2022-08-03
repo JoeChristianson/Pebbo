@@ -33,6 +33,9 @@ function Queue({userId,date}){
         const resp = await completeQueueItem({variables})
         refetch()
     }
+
+
+
     return(
         <main className="main-section">
         <SimpleInput handleChange={handleChange} handleSubmit={handleSubmit} text={item}/>

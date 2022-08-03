@@ -10,6 +10,8 @@ const {formatDBDateForComparison} = require("../utils/date")
 const { Assessment } = require("../models/Assessment")
 const { ToDoForm } = require("../models/ToDoForm")
 const toDoMutations = require("./toDoMutations")
+const queueMutations = require("./queueMutations")
+const { settingMutations } = require("./settingMutations")
 
 
 const mutations = {
@@ -134,11 +136,12 @@ populateDay: async (parent,{userId,date})=>{
             queueDays.push(queueDay)
         }
         const day = {date,habitDays,queueDays}
+
         user.days.push(day);    
         await user.save()
         return user;
     }catch(err){
-        
+        console.log("this is the populate error",err)
     }
 },
 toggleHabitDay: async (parent,{userId,date,habitDayId})=>{
@@ -381,7 +384,9 @@ reorderQueue: async(parent,{userId,oldOrdinal,newOrdinal})=>{
             user.save()
             return "success"
         },
-        ...toDoMutations
+        ...toDoMutations,
+        ...queueMutations,
+        ...settingMutations
     }
 
 module.exports=mutations

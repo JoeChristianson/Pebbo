@@ -15,6 +15,10 @@ const QueueDaySchema = new Schema({
     isComplete:{
         type:Boolean,
         default:false
+    },
+    skips:{
+        type:Number,
+        default:0
     }
 })
 

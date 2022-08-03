@@ -9,7 +9,11 @@ const QueueSchema = new Schema({
     ordinal:{
         type:Number,
         required:true
-    }
+    },
+    offSettings:[{
+        type:Schema.Types.ObjectId,
+        ref:"Setting"
+    }]
 })
 
 module.exports = {QueueSchema}

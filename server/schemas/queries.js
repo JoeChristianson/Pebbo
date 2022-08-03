@@ -50,10 +50,11 @@ const getDay = async (parent,{userId,date})=>{
 
 const feedAssessment = async (parent,{userId,date})=>{
     const user = await User.findById(userId);
-    
+
     const day = user.days.filter(d=>{
         return formatDBDateForComparison(d.date) === date
     })[0]
+
     for (let assessment of user.assessments){
         let found = false;
         for (let assessmentDay of day.assessmentDays){
@@ -151,10 +152,23 @@ const getDash = async (parent,{userId,date})=>{
         path:"toDos.toDoForm",
         model:"ToDoForm"
     });
+    console.log(findDay(user,date))
     let {habitDays,queueDays} = findDay(user,date);
-    const queueDay = queueDays.filter(q=>{
+    let incompleteQueueDays = [...queueDays.filter(q=>{
         return !q.isComplete
-    })[0]
+    })]
+    let queueItemLowestAdjustedIndex = null;
+    let queueItemIndex = null
+    incompleteQueueDays.forEach((queueItem,index)=>{
+        if(queueItemIndex===null||(index+(queueItem.skips*1.1))<queueItemLowestAdjustedIndex){
+            queueItemLowestAdjustedIndex = (index+(queueItem.skips*1.1))
+            queueItemIndex = index
+        }else{
+            console.log("not low enough",queueItem)
+        }
+    })
+    console.log(queueItemIndex)
+
     habitDays = habitDays.filter(h=>h.isOn)
 
     const toDo = user.toDos.filter(t=>{
@@ -162,7 +176,7 @@ const getDash = async (parent,{userId,date})=>{
     })[0]
     const result = {
         toDos:toDo?[toDo]:[],
-        queueDays:queueDay?[queueDay]:[],
+        queueDays:incompleteQueueDays.length>0?[incompleteQueueDays[queueItemIndex]]:[],
         habitDays:[...habitDays]
     }
     return result
