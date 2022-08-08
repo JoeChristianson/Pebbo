@@ -1,0 +1,22 @@
+.addable-list-cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.addable-list{
+    padding: 0;
+    list-style: none;
+}
+
+.addable-list>li{
+    background-color: white;
+    width:300px;
+    padding: .5rem;
+    display: flex;
+}
+
+.addable-list span{
+    flex-grow: 1;
+}

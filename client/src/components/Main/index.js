@@ -15,6 +15,7 @@ const Habits = require("../../pages/Habits").default
 const Queue = require("../../pages/Queue").default
 const ToDos = require("../../pages/ToDos").default
 const Assessment = require("../../pages/Assessment").default
+const Variables = require("../../pages/Variables/index.tsx").default
 
 
 
@@ -81,6 +82,9 @@ const Main =  ({currentSection})=>{
     }
     if (currentSection==="assessments"){
         return(<ManageAssessments userId={userId}></ManageAssessments>)
+    }
+    if (currentSection==="variables"){
+        return(<Variables userId={userId}></Variables>)
     }
     else{
         return(<Habits dayLoading={dayLoading} dayData={dayData} refetchDay={refetchDay} refetchDash={refetchDash}></Habits>)

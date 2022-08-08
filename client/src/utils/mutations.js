@@ -182,3 +182,7 @@ mutation Mutation($userId: ID!, $settingId: ID!, $queueItemId: ID) {
   offSetting(userId: $userId, settingId: $settingId, queueItemId: $queueItemId)
 }
 `
+
+// export const DELETE_SETTING = gql`
+
+// `

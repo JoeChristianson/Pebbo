@@ -153,3 +153,12 @@ query GetAllSettingsAndOffSettings($userId: ID!, $queueItemId: ID!) {
   }
 }
 `
+
+export const GET_VARIABLES = gql`
+query GetAllSettings($userId: ID!) {
+  getAllSettings(userId: $userId) {
+    name
+    id
+  }
+}
+`

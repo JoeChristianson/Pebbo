@@ -12,6 +12,8 @@ function Nav({setCurrentSection,dropDownOpen,handleDropDown}){
             <li data-value="toDos" onClick={handleSectionChange}>To Dos</li>
             <li data-value="habits" onClick={handleSectionChange}>Habits</li>
             <li data-value="assessments" onClick={handleSectionChange}>Assessments</li>
+            <li data-value="variables" onClick={handleSectionChange}>Environment</li>
+
         </ul>
     )
 }
