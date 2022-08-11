@@ -32,16 +32,16 @@ const AddableList:FunctionComponent = ({handleAddToList,items,buttons=[]}:Props)
         <ul className="addable-list">
             {items.map((item:string,index:number)=>{
                 return(
-                    <li>
+                    <li key={index}>
                         <span>
                             {item}
                             </span>
-                        {buttons.map((button)=>{
+                        {buttons.map((button,index)=>{
                             return(
                                 <Button
                                 name={button.name}
                                 symbol={"x"}
-
+                                key={index}
                                 >
                             </Button>
                                 )

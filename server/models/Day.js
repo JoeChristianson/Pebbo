@@ -9,7 +9,8 @@ const DaySchema = new Schema({
     },
     habitDays:[HabitDaySchema],
     queueDays:[QueueDaySchema],
-    assessmentDays:[AssessmentDaySchema]
+    assessmentDays:[AssessmentDaySchema],
+    environmentalVariables:[String]
 })
 
 module.exports = {DaySchema}

@@ -17,4 +17,9 @@ const findDay = (user,date)=>{
         return formatDBDateForComparison(d.date)===date})[0]
 }
 
-module.exports = {formatDBDateForComparison,findDay}
+const getDayOfWeek = (user,date)=>{
+    return (new Date(date)).getDay()
+}
+
+
+module.exports = {formatDBDateForComparison,findDay,getDayOfWeek}

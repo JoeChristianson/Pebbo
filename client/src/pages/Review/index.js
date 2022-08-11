@@ -8,7 +8,7 @@ import { QueueDay } from "../../components/QueueDay"
 import { CONFIRM_DAY, COMPLETE_QUEUE_ITEM, TOGGLE_IS_COMPLETE } from "../../utils/mutations"
 
 
-const Review = ({userId})=>{
+const Review = ({userId,setReviewed,refresh})=>{
     const date = formatYesterday()
     const {data,loading,refetch:refetchDay} = useQuery(QUERY_REVIEW,{variables:{
         userId,date
@@ -19,6 +19,10 @@ const Review = ({userId})=>{
 
     if(loading){
         return <div>Loading...</div>
+    }
+    if(!data.getReview?.habitDays){
+        setReviewed(true)
+        return
     }
 
     const handleComplete= async (e)=>{
@@ -34,7 +38,9 @@ const Review = ({userId})=>{
     const {habitDays,queueDays} = data.getReview
 
     const handleConfirm = async ()=>{
+        console.log("confirming")
        const data = await confirmDay({variables:{userId,date:formatToday()}})
+       refresh()
     }
 
     return(
@@ -63,8 +69,8 @@ const Review = ({userId})=>{
                 })}
                 </div>
             </section>
-                <button onClick={handleConfirm}>Confirm</button>
                 </div>
+                <button onClick={handleConfirm}>Confirm</button>
         </div>
     )
 }

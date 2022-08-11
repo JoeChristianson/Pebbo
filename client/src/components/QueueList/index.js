@@ -74,6 +74,7 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
             {sortedQueue.map((q,i)=>{
              
                 return(<div draggable 
+                    key={i}
                     onDragOver={handleDragOver}
                     onDragEnter={handleDragEnter}
                     onDragLeave={handleDragLeave}

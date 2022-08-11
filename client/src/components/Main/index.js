@@ -22,9 +22,10 @@ const Variables = require("../../pages/Variables/index.tsx").default
 const Main =  ({currentSection})=>{
     
     const userId = auth.getProfile().data._id
+    const [reviewed,setReviewed] = useState(false)
     const variables = {userId,date:formatToday()}
     const [isPopulated,setIsPopulated] = useState(false)
-    const {data:datesData,loading:datesLoading} = useQuery(GET_DATES,{variables:{userId}})
+    const {data:datesData,loading:datesLoading,refetch:refetchDates} = useQuery(GET_DATES,{variables:{userId}})
     const {loading:assessmentLoading,data:pendingAssessmentData,refetch:refetchAssessment} = useQuery(FEED_ASSESSMENT,
         {variables})
         
@@ -62,9 +63,9 @@ const Main =  ({currentSection})=>{
         return(<Assessment refetchAssessment={refetchAssessment} date={formatToday()} userId={userId} assessment={pendingAssessmentData.feedAssessment}></Assessment>)
     }
 
-    if(formatToday()!==datesData.getDates?.lastReviewed && datesData.getDates?.days){
+    if(formatToday()!==datesData.getDates?.lastReviewed&&!reviewed){
         return(
-            <Review userId={userId}/>
+            <Review refresh={refetchDates} userId={userId} setReviewed={setReviewed}/>
         )
     }
 

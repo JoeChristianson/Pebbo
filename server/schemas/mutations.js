@@ -1,4 +1,4 @@
-const { findDay } = require("../utils/date")
+const { findDay, getDayOfWeek } = require("../utils/date")
 
 const {User,Habit,QueueItem}=require("../models")
 const { HabitDay } = require("../models/HabitDay")
@@ -135,7 +135,10 @@ populateDay: async (parent,{userId,date})=>{
             }
             queueDays.push(queueDay)
         }
-        const day = {date,habitDays,queueDays}
+
+        const environmentalVariables = [getDayOfWeek(user,date)]
+
+        const day = {date,habitDays,queueDays,environmentalVariables}
 
         user.days.push(day);    
         await user.save()
