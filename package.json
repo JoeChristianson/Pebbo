@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/JoeChristianson/HABD#readme",
   "dependencies": {
-    "@types/jest": "^28.1.6",
-    "@types/node": "^18.6.4",
+    "@types/jest": "^28.1.7",
+    "@types/node": "^18.7.6",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "apollo-client": "^2.6.10",

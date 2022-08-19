@@ -1,7 +1,7 @@
 import "./modal.css"
 import { SettingsGrid } from "../SettingsGrid"
 
-export const Modal = ({userId,setModalOpen,modalInput,handleDelete,dataId,handlePrioritize,handleSettings})=>{
+export const Modal = ({userId,setModalOpen,modalInput,handleDelete,dataId,handlePrioritize,handleSettings,notes})=>{
     
 
     const handleModalClose = ()=>{
@@ -20,6 +20,7 @@ export const Modal = ({userId,setModalOpen,modalInput,handleDelete,dataId,handle
         <SettingsGrid userId={userId} dataId={dataId}/>
         </>
         ):null}
+        {notes&&notes.length>0&&(<div>There are notes</div>)}
         </div>)
 }
 

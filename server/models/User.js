@@ -49,6 +49,10 @@ toDos:[ToDoSchema],
 settings:[{
   type:Schema.Types.ObjectId,
   ref:"Setting"
+}],
+journal:[{
+  type:Schema.Types.ObjectId,
+  ref:"Journal"
 }]
 });
 

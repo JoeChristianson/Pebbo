@@ -45,6 +45,7 @@ const typeDefs = gql`
     dateCreated: String
     dateDone: String
     priority:Int
+    notes:String
   }
 
   type Setting{
@@ -124,6 +125,11 @@ const typeDefs = gql`
     creator: ID!
   }
 
+  type Entry {
+    date:String!
+    text:String!
+  }
+
   type QueueSettings {
     settings:[Setting]
     offSettings:[Setting]
@@ -142,6 +148,7 @@ const typeDefs = gql`
     getDash(userId:ID!,date:String!):Dash
     getAllSettings(userId:ID!):[Setting]
     getAllSettingsAndOffSettings(userId:ID!,queueItemId:ID!):QueueSettings
+    getAllJournalEntries(userId:ID!):[Entry]
   }
 
   type Mutation {
@@ -169,6 +176,8 @@ const typeDefs = gql`
       skipQueueItem(userId:ID!,queueItem:ID!,date:String!):QueueDay
       addSetting(userId:ID!,settingName:String!):String
       offSetting(userId:ID!,settingId:ID!,queueItemId:ID):String
+      addJournalEntry(userId:ID!,date:String!,text:String!):Entry
+      addNoteToToDo(userId:ID!,toDoId:ID!,note:String!):String 
     }
 
 `
