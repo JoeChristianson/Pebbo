@@ -56,16 +56,17 @@ query Query($userId: ID!, $date: String!) {
 export const GET_QUEUE = gql`
 query Query($userId: ID!, $date: String!) {
   getDailyQueue(userId: $userId, date: $date) {
+    attempts
+    successes
+    date
     queueItem {
-      _id
       name
+      _id
     }
     isOn
     isComplete
-    date
     ordinal
-    attempts
-    successes
+    skips
   }
 }
 `

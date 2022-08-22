@@ -72,7 +72,7 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
     return(
         <div className="list">
             {sortedQueue.map((q,i)=>{
-             
+                console.log(q)
                 return(<div draggable 
                     key={i}
                     onDragOver={handleDragOver}
@@ -80,9 +80,11 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
                     onDragLeave={handleDragLeave}
                     onDragStart={(e)=>setDraggedOrdinal(e.target.dataset.ordinal)}
                     data-id={q.queueItem._id}
-                data-ordinal={q.ordinal} onDrop={handleDrop} className={q.isComplete?"done list-item":"list-item"}><span data-ordinal={q.ordinal}       data-id={q.queueItem._id} className="pointer" data-name={q.queueItem.name} onClick={handleOpenModal} >
+                data-ordinal={q.ordinal} onDrop={handleDrop} className={q.isComplete?"done list-item":"list-item"}>
+                    <span>{Math.round(q.successes*100/q.attempts)}%</span>
+                    <span data-ordinal={q.ordinal}       data-id={q.queueItem._id} className="pointer" data-name={q.queueItem.name} onClick={handleOpenModal} >
                     {q.queueItem.name}
-                    {q.queueItem.attempts}
+                    
                     </span>
                     <button className="pointer" onClick={handleComplete} data-name={q.queueItem.name} data-date={q.date}></button>
                     </div>)
