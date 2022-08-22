@@ -3,15 +3,20 @@ import {QueueDay} from "../../components/QueueDay"
 import { ToDo } from "../../components/ToDo"
 import { useMutation, useQuery } from "@apollo/client"
 import { GET_DASH } from "../../utils/queries"
-import { COMPLETE_QUEUE_ITEM, COMPLETE_TO_DO, SKIP_QUEUE_ITEM, TOGGLE_IS_COMPLETE } from "../../utils/mutations"
+import { COMPLETE_QUEUE_ITEM, COMPLETE_TO_DO, SKIP_QUEUE_ITEM, TOGGLE_IS_COMPLETE,ADD_TO_DO } from "../../utils/mutations"
 import HabitDay from "../../components/HabitDay"
+import FormElement from "../../components/generics/Form"
+import { useState } from "react"
+import { formatToday } from "../../utils/date"
 
 const Dash = ({userId,date,data,loading,error,refetch,refetchDay})=>{
-
-const [completeQueueItem,{data:qData,loading:qLoading,error:qError}] = useMutation(COMPLETE_QUEUE_ITEM)
-const [completeHabitDay,{data:hData,loading:hLoading,error:hError}] = useMutation(TOGGLE_IS_COMPLETE)
-const [completeToDo,{data:tData,loading:tLoading,error:tError}] = useMutation(COMPLETE_TO_DO)
-const [skipQueueItem,{data:sqData,loading:sqLoading,error:sqError}] = useMutation(SKIP_QUEUE_ITEM)
+    
+    const [completeQueueItem,{data:qData,loading:qLoading,error:qError}] = useMutation(COMPLETE_QUEUE_ITEM)
+    const [completeHabitDay,{data:hData,loading:hLoading,error:hError}] = useMutation(TOGGLE_IS_COMPLETE)
+    const [addToDo,{data:newData,loading:newLoading,error:newError}]=useMutation(ADD_TO_DO)    
+    const [completeToDo,{data:tData,loading:tLoading,error:tError}] = useMutation(COMPLETE_TO_DO)
+    const [skipQueueItem,{data:sqData,loading:sqLoading,error:sqError}] = useMutation(SKIP_QUEUE_ITEM)
+    const [inputValues,setInputValues] = useState({newHabit:""})
 
 if(loading){
     return(
@@ -56,7 +61,25 @@ const handleHabitComplete = async (e)=>{
     await refetchDay()
 }
 
+const handleNewHabitFormInputChange = (e)=>{
+    console.log(e.target.value)
+    setInputValues({newHabit:e.target.value})
+}
+
+const handleNewHabitFormSubmit = async (e)=>{
+    console.log(e)
+    e.preventDefault()
+    const newToDo = inputValues.newHabit
+    await addToDo({variables:{
+        creator:userId,name:newToDo,date:formatToday()
+    }})
+    refetch()
+    setInputValues({newHabit:""})
+    e.target.elements.newHabit.value = ""
+}
+
 const {queueDays,habitDays,toDos} = data.getDash
+
 
 
     return(
@@ -65,6 +88,12 @@ const {queueDays,habitDays,toDos} = data.getDash
            {queueDays[0]?<QueueDay handleQueueSkip={handleQueueSkip} handleComplete={handleQueueComplete} queueDay={queueDays[0]}/>:null}
         </section>
         <section className="dash-section">
+            <FormElement
+            formInputs={[{label:"New Habit",name:"newHabit"}]}
+            formInputValues={inputValues}
+            handleFormInputChange={handleNewHabitFormInputChange}
+            handleFormSubmit={handleNewHabitFormSubmit}
+            ></FormElement>
             {toDos[0]?(        <ToDo toDo={toDos[0]} handleComplete={handleToDoComplete} />):null}
         </section>
         <section className="dash-section">

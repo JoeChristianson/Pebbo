@@ -64,6 +64,8 @@ query Query($userId: ID!, $date: String!) {
     isComplete
     date
     ordinal
+    attempts
+    successes
   }
 }
 `

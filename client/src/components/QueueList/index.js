@@ -82,6 +82,7 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
                     data-id={q.queueItem._id}
                 data-ordinal={q.ordinal} onDrop={handleDrop} className={q.isComplete?"done list-item":"list-item"}><span data-ordinal={q.ordinal}       data-id={q.queueItem._id} className="pointer" data-name={q.queueItem.name} onClick={handleOpenModal} >
                     {q.queueItem.name}
+                    {q.queueItem.attempts}
                     </span>
                     <button className="pointer" onClick={handleComplete} data-name={q.queueItem.name} data-date={q.date}></button>
                     </div>)

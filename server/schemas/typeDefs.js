@@ -75,6 +75,8 @@ const typeDefs = gql`
     isComplete: Boolean!
     ordinal: Int
     skips:Int
+    attempts:Int
+    successes:Int
   }
 
   type Auth {

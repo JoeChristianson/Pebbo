@@ -1,6 +1,7 @@
 const {User, QueueItem} = require("../models")
 const {formatDBDateForComparison, findDay} = require("../utils/date")
-const { Assessment } = require("../models/Assessment")
+const { Assessment } = require("../models/Assessment");
+const { queueItemCompletionRate } = require("../analysis/queue/completion");
 
 const allUsers = async ()=>{
     let users = await User.find().populate("habits").populate({path:"queue.queueItem",model:"QueueItem"});
@@ -92,7 +93,6 @@ const getToDos = async (parent,{userId})=>{
 const getDailyQueue = async(parent,{userId,date})=>{
     const user = await User.findById(userId);
     const day = user.days.filter(day=>{
-        
         return (date === formatDBDateForComparison(day.date))
     })[0];
     const dailyQueue = day.queueDays;
@@ -105,7 +105,9 @@ const getDailyQueue = async(parent,{userId,date})=>{
     for (let i = 0;i<queueItems.length;i++){
         
         const el = {ordinal:user.queue[i].ordinal,date:formatDBDateForComparison(dailyQueue[i].date),isOn:dailyQueue[i].isOn,isComplete:dailyQueue[i].isComplete,queueItem:queueItems[i]}
-        result.push(el)
+        const stats = await queueItemCompletionRate(userId,user.queue[i].queueItem.toString())
+        console.log(stats)
+        result.push({...el,...stats})
     }
     
     return result

@@ -37,7 +37,7 @@ const client = new ApolloClient({
 });
 
 function App() {
-  const [currentSection,setCurrentSection] = useState("variables")
+  const [currentSection,setCurrentSection] = useState("dash")
 
   const loggedIn = auth.loggedIn()
 
