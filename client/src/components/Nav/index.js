@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 function Nav({setCurrentSection,dropDownOpen,handleDropDown}){
 
     const handleSectionChange = (e)=>{
@@ -7,12 +9,25 @@ function Nav({setCurrentSection,dropDownOpen,handleDropDown}){
 
     return(
         <ul className={dropDownOpen?"open":"closed"}>
-            <li data-value="dash" onClick={handleSectionChange}>Dash</li>
-            <li data-value="queue" onClick={handleSectionChange}>Queue</li>
-            <li data-value="toDos" onClick={handleSectionChange}>To Dos</li>
-            <li data-value="habits" onClick={handleSectionChange}>Habits</li>
-            <li data-value="assessments" onClick={handleSectionChange}>Assessments</li>
-            <li data-value="variables" onClick={handleSectionChange}>Environment</li>
+        <Link to="/dash"><li>
+                            </li>Dash
+                            </Link>
+                            <Link to="/queue"><li>
+                            </li>Queue
+                            </Link>
+                            <Link to="/to-dos"><li>
+                            </li>To Do
+                            </Link>
+                            <Link to="/assessments"><li>
+                            </li>Assessments
+                            </Link>
+                            <Link to="/variables"><li>
+                            </li>Variables
+                            </Link>
+                            <Link to="/habits"><li>
+                            </li>Habits
+                            </Link>
+
 
         </ul>
     )

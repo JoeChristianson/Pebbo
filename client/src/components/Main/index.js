@@ -4,6 +4,7 @@ import { useEffect,useState } from "react"
 import Dash  from "../../pages/Dash"
 import Review from "../../pages/Review"
 import { ManageAssessments } from "../../pages/ManageAssessments"
+import { BrowserRouter, Route, Routes,useParams } from "react-router-dom"
 const {useQuery,useMutation} = require("@apollo/client")
 const auth = require("../../utils/auth").default
 const {formatToday,formatYesterday} = require("../../utils/date")
@@ -69,27 +70,19 @@ const Main =  ({currentSection})=>{
         )
     }
 
-
-
-    if (currentSection==="dash"){
-        return(<Dash data={dashData} loading={dashLoading} error={dashError} refetch={refetchDash} userId={userId} date={formatToday()} refetchDay={refetchDay}/>)
-    }
+// I cannot get this below to work!!!!!!!!!!!!!!!!!!!!!
+    return (
+        <Routes>
+            <Route path="/"
+            element={<Dash data={dashData} loading={dashLoading} error={dashError} refetch={refetchDash} userId={userId} date={formatToday()} refetchDay={refetchDay}/>}></Route>
+            <Route path="/queue"   element={<Queue userId={userId} date={formatToday()}></Queue>}></Route>
+            <Route path="/to-dos" element={<ToDos userId={userId}></ToDos>}></Route>
+            <Route path="/assessments" element={<ManageAssessments userId={userId}></ManageAssessments>}></Route>
+            <Route path="/variables" element={<Variables userId={userId}></Variables>}></Route>
+            <Route path="/habits" element={<Habits dayLoading={dayLoading} dayData={dayData} refetchDay={refetchDay} refetchDash={refetchDash}></Habits>}></Route>
+        </Routes>
+    )
     
-    if (currentSection==="queue"){
-        return(<Queue userId={userId} date={formatToday()}></Queue>)
-    }
-    if (currentSection==="toDos"){
-        return(<ToDos userId={userId}></ToDos>)
-    }
-    if (currentSection==="assessments"){
-        return(<ManageAssessments userId={userId}></ManageAssessments>)
-    }
-    if (currentSection==="variables"){
-        return(<Variables userId={userId}></Variables>)
-    }
-    else{
-        return(<Habits dayLoading={dayLoading} dayData={dayData} refetchDay={refetchDay} refetchDash={refetchDash}></Habits>)
-    }
 
 }
 

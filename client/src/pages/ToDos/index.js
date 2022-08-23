@@ -2,9 +2,10 @@ import {useQuery,useMutation} from "@apollo/client"
 import { GET_TO_DOS } from "../../utils/queries"
 import SimpleInput from "../../components/simpleInput"
 import {useState} from "react"
-import {ADD_TO_DO,COMPLETE_TO_DO,DELETE_TO_DO, PRIORITIZE_TO_DO} from "../../utils/mutations"
+import {ADD_SUBTASK, ADD_TO_DO,COMPLETE_TO_DO,DELETE_TO_DO, PRIORITIZE_TO_DO} from "../../utils/mutations"
 import {formatToday} from "../../utils/date"
 import { Modal } from "../../components/Modal"
+import FormElement from "../../components/generics/Form"
 
 function ToDos({userId}){
  
@@ -109,8 +110,35 @@ function ToDos({userId}){
             }
         })}
         </div>
-        {modalOpen?<Modal handlePrioritize={handlePrioritize} setModalOpen={setModalOpen} modalInput={modalInput} handleDelete={handleDelete} dataId={dataId} />:null}
+        {modalOpen?<Modal handlePrioritize={handlePrioritize} setModalOpen={setModalOpen} modalInput={modalInput} handleDelete={handleDelete} dataId={dataId} >
+        <SubTasks userId={userId} toDoId={dataId}></SubTasks>
+
+        </Modal>:null}
         </main>
+    )
+}
+
+const SubTasks = ({userId,toDoId})=>{
+    const [addSubTask,{error:addError}] = useMutation(ADD_SUBTASK)
+    // const {data,error,loading} = useQuery(GET_SUBTASKS,{userId,toDoId})
+    const [text,setText] = useState("")
+    const handleFormInputChange = (e)=>{
+        setText(e.target.value)
+        console.log(text)
+    }
+    const handleFormSubmit = async (e)=>{
+        e.preventDefault()
+        const variables = {
+            userId,toDoId,date:formatToday(),name:text
+        }
+        addSubTask({variables})
+        setText("")
+    }
+    return(
+        <FormElement formInputs={[{name:"text",label:"text"}]} formInputValues={{text}}
+        handleFormSubmit={handleFormSubmit}
+        handleFormInputChange={handleFormInputChange}
+        />
     )
 }
 

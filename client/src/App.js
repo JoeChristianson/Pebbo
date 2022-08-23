@@ -11,6 +11,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import auth from "./utils/auth"
+import { BrowserRouter } from 'react-router-dom';
 
 const httpLink = createHttpLink({
   // toggle for production/absolute path for development
@@ -43,6 +44,7 @@ function App() {
 
 
   return (
+    <BrowserRouter>
     <ApolloProvider client={client}>
     {!loggedIn?<AuthComponent/>:
     
@@ -52,6 +54,7 @@ function App() {
     </div>
   }
     </ApolloProvider>
+  </BrowserRouter>
   );
 }
 

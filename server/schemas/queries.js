@@ -85,8 +85,11 @@ const getToDos = async (parent,{userId})=>{
     const user = await User.findById(userId).populate({
         path:"toDos.toDoForm",
         model:"ToDoForm"
+    }).populate({
+        path:"toDos.subTasks.toDoForm",
+        model:"ToDoForm"
     });
-    
+    console.log(user.toDos[0].subTasks)
     return user.toDos.filter(t=> !t.dateDone)
 }
 

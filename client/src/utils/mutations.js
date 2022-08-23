@@ -190,6 +190,8 @@ mutation Mutation($userId: ID!, $settingId: ID!, $queueItemId: ID) {
 }
 `
 
-// export const DELETE_SETTING = gql`
-
-// `
+export const ADD_SUBTASK = gql`
+mutation Mutation($userId: ID!, $toDoId: ID!, $name: String, $date: String) {
+  addSubTask(userId: $userId, toDoId: $toDoId, name: $name, date: $date)
+}
+`

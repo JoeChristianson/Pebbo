@@ -39,6 +39,12 @@ const typeDefs = gql`
     lastReviewed:String
   }
 
+  type SubTask {
+    toDoForm: ToDoForm
+    dateCreated: String
+    dateDone: String
+  }
+
   type ToDo {
     _id: ID!
     toDoForm: ToDoForm
@@ -46,6 +52,7 @@ const typeDefs = gql`
     dateDone: String
     priority:Int
     notes:String
+    subTasks:[SubTask]
   }
 
   type Setting{
@@ -180,6 +187,7 @@ const typeDefs = gql`
       offSetting(userId:ID!,settingId:ID!,queueItemId:ID):String
       addJournalEntry(userId:ID!,date:String!,text:String!):Entry
       addNoteToToDo(userId:ID!,toDoId:ID!,note:String!):String 
+      addSubTask(userId:ID!,toDoId:ID!,name:String,date:String):String
     }
 
 `

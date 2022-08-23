@@ -14,12 +14,14 @@ header ul {
 
     margin:0
    }
-header li{
+header a,header>ul>li{
     padding:20px;
-    cursor:pointer
+    cursor:pointer;
+    text-decoration: none;
+    color:black;
 }
 
-header li:hover{
+header a:hover,header>ul>li:hover{
     background-color: var(--accent-hover);
 }
 
