@@ -4,6 +4,7 @@ const mutations = require("./mutations");
 const { notesMutations } = require("./notes/notesMutations.js");
 const queries = require("./queries");
 const settingQueries = require("./settingQueries");
+const toDoQueries = require("./toDoQueries")
 
 const resolvers = {
     Query:{

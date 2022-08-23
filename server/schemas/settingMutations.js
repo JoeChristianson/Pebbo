@@ -1,3 +1,4 @@
+const { findDay } = require("../utils/date");
 const {User,Setting} = require("../models")
 
 const settingMutations = {
@@ -32,6 +33,14 @@ const settingMutations = {
     }catch(err){
         console.log(err)
     }
+    },
+    addSettingToDay: async (parent,{userId,settings,date})=>{
+        const user = await User.findById(userId);
+        const day = findDay(user,date);
+        day.environmentalVariables = settings;
+        user.lastSetting = date;
+        user.save()
+        return "success"
     }
 }
 

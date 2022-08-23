@@ -37,12 +37,14 @@ const typeDefs = gql`
     lastPopulated:String
     birthdate:String
     lastReviewed:String
+    lastSetting:String
   }
 
   type SubTask {
     toDoForm: ToDoForm
     dateCreated: String
     dateDone: String
+    _id:ID
   }
 
   type ToDo {
@@ -187,7 +189,9 @@ const typeDefs = gql`
       offSetting(userId:ID!,settingId:ID!,queueItemId:ID):String
       addJournalEntry(userId:ID!,date:String!,text:String!):Entry
       addNoteToToDo(userId:ID!,toDoId:ID!,note:String!):String 
-      addSubTask(userId:ID!,toDoId:ID!,name:String,date:String):String
+      addSubTask(userId:ID!,toDoId:ID!,name:String,date:String):SubTask
+      completeSubTask(userId:ID!,toDoId:ID!,subtaskId:ID!,date:String!):String
+      addSettingToDay(userId:ID!,settings:[String],date:String):String
     }
 
 `

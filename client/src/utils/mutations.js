@@ -192,6 +192,32 @@ mutation Mutation($userId: ID!, $settingId: ID!, $queueItemId: ID) {
 
 export const ADD_SUBTASK = gql`
 mutation Mutation($userId: ID!, $toDoId: ID!, $name: String, $date: String) {
-  addSubTask(userId: $userId, toDoId: $toDoId, name: $name, date: $date)
+  addSubTask(userId: $userId, toDoId: $toDoId, name: $name, date: $date) {
+    toDoForm {
+      _id
+      name
+    }
+    dateCreated
+    dateDone
+    _id
+  }
+}
+`
+
+export const COMPLTE_SUBTASK = gql`
+mutation CompleteSubTask($userId: ID!, $toDoId: ID!, $subtaskId: ID!, $date: String!) {
+  completeSubTask(userId: $userId, toDoId: $toDoId, subtaskId: $subtaskId, date: $date)
+}
+`
+
+export const ADD_NOTE_TO_TO_DO = gql`
+mutation Mutation($userId: ID!, $toDoId: ID!, $note: String!) {
+  addNoteToToDo(userId: $userId, toDoId: $toDoId, note: $note)
+}
+`
+
+export const ADD_SETTINGS_TO_DAY = gql`
+mutation Mutation($userId: ID!, $settings: [String], $date: String) {
+  addSettingToDay(userId: $userId, settings: $settings, date: $date)
 }
 `

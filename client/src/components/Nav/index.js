@@ -9,7 +9,7 @@ function Nav({setCurrentSection,dropDownOpen,handleDropDown}){
 
     return(
         <ul className={dropDownOpen?"open":"closed"}>
-        <Link to="/dash"><li>
+        <Link to="/"><li>
                             </li>Dash
                             </Link>
                             <Link to="/queue"><li>

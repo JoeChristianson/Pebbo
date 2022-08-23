@@ -2,10 +2,12 @@ import {useQuery,useMutation} from "@apollo/client"
 import { GET_TO_DOS } from "../../utils/queries"
 import SimpleInput from "../../components/simpleInput"
 import {useState} from "react"
-import {ADD_SUBTASK, ADD_TO_DO,COMPLETE_TO_DO,DELETE_TO_DO, PRIORITIZE_TO_DO} from "../../utils/mutations"
+import {ADD_NOTE_TO_TO_DO, ADD_SUBTASK, ADD_TO_DO,COMPLETE_TO_DO,COMPLTE_SUBTASK,DELETE_TO_DO, PRIORITIZE_TO_DO} from "../../utils/mutations"
 import {formatToday} from "../../utils/date"
 import { Modal } from "../../components/Modal"
 import FormElement from "../../components/generics/Form"
+import { ToDo } from "../../components/ToDo"
+import { EditField } from "../../components/generics/EditField"
 
 function ToDos({userId}){
  
@@ -21,6 +23,7 @@ function ToDos({userId}){
     const [modalOpen,setModalOpen] = useState(false)
     const [dataId,setDataId] = useState(null)
     const [modalInput,setModalInput] = useState({name:""})
+    const [subTasks,setSubtasks] = useState([])
 
     const handleComplete = async (e)=>{  
         try{
@@ -52,7 +55,17 @@ function ToDos({userId}){
         setDataId(id)
         setModalOpen(true)
         setModalInput({name:e.target.dataset.name})
+        const newSubTasks = data.getToDos.find(td=>td._id===id).subTasks
+        setSubtasks(newSubTasks)
     }
+
+    const updateSubtasks = ()=>{
+        console.log("this is what it is updating with",data.getToDos)
+        const newSubTasks = data.getToDos.find(td=>td._id===dataId).subTasks;
+        console.log(newSubTasks)
+        setSubtasks(newSubTasks)
+    }
+
     let topPriority = 0;
 
     const handlePrioritize = async (e)=>{
@@ -111,35 +124,75 @@ function ToDos({userId}){
         })}
         </div>
         {modalOpen?<Modal handlePrioritize={handlePrioritize} setModalOpen={setModalOpen} modalInput={modalInput} handleDelete={handleDelete} dataId={dataId} >
-        <SubTasks userId={userId} toDoId={dataId}></SubTasks>
-
+        <SubTasks update={updateSubtasks} userId={userId} toDoId={dataId} subTasks={subTasks} refetch={refetch}></SubTasks>
+        <ToDoNotes refetch={refetch} userId={userId} toDo={sortedToDos.find(s=>s._id===dataId)}></ToDoNotes>
         </Modal>:null}
         </main>
     )
 }
 
-const SubTasks = ({userId,toDoId})=>{
+const SubTasks = ({userId,toDoId,subTasks,refetch,update})=>{
+    const [subtaskList,setSubtaskList] = useState(subTasks)
     const [addSubTask,{error:addError}] = useMutation(ADD_SUBTASK)
+    const [completeSubTask,{data:cData,error:cError,loading:cLoading}]=useMutation(COMPLTE_SUBTASK)
     // const {data,error,loading} = useQuery(GET_SUBTASKS,{userId,toDoId})
+    // console.log(data)
     const [text,setText] = useState("")
     const handleFormInputChange = (e)=>{
         setText(e.target.value)
-        console.log(text)
     }
     const handleFormSubmit = async (e)=>{
         e.preventDefault()
         const variables = {
             userId,toDoId,date:formatToday(),name:text
         }
-        addSubTask({variables})
+        console.log(variables)
+        const data = await addSubTask({variables})
+        console.log("newSubTask",data);
+        setSubtaskList([...subtaskList,data.data.addSubTask])
         setText("")
+        update()
+        refetch()
     }
+    const handleComplete = async (e)=>{
+        const subtaskId = e.target.dataset.id
+        const variables = {toDoId,subtaskId,userId,date:formatToday()}
+        console.log(variables)
+        const res = await completeSubTask({variables})
+        const newSubtasksList = subTasks.filter(s=>s._id!==subtaskId)
+        setSubtaskList(newSubtasksList)
+        update()
+        refetch()
+    }
+
     return(
+        <>
         <FormElement formInputs={[{name:"text",label:"text"}]} formInputValues={{text}}
         handleFormSubmit={handleFormSubmit}
         handleFormInputChange={handleFormInputChange}
         />
+        {subtaskList.filter(s=>!s.dateDone).map((subTask,key)=>{
+            return <ToDo key={key} toDo={subTask} handleComplete={handleComplete}></ToDo>
+        })}
+        </>
     )
+}
+
+const ToDoNotes = ({userId,toDo,refetch})=>{
+    console.log(toDo)
+    const [note,setNote] = useState(toDo.notes||"")
+    const [addNote,{data,error,loading}] = useMutation(ADD_NOTE_TO_TO_DO)
+    const saveHandler = async (text)=>{
+        const variables = {userId,toDoId:toDo._id,note:text}
+        console.log(variables)
+        await addNote({variables})
+        setNote(text)
+        refetch()
+    }
+
+    return(<>
+        <EditField mutation={saveHandler} text={note}></EditField>
+    </>)
 }
 
 export default ToDos

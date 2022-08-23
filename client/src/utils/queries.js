@@ -74,14 +74,24 @@ query Query($userId: ID!, $date: String!) {
 export const GET_TO_DOS = gql`
 query Query($userId: ID!) {
   getToDos(userId: $userId) {
+    _id
     toDoForm {
       _id
       name
     }
     dateCreated
     dateDone
-    _id
     priority
+    notes
+    subTasks {
+      toDoForm {
+        _id
+        name
+      }
+      dateCreated
+      dateDone
+      _id
+    }
   }
 }
 `
@@ -93,6 +103,7 @@ query GetDates($userId: ID!) {
     lastPopulated
     birthdate
     lastReviewed
+    lastSetting
   }
 }`
 

@@ -1,5 +1,6 @@
 const { ToDoForm } = require("../models/ToDoForm");
-const {User} = require("../models")
+const {User} = require("../models");
+const { ObjectID } = require("bson");
 
 const toDoMutations = {
 
@@ -27,13 +28,27 @@ const toDoMutations = {
             if(!subTaskForm){
                 subTaskForm = await ToDoForm.create({name,creator:userId})
             }
-            const subTask = {toDoForm:subTaskForm._id,dateCreated:date,dateDone:null}
+            const id = new ObjectID()
+            const subTask = {toDoForm:subTaskForm._id,dateCreated:date,dateDone:null,_id:id}
             toDo.subTasks.push(subTask);
             await user.save()
-            return "Success"
+            return {toDoForm:subTaskForm,dateCreated:date,dateDone:null,_id:id}
         }catch(err){
             console.error(err)
         }
+    },
+    completeSubTask: async (parent,{userId,toDoId,subtaskId,date})=>{
+        const user = await User.findById(userId);
+        const toDo = user.toDos.find(t=>{
+            return t._id.toString()===toDoId
+        });
+        const subTask = toDo.subTasks.find(s=>{
+            console.log(s._id,subtaskId)
+            return (s._id.toString()===subtaskId)
+        });
+        subTask.dateDone = date;
+        user.save();
+        return "Success"
     }
 
 }

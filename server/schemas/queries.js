@@ -1,5 +1,6 @@
 const {User, QueueItem} = require("../models")
 const {formatDBDateForComparison, findDay} = require("../utils/date")
+const {queueItemActive} = require("../utils/settings")
 const { Assessment } = require("../models/Assessment");
 const { queueItemCompletionRate } = require("../analysis/queue/completion");
 
@@ -94,14 +95,18 @@ const getToDos = async (parent,{userId})=>{
 }
 
 const getDailyQueue = async(parent,{userId,date})=>{
+
+
     const user = await User.findById(userId);
     const day = user.days.filter(day=>{
         return (date === formatDBDateForComparison(day.date))
     })[0];
     const dailyQueue = day.queueDays;
+
     const queueItems = [];
     for (let queueDay of dailyQueue){
         const queueItem = await QueueItem.findById(queueDay.queueItem);
+        queueItemActive(day,queueItem,user.queue)
         queueItems.push(queueItem)
     }
     const result = []
@@ -109,7 +114,6 @@ const getDailyQueue = async(parent,{userId,date})=>{
         
         const el = {ordinal:user.queue[i].ordinal,date:formatDBDateForComparison(dailyQueue[i].date),isOn:dailyQueue[i].isOn,isComplete:dailyQueue[i].isComplete,queueItem:queueItems[i]}
         const stats = await queueItemCompletionRate(userId,user.queue[i].queueItem.toString())
-        console.log(stats)
         result.push({...el,...stats})
     }
     
@@ -119,8 +123,8 @@ const getDailyQueue = async(parent,{userId,date})=>{
 
 const getDates = async (parent,{userId})=>{
     const user = await User.findById(userId);
-    const {lastAssessed,lastPopulated,birthdate,lastReviewed} = user;
-    const dates = {lastAssessed,lastPopulated,birthdate,lastReviewed};
+    const {lastAssessed,lastPopulated,birthdate,lastReviewed,lastSetting} = user;
+    const dates = {lastAssessed,lastPopulated,birthdate,lastReviewed,lastSetting};
     
     for (let prop in dates){
         dates[prop] = formatDBDateForComparison(dates[prop])
@@ -157,7 +161,6 @@ const getDash = async (parent,{userId,date})=>{
         path:"toDos.toDoForm",
         model:"ToDoForm"
     });
-    console.log(findDay(user,date))
     let {habitDays,queueDays} = findDay(user,date);
     let incompleteQueueDays = [...queueDays.filter(q=>{
         return !q.isComplete
@@ -172,7 +175,6 @@ const getDash = async (parent,{userId,date})=>{
             console.log("not low enough",queueItem)
         }
     })
-    console.log(queueItemIndex)
 
     habitDays = habitDays.filter(h=>h.isOn)
 

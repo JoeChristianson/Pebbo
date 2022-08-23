@@ -43,6 +43,9 @@ lastAssessed:{
 lastReviewed:{
   type:Date
 },
+lastSetting:{
+  type:Date
+},
 days:[DaySchema],
 queue:[QueueSchema],
 toDos:[ToDoSchema],

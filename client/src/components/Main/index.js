@@ -5,6 +5,7 @@ import Dash  from "../../pages/Dash"
 import Review from "../../pages/Review"
 import { ManageAssessments } from "../../pages/ManageAssessments"
 import { BrowserRouter, Route, Routes,useParams } from "react-router-dom"
+import { TodaysSettings } from "../../pages/TodaysSettings"
 const {useQuery,useMutation} = require("@apollo/client")
 const auth = require("../../utils/auth").default
 const {formatToday,formatYesterday} = require("../../utils/date")
@@ -69,8 +70,14 @@ const Main =  ({currentSection})=>{
             <Review refresh={refetchDates} userId={userId} setReviewed={setReviewed}/>
         )
     }
+    console.log("last setting",datesData.getDates?.lastSetting)
+    if(formatToday()!==datesData.getDates?.lastSetting){
+        return (
+            <TodaysSettings  refresh={refetchDates} userId={userId}></TodaysSettings>
+        )
+    }
 
-// I cannot get this below to work!!!!!!!!!!!!!!!!!!!!!
+
     return (
         <Routes>
             <Route path="/"
