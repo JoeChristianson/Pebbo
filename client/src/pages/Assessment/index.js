@@ -1,7 +1,7 @@
+import "./assessment.css"
 const {useState} = require("react")
 const {useMutation} = require("@apollo/client")
 const {MAKE_ASSESSMENT} = require("../../utils/mutations")
-
 const Assessment = ({userId,date,assessment,refetchAssessment})=>{
 
     const [makeAssessment,{data:assessmentData,loading:assessmentLoading,error:assessmentError}] = useMutation(MAKE_ASSESSMENT)
@@ -38,18 +38,18 @@ const Assessment = ({userId,date,assessment,refetchAssessment})=>{
     <div>
         <h1>{assessment.name}</h1>
 
-        {assessment.metric==="boolean"?(<div><button data-value={1} onClick={handleButton} >Success</button><button data-value={0} onClick={handleButton} >Failure</button></div>):null}
+        {assessment.metric==="boolean"?(<div  className="assessment-btn-cont"><button  className={value==1?"selected":""} data-value={1} onClick={handleButton} >Success</button><button className={value==0?"selected":""} data-value={0} onClick={handleButton} >Failure</button></div>):null}
         {assessment.metric==="grade"?(
-            <div>
-                <button data-value={4} onClick={handleButton} >A</button>
-                <button data-value={3} onClick={handleButton} >B</button>
-                <button data-value={2} onClick={handleButton} >C</button>
-                <button data-value={1} onClick={handleButton} >D</button>
-                <button data-value={0} onClick={handleButton} >F</button>
+            <div className="assessment-btn-cont">
+                <button data-value={4} onClick={handleButton} className={value==4?"selected":""}>A</button>
+                <button data-value={3} onClick={handleButton} className={value==3?"selected":""}>B</button>
+                <button data-value={2} onClick={handleButton} className={value==2?"selected":""}>C</button>
+                <button data-value={1} onClick={handleButton} className={value==1?"selected":""}>D</button>
+                <button data-value={0} onClick={handleButton} className={value==0?"selected":""}>F</button>
             </div>
         ):null    
     }
-    {assessment.metric==="quantity"?(<div><input onChange={handleQuantity}></input></div>):null}
+    {assessment.metric==="quantity"?(<div className="assessment-input-cont"><input type="number" onChange={handleQuantity}></input></div>):null}
         <button onClick={handleSubmit}>Submit</button>
 
     </div>)
