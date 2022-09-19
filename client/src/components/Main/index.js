@@ -38,7 +38,6 @@ const Main =  ({currentSection})=>{
             {variables:{userId,date:formatToday()}
         })    
     const handleDoublePop = async ()=>{
-        console.log("handling double pop")
         if(localStorage.getItem("lastUpdatedHabd")==variables.date){
             return
         }

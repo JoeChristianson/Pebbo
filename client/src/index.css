@@ -41,6 +41,20 @@ button{
   background-color: transparent;
 }
 
-.grid{
+.grid-3{
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.span-with-button-div{
+  margin: .4rem;
+  display: flex;
+  width: 60%;
+  justify-content: space-around;
+}
+
+.submit{
+  width: 200px;
+  text-align: center;
+  margin: auto;
 }
