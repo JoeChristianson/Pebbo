@@ -1,0 +1,38 @@
+.assessment-btn-cont{
+    
+    display: grid;
+    width: 300px;
+    margin: auto;
+    grid-template-columns: 1fr 1fr;
+}
+
+.assessment-btn-cont>button{
+    height:100px;
+    font-size: 3rem;
+    margin:.5rem;
+    box-shadow: 2px 2px ;
+    cursor: pointer;
+}
+
+.assessment-btn-cont>button:hover,.assessment-btn-cont>button.selected{
+   background: #afcdad
+}
+
+.assessment-input-cont>input{
+    
+    width:150px;
+    height:100px;
+    text-align: center;
+    margin: auto;
+    font-size:4rem
+}
+
+.assessment-btn-cont + button,.assessment-input-cont + button {
+    width:280px;
+    font-size: 3rem;
+    box-shadow: 2px 2px ;
+    margin:2rem;
+    background-color: black;
+    color:#afcdad;
+    cursor: pointer;
+}

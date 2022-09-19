@@ -40,18 +40,23 @@ if (PORT!==3001){
  
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async (typeDefs, resolvers) => {
-  
-  await server.start();
-  server.applyMiddleware({ app });
-  
-  db.once('open', () => {
-    app.listen(PORT, () => {
-      
-      
-    }) 
-  })
+  try{
+
+    
+    await server.start();
+    server.applyMiddleware({ app });
+    
+    db.once('open', () => {
+      app.listen(PORT, () => {
+        
+        
+      }) 
+    })
+  }catch(err){
+    console.error(err)
+  }
   };
   
-// Call the async function to start the server
+  // Call the async function to start the server
   startApolloServer(typeDefs, resolvers);
   // C:\Users\jcfar\OneDrive\Desktop\Current Projects\HABD\client
