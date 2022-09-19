@@ -12,9 +12,10 @@ import { EditField } from "../../components/generics/EditField"
 function ToDos({userId}){
  
     const [newToDo,setNewToDo] = useState("") 
-    const {loading,data,refetch} = useQuery(GET_TO_DOS,{variables:{
+    let {loading,data,refetch} = useQuery(GET_TO_DOS,{variables:{
         userId
     }})
+    data = data || {getToDos:[]}
     const [addToDo,{data:newData,loading:newLoading,error}]=useMutation(ADD_TO_DO)    
     const [completeToDo,{data:completedData,loading:completedLoading,error:completedError}] = useMutation(COMPLETE_TO_DO);
     const [prioritizeToDo,{data:prioritizeData,loading:prioritizeLoading,error:prioritizeError}] = useMutation(PRIORITIZE_TO_DO)
@@ -90,6 +91,7 @@ function ToDos({userId}){
     if(loading){
         return(<h1>Loading</h1>)
     }
+    console.log(data);
     const sortedToDos = data.getToDos.map(t=>{
         return t.priority?t:{...t,priority:0}
     }).sort((a,b)=>{
