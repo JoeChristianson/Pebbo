@@ -3,8 +3,7 @@ import { formatToday } from "../../utils/date"
 import { useState } from "react"
 import { GET_VARIABLES } from "../../utils/queries"
 import { ADD_SETTINGS_TO_DAY } from "../../utils/mutations"
-import {mockLib} from "dev-utils"
-const {MockObjectArray} = mockLib.data
+import BigButton from "../../components/BigButton/index.js"
 export const TodaysSettings = ({userId,refresh})=>{
     const {data,error,loading} = useQuery(GET_VARIABLES,{variables:{userId}})
     const [addSettingsToDay,{data:addData,error:addError,loading:addLoading}]=useMutation(ADD_SETTINGS_TO_DAY)
@@ -33,9 +32,8 @@ export const TodaysSettings = ({userId,refresh})=>{
     if (loading){
         return (<></>)
     }
-    console.log(todaysSettings);
-    const mockData = MockObjectArray({name:"numericalDate",day:"weekday"},15)
-    // const mockData = []
+
+
     return(
         <>
         <div>{todaysSettings.map(s=>s.name).join(", ")}</div>
