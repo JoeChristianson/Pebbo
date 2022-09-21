@@ -1,6 +1,6 @@
 .modal-comp-cont{
     width: 500px;
-    background-color: beige;
+    background-color: var(--modal-comp-bg);
     margin:10px auto;
     padding-bottom: 20px;
 }

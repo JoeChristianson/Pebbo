@@ -4,10 +4,10 @@
     height: 80vh;
     /* top: 50%;
     left: 50%; */
-    background: hsl(219deg 80% 95%);
+    background: var(--section-background);
     /* transform: translate(-50%, -50%); */
     border-radius: 10px;
-    box-shadow: 2px 2px 3px 4px #0000002b;
+    box-shadow: var(--lighter-shadow);
     display: flex;
     flex-direction: column;
     padding:10px
@@ -31,8 +31,8 @@
 }
 
 .modal-button:hover{
-    background: #dbeef7;
-    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    background: var(--modal-button-hover);
+    box-shadow: var(--main-hover-shadow); 
 }
 
 @media screen and (max-width: 1000px){
