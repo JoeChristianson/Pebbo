@@ -8,6 +8,7 @@ import { Modal } from "../../components/Modal"
 import FormElement from "../../components/generics/Form"
 import { ToDo } from "../../components/ToDo"
 import { EditField } from "../../components/generics/EditField"
+import "./index.css"
 
 function ToDos({userId}){
  
@@ -103,6 +104,7 @@ function ToDos({userId}){
 
 
     return(
+        <div className="flex">
         <main className="main-section">
         <section>
             ToDos
@@ -125,11 +127,13 @@ function ToDos({userId}){
             }
         })}
         </div>
+        </main>
         {modalOpen?<Modal handlePrioritize={handlePrioritize} setModalOpen={setModalOpen} modalInput={modalInput} handleDelete={handleDelete} dataId={dataId} >
         <SubTasks update={updateSubtasks} userId={userId} toDoId={dataId} subTasks={subTasks} refetch={refetch}></SubTasks>
         <ToDoNotes refetch={refetch} userId={userId} toDo={sortedToDos.find(s=>s._id===dataId)}></ToDoNotes>
         </Modal>:null}
-        </main>
+
+        </div>
     )
 }
 
@@ -168,20 +172,27 @@ const SubTasks = ({userId,toDoId,subTasks,refetch,update})=>{
     }
 
     return(
-        <>
+        <div className="modal-comp-cont">
+        <h2>
+            Sub-Tasks
+        </h2>
         <FormElement formInputs={[{name:"text",label:"text"}]} formInputValues={{text}}
         handleFormSubmit={handleFormSubmit}
         handleFormInputChange={handleFormInputChange}
+        formClass="inline-form"
+        submitButtonText="Add"
         />
+        <div className="subtask-list">
+
         {subtaskList.filter(s=>!s.dateDone).map((subTask,key)=>{
             return <ToDo key={key} toDo={subTask} handleComplete={handleComplete}></ToDo>
         })}
-        </>
+        </div>
+        </div>
     )
 }
 
 const ToDoNotes = ({userId,toDo,refetch})=>{
-    console.log(toDo)
     const [note,setNote] = useState(toDo.notes||"")
     const [addNote,{data,error,loading}] = useMutation(ADD_NOTE_TO_TO_DO)
     const saveHandler = async (text)=>{
@@ -192,9 +203,12 @@ const ToDoNotes = ({userId,toDo,refetch})=>{
         refetch()
     }
 
-    return(<>
-        <EditField mutation={saveHandler} text={note}></EditField>
-    </>)
+    return(<div className="modal-comp-cont">
+        <h2>Notes</h2>
+        <EditField mutation={saveHandler} text={note}
+        buttonClass="no-background-or-border"
+        ></EditField>
+    </div>)
 }
 
 export default ToDos

@@ -58,3 +58,35 @@ button{
   text-align: center;
   margin: auto;
 }
+
+
+.flex{
+  display: flex;
+  justify-content: center;
+}
+
+.inline-form{
+  display: flex;
+  margin: auto;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.inline-form input{
+  height: 40px;
+  border: none;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.inline-form input[type="submit"]{
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+
+.inline-form input:focus-visible{
+  outline: none;
+}

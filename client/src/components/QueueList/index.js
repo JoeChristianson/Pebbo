@@ -70,6 +70,7 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
     }
 
     return(
+        <div className="flex">
         <div className="list">
             {sortedQueue.map((q,i)=>{
                 console.log(q)
@@ -89,8 +90,9 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
                     <button className="pointer" onClick={handleComplete} data-name={q.queueItem.name} data-date={q.date}></button>
                     </div>)
             })}
-            {openModal?<Modal userId={userId} handleSettings={handleSettings}  handleDelete={handleDelete} dataId={modalInput.id} modalInput={modalInput} setModalOpen={setModalOpen}/>:null}
         </div>
+            {openModal?<Modal userId={userId} handleSettings={handleSettings}  handleDelete={handleDelete} dataId={modalInput.id} modalInput={modalInput} setModalOpen={setModalOpen}/>:null}
+            </div>
     )
 }
 

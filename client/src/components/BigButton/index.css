@@ -1,0 +1,9 @@
+.big-button{
+    height: 100px;
+    font-size: 3rem;
+    margin: 0.5rem;
+    box-shadow: 2px 2px;
+    cursor: pointer;
+    width: fit-content;
+    padding: 20px 33px;
+}
