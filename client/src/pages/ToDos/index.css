@@ -1,0 +1,12 @@
+.modal-comp-cont{
+    width: 500px;
+    background-color: beige;
+    margin:10px auto;
+    padding-bottom: 20px;
+}
+
+.subtask-list{
+    margin-top: 20px;
+    width: 350px;
+    margin: auto;
+}
