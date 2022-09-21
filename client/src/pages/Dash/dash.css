@@ -9,6 +9,6 @@
     background-color: var(--section-background);
     padding: 1rem;
     width: 250px;
-    border: black solid 2px;
+    border: var(--dark);
     margin: 20px;
 }
