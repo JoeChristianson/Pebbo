@@ -1,10 +1,9 @@
 import React from "react";
 
 
-export default function FormElement({formInputs,formInputValues,formOptions=[],externalLabels,handleFormInputChange,handleFormSubmit,handleFormReset,hiddenFields=[],disabledFields=[]}){
-
+export default function FormElement({formInputs,formInputValues,formOptions=[],externalLabels,handleFormInputChange,handleFormSubmit,handleFormReset,hiddenFields=[],disabledFields=[],formClass="",submitButtonText}){
   return(
-    <form onSubmit={handleFormSubmit}  className="generic-form">
+    <form onSubmit={handleFormSubmit}  className={`generic-form ${formClass}`}>
       {formInputs.map((input,index)=>{
         if(hiddenFields.includes(input.name)){
           return (<></>)
@@ -54,7 +53,7 @@ export default function FormElement({formInputs,formInputValues,formOptions=[],e
         )
       })}
       <div className="flex justify-center">
-      <input className="" type="submit" />
+      <input className="" type="submit" value={submitButtonText||"Submit"} />
       {handleFormReset?<button onClick={handleFormReset} className="shadow bg-red-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded ml-1">Reset</button>:null}
       </div>
     </form>

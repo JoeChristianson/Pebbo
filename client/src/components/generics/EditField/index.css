@@ -1,0 +1,11 @@
+.textarea-cont{
+    transform: translateX(10px);
+}
+
+textarea{
+    width: 70%;
+    min-height: 150px;
+    resize: none;
+    font-size: 1rem;
+    padding: 8px;
+}

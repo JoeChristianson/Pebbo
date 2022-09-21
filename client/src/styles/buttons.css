@@ -1,0 +1,5 @@
+.no-background-or-border{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
