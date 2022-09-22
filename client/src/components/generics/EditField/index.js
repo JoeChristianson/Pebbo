@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEdit,faSave} from "@fortawesome/free-solid-svg-icons"
 
 export const EditField = ({text,mutation,buttonClass=""})=>{
-    console.log(buttonClass)
     const [textareaValue,setTextareaValue] = useState(text)
     const [isEditing,setIsEditing] = useState(false)
     

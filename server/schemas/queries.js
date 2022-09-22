@@ -90,19 +90,16 @@ const getToDos = async (parent,{userId})=>{
         path:"toDos.subTasks.toDoForm",
         model:"ToDoForm"
     });
-    console.log(user.toDos[0].subTasks)
     return user.toDos.filter(t=> !t.dateDone)
 }
 
 const getDailyQueue = async(parent,{userId,date})=>{
-
-
     const user = await User.findById(userId);
     const day = user.days.filter(day=>{
         return (date === formatDBDateForComparison(day.date))
     })[0];
-    const dailyQueue = day.queueDays;
-
+    let dailyQueue = day.queueDays;
+    dailyQueue = addNotes(dailyQueue)
     const queueItems = [];
     for (let queueDay of dailyQueue){
         const queueItem = await QueueItem.findById(queueDay.queueItem);
@@ -112,7 +109,7 @@ const getDailyQueue = async(parent,{userId,date})=>{
     const result = []
     for (let i = 0;i<queueItems.length;i++){
         
-        const el = {ordinal:user.queue[i].ordinal,date:formatDBDateForComparison(dailyQueue[i].date),isOn:dailyQueue[i].isOn,isComplete:dailyQueue[i].isComplete,queueItem:queueItems[i]}
+        const el = {note:user.queue[i].note,ordinal:user.queue[i].ordinal,date:formatDBDateForComparison(dailyQueue[i].date),isOn:dailyQueue[i].isOn,isComplete:dailyQueue[i].isComplete,queueItem:queueItems[i]}
         const stats = await queueItemCompletionRate(userId,user.queue[i].queueItem.toString())
         result.push({...el,...stats})
     }
@@ -172,7 +169,7 @@ const getDash = async (parent,{userId,date})=>{
             queueItemLowestAdjustedIndex = (index+(queueItem.skips*1.1))
             queueItemIndex = index
         }else{
-            console.log("not low enough",queueItem)
+            console.error("not low enough",queueItem)
         }
     })
 
@@ -189,6 +186,8 @@ const getDash = async (parent,{userId,date})=>{
     return result
 }
 
-
+function addNotes(queue){
+    return queue
+}
 
 module.exports = {getDash,getReview,getAllUsersAssessments,getDates,feedAssessment,allUsers,getDay,getQueue,getToDos,getDailyQueue}

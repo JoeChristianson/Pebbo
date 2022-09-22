@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { Modal } from "../Modal"
 import {useMutation} from "@apollo/client"
-import { REORDER_QUEUE,DELETE_QUEUE_ITEM } from "../../utils/mutations"
+import { REORDER_QUEUE,DELETE_QUEUE_ITEM, ADD_NOTE_TO_TO_DO, ADD_NOTE_TO_QUEUE_ITEM } from "../../utils/mutations"
 import {formatToday, formatYesterday} from "../../utils/date"
+import Notes from "../Notes"
 
 const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
     let date
@@ -35,7 +36,7 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
 
     
     const handleSettings = async(e)=>{
-        console.log(e.target)
+
     }
 
     const handleDragEnter = (e)=>{
@@ -69,11 +70,11 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
         return(<div>Day did not populate</div>)
     }
 
+
     return(
         <div className="flex">
         <div className="list">
             {sortedQueue.map((q,i)=>{
-                console.log(q)
                 return(<div draggable 
                     key={i}
                     onDragOver={handleDragOver}
@@ -91,9 +92,23 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
                     </div>)
             })}
         </div>
-            {openModal?<Modal userId={userId} handleSettings={handleSettings}  handleDelete={handleDelete} dataId={modalInput.id} modalInput={modalInput} setModalOpen={setModalOpen}/>:null}
+            {openModal?<Modal userId={userId} handleSettings={handleSettings}  handleDelete={handleDelete} dataId={modalInput.id} modalInput={modalInput} setModalOpen={setModalOpen}>
+            <Notes
+            userId={userId}
+            mutation={ADD_NOTE_TO_QUEUE_ITEM}
+            item={addItemId(sortedQueue.find(q=>q.queueItem._id===modalInput.id))}
+            refetch={()=>{}}
+            ></Notes>
+            </Modal>:null}
             </div>
     )
+    
 }
 
 export default QueueList
+
+function addItemId(item){
+    item = {...item}
+    item.id=item.queueItem._id
+    return item
+}

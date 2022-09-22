@@ -43,7 +43,6 @@ const toDoMutations = {
             return t._id.toString()===toDoId
         });
         const subTask = toDo.subTasks.find(s=>{
-            console.log(s._id,subtaskId)
             return (s._id.toString()===subtaskId)
         });
         subTask.dateDone = date;

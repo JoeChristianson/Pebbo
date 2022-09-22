@@ -86,6 +86,7 @@ const typeDefs = gql`
     skips:Int
     attempts:Int
     successes:Int
+    note:String
   }
 
   type Auth {
@@ -189,6 +190,7 @@ const typeDefs = gql`
       offSetting(userId:ID!,settingId:ID!,queueItemId:ID):String
       addJournalEntry(userId:ID!,date:String!,text:String!):Entry
       addNoteToToDo(userId:ID!,toDoId:ID!,note:String!):String 
+      addQueueNote(userId:ID!,itemId:ID!,note:String!):String 
       addSubTask(userId:ID!,toDoId:ID!,name:String,date:String):SubTask
       completeSubTask(userId:ID!,toDoId:ID!,subtaskId:ID!,date:String!):String
       addSettingToDay(userId:ID!,settings:[String],date:String):String
