@@ -106,7 +106,7 @@ function ToDos({userId}){
         <section>
             ToDos
         </section>
-        <SimpleInput text={newToDo} handleChange={handleChange} handleSubmit={handleSubmit}/>
+        <SimpleInput         formClass="inline-form" text={newToDo} handleChange={handleChange} handleSubmit={handleSubmit}/>
         <div className="list">
 
         {sortedToDos.

@@ -88,6 +88,8 @@ const {queueDays,habitDays,toDos} = data.getDash
             formInputValues={inputValues}
             handleFormInputChange={handleNewHabitFormInputChange}
             handleFormSubmit={handleNewHabitFormSubmit}
+            submitButtonText="Add"
+            formClass="inline-form"
             ></FormElement>
             {toDos[0]?(        <ToDo toDo={toDos[0]} handleComplete={handleToDoComplete} />):null}
         </section>

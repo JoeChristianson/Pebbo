@@ -38,7 +38,9 @@ function Queue({userId,date}){
 
     return(
         <main className="main-section">
-        <SimpleInput handleChange={handleChange} handleSubmit={handleSubmit} text={item}/>
+        <SimpleInput handleChange={handleChange} handleSubmit={handleSubmit} text={item}
+        formClass="inline-form"
+        />
         {!loading?<QueueList refetch={refetch} userId={userId} handleComplete={handleComplete} queue={queueData?.getDailyQueue}></QueueList>:null
         }
         </main>
