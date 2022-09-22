@@ -1,14 +1,14 @@
 import "./modal.css"
 import { SettingsGrid } from "../SettingsGrid"
 
-export const Modal = ({userId,setModalOpen,modalInput,handleDelete,dataId,handlePrioritize,handleSettings,notes,children})=>{
+export const Modal = ({userId,setModalOpen,modalInput,handleDelete,dataId,handlePrioritize,handleSettings,notes,children,onDash})=>{
     
 
     const handleModalClose = ()=>{
         setModalOpen(false)
     }
 
-    return(<div className="modal">
+    return(<div className={`modal ${onDash?"on-dash":""}`}>
         <button className="close-modal" onClick={handleModalClose}>x</button>
         <h3>{modalInput.name}</h3>
         <div className="modal-buttons">

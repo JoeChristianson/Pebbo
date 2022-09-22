@@ -10,7 +10,7 @@ import { ToDo } from "../../components/ToDo"
 import { EditField } from "../../components/generics/EditField"
 import "./index.css"
 
-function ToDos({userId}){
+function ToDos({userId,refetchDash,onDash}){
  
     const [newToDo,setNewToDo] = useState("") 
     let {loading,data,refetch} = useQuery(GET_TO_DOS,{variables:{
@@ -74,6 +74,7 @@ function ToDos({userId}){
         await prioritizeToDo({variables});
         setModalOpen(false)
         refetch()
+        refetchDash()
     }
 
 
@@ -125,7 +126,7 @@ function ToDos({userId}){
         })}
         </div>
         </main>
-        {modalOpen?<Modal handlePrioritize={handlePrioritize} setModalOpen={setModalOpen} modalInput={modalInput} handleDelete={handleDelete} dataId={dataId} >
+        {modalOpen?<Modal onDash={onDash} handlePrioritize={handlePrioritize} setModalOpen={setModalOpen} modalInput={modalInput} handleDelete={handleDelete} dataId={dataId} >
         <SubTasks update={updateSubtasks} userId={userId} toDoId={dataId} subTasks={subTasks} refetch={refetch}></SubTasks>
         <ToDoNotes refetch={refetch} userId={userId} toDo={sortedToDos.find(s=>s._id===dataId)}></ToDoNotes>
         </Modal>:null}

@@ -8,6 +8,7 @@ import HabitDay from "../../components/HabitDay"
 import FormElement from "../../components/generics/Form"
 import { useState } from "react"
 import { formatToday } from "../../utils/date"
+import ToDos from "../ToDos"
 
 const Dash = ({userId,date,data,loading,error,refetch,refetchDay})=>{
     
@@ -82,7 +83,7 @@ const {queueDays,habitDays,toDos} = data.getDash
         <section className="dash-section">
            {queueDays[0]?<QueueDay handleQueueSkip={handleQueueSkip} handleComplete={handleQueueComplete} queueDay={queueDays[0]}/>:null}
         </section>
-        <section className="dash-section">
+        {/* <section className="dash-section">
             <FormElement
             formInputs={[{label:"New Habit",name:"newHabit"}]}
             formInputValues={inputValues}
@@ -92,7 +93,8 @@ const {queueDays,habitDays,toDos} = data.getDash
             formClass="inline-form"
             ></FormElement>
             {toDos[0]?(        <ToDo toDo={toDos[0]} handleComplete={handleToDoComplete} />):null}
-        </section>
+        </section> */}
+        <ToDos onDash={true}  userId={userId}></ToDos>
         <section className="dash-section">
         {habitDays.map((h,i)=>{
             return <HabitDay key={i} handleComplete={handleHabitComplete} habitDay={h}/>

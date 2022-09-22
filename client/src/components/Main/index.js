@@ -80,7 +80,7 @@ const Main =  ({currentSection})=>{
             <Route path="/"
             element={<Dash data={dashData} loading={dashLoading} error={dashError} refetch={refetchDash} userId={userId} date={formatToday()} refetchDay={refetchDay}/>}></Route>
             <Route path="/queue"   element={<Queue userId={userId} date={formatToday()}></Queue>}></Route>
-            <Route path="/to-dos" element={<ToDos userId={userId}></ToDos>}></Route>
+            <Route path="/to-dos" element={<ToDos refetchDash={refetchDash}  userId={userId}></ToDos>}></Route>
             <Route path="/assessments" element={<ManageAssessments userId={userId}></ManageAssessments>}></Route>
             <Route path="/variables" element={<Variables userId={userId}></Variables>}></Route>
             <Route path="/habits" element={<Habits dayLoading={dayLoading} dayData={dayData} refetchDay={refetchDay} refetchDash={refetchDash}></Habits>}></Route>
