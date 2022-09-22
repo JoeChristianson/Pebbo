@@ -104,9 +104,6 @@ function ToDos({userId,refetchDash,onDash}){
     return(
         <div className="flex">
         <main className="main-section">
-        <section>
-            ToDos
-        </section>
         <SimpleInput         formClass="inline-form" text={newToDo} handleChange={handleChange} handleSubmit={handleSubmit}/>
         <div className="list">
 

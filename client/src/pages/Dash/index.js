@@ -81,10 +81,15 @@ const {queueDays,habitDays,toDos} = data.getDash
     return(
         <div className="dashboard-cont">
         <section className="dash-section">
+            <h2>Daily Queue</h2>
            {queueDays[0]?<QueueDay handleQueueSkip={handleQueueSkip} handleComplete={handleQueueComplete} queueDay={queueDays[0]}/>:<h2>All Done!</h2>}
         </section>
-        <ToDos onDash={true}  userId={userId}></ToDos>
         <section className="dash-section">
+        <h2>Tasks</h2>
+        <ToDos onDash={true}  userId={userId}></ToDos>
+        </section>
+        <section className="dash-section">
+        <h2>Today's Habits</h2>
         {!habitDays.length>0?<h2>No Habit Testing Today</h2>:null}
         {habitDays.map((h,i)=>{
             return <HabitDay key={i} handleComplete={handleHabitComplete} habitDay={h}/>
