@@ -13,7 +13,11 @@ const QueueSchema = new Schema({
     offSettings:[{
         type:Schema.Types.ObjectId,
         ref:"Setting"
-    }]
+    }],
+    note:{
+        type:String,
+        default:"TEST NOTE!!!"
+    }
 })
 
 module.exports = {QueueSchema}
