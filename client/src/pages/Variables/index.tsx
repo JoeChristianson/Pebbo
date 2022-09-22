@@ -37,12 +37,10 @@ const VariablesPage:FunctionComponent = ({userId}):JSX.Element=>{
     },[loading])
 
     const handleAddVariableToList = async (e:React.FormEvent)=>{
-        console.log(e)
         const settingName = e.target[0].value
         const variables = {userId,settingName}
 
         const resp = await addSetting({variables})
-        console.log(resp)
     }
 
 

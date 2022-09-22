@@ -36,7 +36,7 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
 
     
     const handleSettings = async(e)=>{
-        console.log(e.target)
+
     }
 
     const handleDragEnter = (e)=>{
@@ -69,14 +69,12 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
     if (!queue){
         return(<div>Day did not populate</div>)
     }
-    console.log(queue)
-    console.log("modalInput",modalInput);
+
 
     return(
         <div className="flex">
         <div className="list">
             {sortedQueue.map((q,i)=>{
-                console.log(q)
                 return(<div draggable 
                     key={i}
                     onDragOver={handleDragOver}

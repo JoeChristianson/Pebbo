@@ -26,9 +26,7 @@ export const SettingsGrid = ({userId,dataId})=>{
     )
     const handleCheckboxChange = async (e)=>{
         try{
-            console.log("this is in")
             const variables = {userId,settingId:e.target.dataset.id,queueItemId:dataId}
-            console.log("variables",variables)
             const {on} = settings.find(setting=>{
                 return setting.name===e.target.dataset.name})
             if(on){
@@ -36,7 +34,7 @@ export const SettingsGrid = ({userId,dataId})=>{
             }
             refetch()
         }catch(err){
-            console.log(err)
+            console.error(err)
         }
     }
 
@@ -57,7 +55,6 @@ export const SettingsGrid = ({userId,dataId})=>{
 
     <div className="grid">
         {settings.map(setting=>{
-            console.log(setting)
             return(
                 <div className="checkbox-group">
                 <label>

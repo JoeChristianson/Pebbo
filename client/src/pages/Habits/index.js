@@ -52,7 +52,6 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay}){
 
     const openThisModal = (e)=>{
         const {id} = e.target.dataset;
-        console.log("modal open")
         setDataId(id)
         setModalOpen(true)
         setModalInput({name:e.target.dataset.name})

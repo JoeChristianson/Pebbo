@@ -45,10 +45,8 @@ const Main =  ({currentSection})=>{
         if (popLoading){
             return
         }
-        console.log("must pop")
         setPopulatedAttempt(true)
         const results = await populateDay({variables})
-        console.log(results)
         setIsPopulated(true)
         refetchDay()
     }
@@ -69,7 +67,7 @@ const Main =  ({currentSection})=>{
             <Review refresh={refetchDates} userId={userId} setReviewed={setReviewed}/>
         )
     }
-    console.log("last setting",datesData.getDates?.lastSetting)
+
     if(formatToday()!==datesData.getDates?.lastSetting){
         return (
             <TodaysSettings  refresh={refetchDates} userId={userId}></TodaysSettings>

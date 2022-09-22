@@ -61,7 +61,7 @@ export default function FormElement({formInputs,formInputValues,formOptions=[],e
 }
 
 const Options =({options,value})=>{
-  console.log("value",value)
+
   return (
     <>
     {options.map((option,index)=>{

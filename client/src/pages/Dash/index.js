@@ -40,9 +40,6 @@ const handleQueueSkip = async (e)=>{
     const {queueDayId} = e.target.dataset;
     const variables = {userId,queueItem:queueDayId,date}
     const resp = await skipQueueItem({variables})
-    console.log(resp)
-    // const data = await resp.json()
-    // console.log(data);
     refetch()
 }
 
@@ -62,12 +59,10 @@ const handleHabitComplete = async (e)=>{
 }
 
 const handleNewHabitFormInputChange = (e)=>{
-    console.log(e.target.value)
     setInputValues({newHabit:e.target.value})
 }
 
 const handleNewHabitFormSubmit = async (e)=>{
-    console.log(e)
     e.preventDefault()
     const newToDo = inputValues.newHabit
     await addToDo({variables:{

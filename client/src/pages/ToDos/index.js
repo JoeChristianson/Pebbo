@@ -62,9 +62,7 @@ function ToDos({userId}){
     }
 
     const updateSubtasks = ()=>{
-        console.log("this is what it is updating with",data.getToDos)
         const newSubTasks = data.getToDos.find(td=>td._id===dataId).subTasks;
-        console.log(newSubTasks)
         setSubtasks(newSubTasks)
     }
 
@@ -92,7 +90,6 @@ function ToDos({userId}){
     if(loading){
         return(<h1>Loading</h1>)
     }
-    console.log(data);
     const sortedToDos = data.getToDos.map(t=>{
         return t.priority?t:{...t,priority:0}
     }).sort((a,b)=>{
@@ -141,8 +138,6 @@ const SubTasks = ({userId,toDoId,subTasks,refetch,update})=>{
     const [subtaskList,setSubtaskList] = useState(subTasks)
     const [addSubTask,{error:addError}] = useMutation(ADD_SUBTASK)
     const [completeSubTask,{data:cData,error:cError,loading:cLoading}]=useMutation(COMPLTE_SUBTASK)
-    // const {data,error,loading} = useQuery(GET_SUBTASKS,{userId,toDoId})
-    // console.log(data)
     const [text,setText] = useState("")
     const handleFormInputChange = (e)=>{
         setText(e.target.value)
@@ -152,9 +147,7 @@ const SubTasks = ({userId,toDoId,subTasks,refetch,update})=>{
         const variables = {
             userId,toDoId,date:formatToday(),name:text
         }
-        console.log(variables)
         const data = await addSubTask({variables})
-        console.log("newSubTask",data);
         setSubtaskList([...subtaskList,data.data.addSubTask])
         setText("")
         update()
@@ -163,7 +156,6 @@ const SubTasks = ({userId,toDoId,subTasks,refetch,update})=>{
     const handleComplete = async (e)=>{
         const subtaskId = e.target.dataset.id
         const variables = {toDoId,subtaskId,userId,date:formatToday()}
-        console.log(variables)
         const res = await completeSubTask({variables})
         const newSubtasksList = subTasks.filter(s=>s._id!==subtaskId)
         setSubtaskList(newSubtasksList)
@@ -197,7 +189,6 @@ const ToDoNotes = ({userId,toDo,refetch})=>{
     const [addNote,{data,error,loading}] = useMutation(ADD_NOTE_TO_TO_DO)
     const saveHandler = async (text)=>{
         const variables = {userId,toDoId:toDo._id,note:text}
-        console.log(variables)
         await addNote({variables})
         setNote(text)
         refetch()

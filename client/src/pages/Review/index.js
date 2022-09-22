@@ -38,7 +38,6 @@ const Review = ({userId,setReviewed,refresh})=>{
     const {habitDays,queueDays} = data.getReview
 
     const handleConfirm = async ()=>{
-        console.log("confirming")
        const data = await confirmDay({variables:{userId,date:formatToday()}})
        refresh()
     }
