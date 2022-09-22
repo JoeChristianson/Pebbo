@@ -221,3 +221,9 @@ mutation Mutation($userId: ID!, $settings: [String], $date: String) {
   addSettingToDay(userId: $userId, settings: $settings, date: $date)
 }
 `
+
+export const ADD_NOTE_TO_QUEUE_ITEM = gql`
+mutation Mutation($userId: ID!, $itemId: ID!, $note: String!) {
+  addQueueNote(userId: $userId, itemId: $itemId, note: $note)
+}
+`

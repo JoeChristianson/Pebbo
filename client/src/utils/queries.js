@@ -67,6 +67,7 @@ query Query($userId: ID!, $date: String!) {
     isComplete
     ordinal
     skips
+    note
   }
 }
 `

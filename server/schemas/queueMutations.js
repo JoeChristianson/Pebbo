@@ -18,6 +18,17 @@ const queueMutations = {
         }catch(err){
             console.log(err)
         }
+    },
+    addQueueNote: async(parent,{userId,itemId,note})=>{
+        try{
+            const user = await User.findById(userId);
+            const queueItem = user.queue.find(qi=>qi.queueItem.toString()===itemId);
+            queueItem.note = note;
+            await user.save()
+            return "success" 
+        }catch(err){
+            console.error(err)
+        }
     }
 }
 
