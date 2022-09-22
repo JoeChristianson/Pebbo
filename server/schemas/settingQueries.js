@@ -14,13 +14,13 @@ const settingQueries = {
             const settings = (user.settings||[]).map(setting=> {
                 return {name:setting.name,id:setting._id.toString()}});
                 
-                const queueItem = user.queue.filter(q=>{
+            const queueItem = user.queue.filter(q=>{
                     
                     return q.queueItem.toString() === queueItemId
                 }
                 )[0]
-                const result = {settings,offSettings:queueItem.offSettings||[]};
-                return result
+            const result = {settings,offSettings:queueItem.offSettings||[]};
+            return result
             }
             catch(err){
                 console.error("getOffSettingsError",err)

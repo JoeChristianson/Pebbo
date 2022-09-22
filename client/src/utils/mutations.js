@@ -185,8 +185,8 @@ mutation Mutation($userId: ID!, $settingName: String!) {
 `
 
 export const OFF_SETTING = gql`
-mutation Mutation($userId: ID!, $settingId: ID!, $queueItemId: ID) {
-  offSetting(userId: $userId, settingId: $settingId, queueItemId: $queueItemId)
+mutation Mutation($userId: ID!, $settingId: ID!, $queueItemId: ID!, $on: String!) {
+  offSetting(userId: $userId, settingId: $settingId, queueItemId: $queueItemId, on: $on)
 }
 `
 

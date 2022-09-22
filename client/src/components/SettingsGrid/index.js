@@ -26,10 +26,14 @@ export const SettingsGrid = ({userId,dataId})=>{
     )
     const handleCheckboxChange = async (e)=>{
         try{
-            const variables = {userId,settingId:e.target.dataset.id,queueItemId:dataId}
+            const variables = {userId,settingId:e.target.dataset.id,queueItemId:dataId,on:"true"}
             const {on} = settings.find(setting=>{
                 return setting.name===e.target.dataset.name})
             if(on){
+                variables.on="false"
+                await offSettingMutation({variables})
+            }
+            else{
                 await offSettingMutation({variables})
             }
             refetch()

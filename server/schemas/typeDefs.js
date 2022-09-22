@@ -187,7 +187,7 @@ const typeDefs = gql`
       prioritizeToDo(userId:ID!,toDoId:ID!,priority:Int!):String
       skipQueueItem(userId:ID!,queueItem:ID!,date:String!):QueueDay
       addSetting(userId:ID!,settingName:String!):String
-      offSetting(userId:ID!,settingId:ID!,queueItemId:ID):String
+      offSetting(userId:ID!,settingId:ID!,queueItemId:ID!,on:String!):String
       addJournalEntry(userId:ID!,date:String!,text:String!):Entry
       addNoteToToDo(userId:ID!,toDoId:ID!,note:String!):String 
       addQueueNote(userId:ID!,itemId:ID!,note:String!):String 
