@@ -73,16 +73,16 @@ button{
 .inline-form{
   display: flex;
   margin: auto;
-  width: 100%;
+  width: 80%;
   justify-content: center;
   align-items: center;
   margin-bottom: 15px;
 }
 
 .inline-form input{
-  height: 40px;
+  height: 30px;
   border: none;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-align: center;
 }
 
