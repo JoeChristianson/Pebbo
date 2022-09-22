@@ -22,7 +22,9 @@ const AddableList:FunctionComponent = ({handleAddToList,items,buttons=[]}:Props)
     
     return(
         <div className="addable-list-cont">
-        <form onSubmit={(e)=>{
+        <form 
+        className="inline-form"
+        onSubmit={(e)=>{
             e.preventDefault()
             handleAddToList(e)
         }}>
