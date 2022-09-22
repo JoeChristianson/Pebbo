@@ -21,7 +21,7 @@ const Variables = require("../../pages/Variables/index.tsx").default
 
 
 
-const Main =  ({currentSection})=>{
+const Main =  ()=>{
     
     const userId = auth.getProfile().data._id
     const [reviewed,setReviewed] = useState(false)
@@ -68,12 +68,13 @@ const Main =  ({currentSection})=>{
         )
     }
 
-    if(formatToday()!==datesData.getDates?.lastSetting){
+    if(formatToday()!==datesData.getDates?.lastSetting&&datesData.getDates?.settings.length>0){
         return (
             <TodaysSettings  refresh={refetchDates} userId={userId}></TodaysSettings>
         )
+    }else{
+        refetchDates()
     }
-
 
     return (
         <Routes>

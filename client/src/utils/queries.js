@@ -105,8 +105,10 @@ query GetDates($userId: ID!) {
     birthdate
     lastReviewed
     lastSetting
+    settings
   }
-}`
+}
+`
 
 export const GET_ALL_USERS_ASSESSMENTS = gql`
 query Query($userId: ID!) {

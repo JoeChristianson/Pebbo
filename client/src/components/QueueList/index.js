@@ -7,6 +7,7 @@ import Notes from "../Notes"
 import "./index.css"
 
 const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
+    queue = queue || []
     let date
     yesterday?date=formatYesterday():date=formatToday()
 

@@ -38,6 +38,7 @@ const typeDefs = gql`
     birthdate:String
     lastReviewed:String
     lastSetting:String
+    settings:[ID]
   }
 
   type SubTask {

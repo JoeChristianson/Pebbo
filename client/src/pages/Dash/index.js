@@ -74,6 +74,10 @@ const handleNewHabitFormSubmit = async (e)=>{
     e.target.elements.newHabit.value = ""
 }
 
+if(!data?.getDash){
+    return (<div>Loading</div>)
+}
+
 const {queueDays,habitDays,toDos} = data.getDash
 
 

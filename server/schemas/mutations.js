@@ -281,7 +281,7 @@ reorderQueue: async(parent,{userId,oldOrdinal,newOrdinal})=>{
         const result = await user.populate({path:"queue.queueItem",model:"QueueItem"})
         return result
     }catch(err){
-        
+        console.error(err)
     }
 }
 ,

@@ -27,12 +27,9 @@ export const TodaysSettings = ({userId,refresh})=>{
         refresh()
     }
 
-    
-
     if (loading){
         return (<></>)
     }
-
 
     return(
         <>

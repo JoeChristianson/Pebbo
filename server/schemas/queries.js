@@ -4,6 +4,7 @@ const {queueItemActive} = require("../utils/settings")
 const { Assessment } = require("../models/Assessment");
 const { queueItemCompletionRate } = require("../analysis/queue/completion");
 
+
 const allUsers = async ()=>{
     let users = await User.find().populate("habits").populate({path:"queue.queueItem",model:"QueueItem"});
     return users
@@ -76,9 +77,14 @@ const feedAssessment = async (parent,{userId,date})=>{
 }
 
 const getQueue = async (parent,{userId})=>{
-    const user = await User.findById(userId).populate({path:"queue.queueItem",model:"QueueItem"});
-    
-    return user
+    try{
+
+        const user = await User.findById(userId).populate({path:"queue.queueItem",model:"QueueItem"});
+        
+        return user
+    }catch(err){
+        console.error(err)
+    }
 }
 
 const getToDos = async (parent,{userId})=>{
@@ -120,12 +126,15 @@ const getDailyQueue = async(parent,{userId,date})=>{
 
 const getDates = async (parent,{userId})=>{
     const user = await User.findById(userId);
-    const {lastAssessed,lastPopulated,birthdate,lastReviewed,lastSetting} = user;
-    const dates = {lastAssessed,lastPopulated,birthdate,lastReviewed,lastSetting};
+    const {lastAssessed,lastPopulated,birthdate,lastReviewed,lastSetting,settings} = user;
+    const dates = {settings,lastAssessed,lastPopulated,birthdate,lastReviewed,lastSetting};
     
     for (let prop in dates){
-        dates[prop] = formatDBDateForComparison(dates[prop])
+        if (prop!=="settings"){
+            dates[prop] = formatDBDateForComparison(dates[prop])
+        }
     }
+    dates.settings = dates.settings||[]
     return dates
 }
 
@@ -148,42 +157,48 @@ const getReview = async (parent,{userId,date})=>{
 }
 
 const getDash = async (parent,{userId,date})=>{
-    const user = await User.findById(userId).populate({
-        path:"days.habitDays.habit",
-        model:"Habit"
-    }).populate({
-        path:"days.queueDays.queueItem",
-        model:"QueueItem"
-    }).populate({
-        path:"toDos.toDoForm",
-        model:"ToDoForm"
-    });
-    let {habitDays,queueDays} = findDay(user,date);
-    let incompleteQueueDays = [...queueDays.filter(q=>{
-        return !q.isComplete
-    })]
-    let queueItemLowestAdjustedIndex = null;
-    let queueItemIndex = null
-    incompleteQueueDays.forEach((queueItem,index)=>{
-        if(queueItemIndex===null||(index+(queueItem.skips*1.1))<queueItemLowestAdjustedIndex){
-            queueItemLowestAdjustedIndex = (index+(queueItem.skips*1.1))
-            queueItemIndex = index
-        }else{
-            console.error("not low enough",queueItem)
+    try{
+
+        console.log("get Dash");
+        const user = await User.findById(userId).populate({
+            path:"days.habitDays.habit",
+            model:"Habit"
+        }).populate({
+            path:"days.queueDays.queueItem",
+            model:"QueueItem"
+        }).populate({
+            path:"toDos.toDoForm",
+            model:"ToDoForm"
+        });
+        let {habitDays,queueDays} = findDay(user,date) || {habitDays:[],queueDays:[]};
+        let incompleteQueueDays = [...queueDays.filter(q=>{
+            return !q.isComplete
+        })]
+        let queueItemLowestAdjustedIndex = null;
+        let queueItemIndex = null
+        incompleteQueueDays.forEach((queueItem,index)=>{
+            if(queueItemIndex===null||(index+(queueItem.skips*1.1))<queueItemLowestAdjustedIndex){
+                queueItemLowestAdjustedIndex = (index+(queueItem.skips*1.1))
+                queueItemIndex = index
+            }else{
+                console.error("not low enough",queueItem)
+            }
+        })
+        
+        habitDays = habitDays.filter(h=>h.isOn)
+        
+        const toDo = user.toDos.filter(t=>{
+            return !t.dateDone
+        })[0]
+        const result = {
+            toDos:toDo?[toDo]:[],
+            queueDays:incompleteQueueDays.length>0?[incompleteQueueDays[queueItemIndex]]:[],
+            habitDays:[...habitDays]
         }
-    })
-
-    habitDays = habitDays.filter(h=>h.isOn)
-
-    const toDo = user.toDos.filter(t=>{
-        return !t.dateDone
-    })[0]
-    const result = {
-        toDos:toDo?[toDo]:[],
-        queueDays:incompleteQueueDays.length>0?[incompleteQueueDays[queueItemIndex]]:[],
-        habitDays:[...habitDays]
+        return result
+    }catch(err){
+        console.error(err)
     }
-    return result
 }
 
 function addNotes(queue){
