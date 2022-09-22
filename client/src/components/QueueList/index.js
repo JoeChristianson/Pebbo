@@ -4,6 +4,7 @@ import {useMutation} from "@apollo/client"
 import { REORDER_QUEUE,DELETE_QUEUE_ITEM, ADD_NOTE_TO_TO_DO, ADD_NOTE_TO_QUEUE_ITEM } from "../../utils/mutations"
 import {formatToday, formatYesterday} from "../../utils/date"
 import Notes from "../Notes"
+import "./index.css"
 
 const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
     let date
@@ -83,12 +84,12 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
                     onDragStart={(e)=>setDraggedOrdinal(e.target.dataset.ordinal)}
                     data-id={q.queueItem._id}
                 data-ordinal={q.ordinal} onDrop={handleDrop} className={q.isComplete?"done list-item":"list-item"}>
-                    <span>{Math.round(q.successes*100/q.attempts)}%</span>
                     <span data-ordinal={q.ordinal}       data-id={q.queueItem._id} className="pointer" data-name={q.queueItem.name} onClick={handleOpenModal} >
                     {q.queueItem.name}
                     
                     </span>
                     <button className="pointer" onClick={handleComplete} data-name={q.queueItem.name} data-date={q.date}></button>
+                    <span className="percentage">{Math.round(q.successes*100/q.attempts)}%</span>
                     </div>)
             })}
         </div>
