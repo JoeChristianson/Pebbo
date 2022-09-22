@@ -1,5 +1,4 @@
 export const QueueDay = ({queueDay,handleComplete,handleQueueSkip})=>{
-    console.log(queueDay)
     return(
         <div className={queueDay.isComplete?"done list-item":"list-item"}>
             <span>{queueDay.queueItem.name}</span>

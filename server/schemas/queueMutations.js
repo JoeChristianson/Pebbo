@@ -16,7 +16,7 @@ const queueMutations = {
 
             return queueDay
         }catch(err){
-            console.log(err)
+            console.error(err)
         }
     },
     addQueueNote: async(parent,{userId,itemId,note})=>{

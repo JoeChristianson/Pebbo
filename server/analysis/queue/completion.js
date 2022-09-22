@@ -6,10 +6,7 @@ const queueItemCompletionRate = async (userId,queueItemId)=>{
     let successes = 0;
     user.days.forEach(day=>{
         const res = day.queueDays.find(qd=>{
-            console.log("queue item id",queueItemId)
-            console.log(qd.queueItem.toString())
             return qd.queueItem.toString()===queueItemId})
-        console.log(res)
         if(res){
             res.isOn && attempts++
             res.isComplete && successes++

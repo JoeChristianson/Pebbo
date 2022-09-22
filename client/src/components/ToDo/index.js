@@ -1,7 +1,6 @@
 
 
 export const ToDo = ({toDo,handleComplete})=>{
-    console.log(toDo)
     return(
 
         <div className="list-item">

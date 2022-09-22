@@ -90,7 +90,6 @@ const getToDos = async (parent,{userId})=>{
         path:"toDos.subTasks.toDoForm",
         model:"ToDoForm"
     });
-    console.log(user.toDos[0].subTasks)
     return user.toDos.filter(t=> !t.dateDone)
 }
 
@@ -170,7 +169,7 @@ const getDash = async (parent,{userId,date})=>{
             queueItemLowestAdjustedIndex = (index+(queueItem.skips*1.1))
             queueItemIndex = index
         }else{
-            console.log("not low enough",queueItem)
+            console.error("not low enough",queueItem)
         }
     })
 

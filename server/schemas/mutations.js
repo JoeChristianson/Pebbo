@@ -144,7 +144,7 @@ populateDay: async (parent,{userId,date})=>{
         await user.save()
         return user;
     }catch(err){
-        console.log("this is the populate error",err)
+        console.error("this is the populate error",err)
     }
 },
 toggleHabitDay: async (parent,{userId,date,habitDayId})=>{

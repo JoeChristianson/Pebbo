@@ -6,9 +6,7 @@ const Notes = ({userId,item,refetch,mutation})=>{
     const [note,setNote] = useState(item.note||"")
     const [addNote,{data,error,loading}] = useMutation(mutation)
     const saveHandler = async (text)=>{
-        console.log(item);
         const variables = {userId,itemId:item.id,note:text}
-        console.log(variables);
         await addNote({variables})
         setNote(text)
         refetch()
