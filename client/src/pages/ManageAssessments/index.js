@@ -32,7 +32,6 @@ export const ManageAssessments = ({userId})=>{
 
     const openExistingAssessment = (e)=>{
         const assessment = data.getAllUsersAssessments[e.target.dataset.index];
-        console.log(assessment);
         setModalOpen(assessment)
     }
 
@@ -46,7 +45,6 @@ export const ManageAssessments = ({userId})=>{
 
     const graphAssessment = (e)=>{
         const assessment = data.getAllUsersAssessments[e.target.dataset.index];
-        console.log(assessment);
     }
 
     const selected = ()=>{

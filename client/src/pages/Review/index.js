@@ -6,6 +6,7 @@ import { formatToday, formatYesterday } from "../../utils/date"
 import HabitDay from "../../components/HabitDay"
 import { QueueDay } from "../../components/QueueDay"
 import { CONFIRM_DAY, COMPLETE_QUEUE_ITEM, TOGGLE_IS_COMPLETE } from "../../utils/mutations"
+import LoadingScreen from "../../components/LoadingScreen/index.tsx"
 
 
 const Review = ({userId,setReviewed,refresh})=>{
@@ -18,8 +19,9 @@ const Review = ({userId,setReviewed,refresh})=>{
     const [confirmDay,{data:cData,loading:cLoading,error:cError}]= useMutation(CONFIRM_DAY)
 
     if(loading){
-        return <div>Loading...</div>
+        return <LoadingScreen/>
     }
+    console.log("data",data);
     if(!data?.getReview?.habitDays){
         setReviewed(true)
         return
@@ -35,7 +37,7 @@ const Review = ({userId,setReviewed,refresh})=>{
         await refetchDay()
     }
     
-    const queueDays = data?.getReview?.habitDays ||[]
+    const queueDays = data?.getReview?.queueDays ||[]
 
     const habitDays = data?.getReview?.habitDays ||[]
 

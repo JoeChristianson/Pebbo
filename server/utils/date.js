@@ -13,6 +13,8 @@ const formatDBDateForComparison = (raw)=>{
 }   
 
 const findDay = (user,date)=>{
+    console.log(user.days);
+    console.log(date);
     return user.days.filter(d=>{
         return formatDBDateForComparison(d.date)===date})[0]
 }

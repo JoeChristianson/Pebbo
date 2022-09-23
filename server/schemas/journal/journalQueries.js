@@ -9,7 +9,7 @@ const journalQueries = {
             const user = await User.findById(userId).populate("journal")
             return user.journal
         }catch(err){
-            console.log(err);     
+            console.error(err);     
         }
     }
 }

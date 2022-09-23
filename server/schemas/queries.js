@@ -130,13 +130,11 @@ const getDates = async (parent,{userId})=>{
         const user = await User.findById(userId);
         const {orientated,lastAssessed,lastPopulated,birthdate,lastReviewed,lastSetting,settings} = user;
         const dates = {orientated,settings,lastAssessed,lastPopulated,birthdate,lastReviewed,lastSetting};
-        console.log(user);
         for (let prop in dates){
             if (prop!=="settings"||prop!=="orientated"){
                 dates[prop] = formatDBDateForComparison(dates[prop])
             }
         }
-        console.log("orientated",orientated);
         dates.orientated = orientated||false
         if(!Array.isArray(dates.settings)){
             dates.settings = []
@@ -154,21 +152,27 @@ const getAllUsersAssessments = async (parent,{userId})=>{
 }
 
 const getReview = async (parent,{userId,date})=>{
-    const user = await User.findById(userId).populate({
-        path:"days.habitDays.habit",
-        model:"Habit"
-    }).populate({
-        path:"days.queueDays.queueItem",
-        model:"QueueItem"
-    });
-    const day = findDay(user,date)
-    return day
+    try{
+
+        const user = await User.findById(userId)
+        .populate({
+            path:"days.habitDays.habit",
+            model:"Habit"
+        })
+        .populate({
+            path:"days.queueDays.queueItem",
+            model:"QueueItem"
+        });
+        const day = findDay(user,date)
+        console.log(day);
+        return day
+    }catch(err){
+        console.error(err)
+    }
 }
 
 const getDash = async (parent,{userId,date})=>{
     try{
-
-        console.log("get Dash");
         const user = await User.findById(userId).populate({
             path:"days.habitDays.habit",
             model:"Habit"
