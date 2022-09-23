@@ -49,6 +49,11 @@ header button:hover{
     display: none;
 }
 
+.logo{
+
+    height: 30px;
+}
+
 @media screen and (max-width: 600px)   {
     header ul{
         flex-direction: column;

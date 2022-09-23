@@ -1,0 +1,26 @@
+.dropdown-menu{
+    position: absolute;
+    top:75px;
+    color:var(--header-background);
+    left:-79px;
+    padding:10px;
+    background: var(--section-background);
+    box-shadow: 2px 2px 10px black;
+}
+
+.dropdown-menu>ul{
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    
+}
+
+.dropdown-menu li{
+    padding-bottom:1rem;
+    cursor: pointer;
+}
+
+.user-span{
+    position: relative;
+    display: flex;
+}
