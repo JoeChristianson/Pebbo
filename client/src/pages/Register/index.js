@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { REGISTER } from '../../utils/mutations';
+import ErrorMessage from '../../components/generics/ErrorMessage/index.tsx';
 const auth = require("../../utils/auth").default
 const {useState} = require("react")
 
@@ -9,6 +10,7 @@ export default function Register({setComponent}){
     const [formState, setFormState] = useState({name: "", email: '', password: '' ,confirmPassword: "",birthdate:null});
 
     const [register, { error, data }] = useMutation(REGISTER);
+    const [errorMessages,setErrorMessages] = useState([])
 
     const handleChange = (e)=>{
         const {name,value} = e.target;
@@ -19,15 +21,28 @@ export default function Register({setComponent}){
 
     const handleFormSubmit = async (e)=>{
         e.preventDefault()
+        console.log({...formState});
         try{
-            const { data } = await register({
-                variables:{...formState}
+            const variables = {...formState};
+            if(!variables.birthdate){
+                variables.birthdate = ""
+            }
+            const {data} = await register({
+                variables
             })
-            setFormState({
-                email:"",
-                password:""
-            })
-            setComponent("login")
+
+            const {valid,errors} = data.createUser;
+            if(valid==="true"){
+
+                setFormState({
+                    email:"",
+                    password:""
+                })
+                setComponent("login")
+            }else{
+                console.log(errors,"erros");
+                setErrorMessages(errors)
+            }
         }catch(err){
             console.error(err)
         }
@@ -36,6 +51,8 @@ export default function Register({setComponent}){
     const handleLink = (e)=>{
         setComponent(e.target.dataset.dest)
     }
+
+
 
     return(
         <div className="form-card">
@@ -67,6 +84,7 @@ export default function Register({setComponent}){
 <div>
 <input placeholder='birthdate' onChange={handleChange} name="birthdate" type="date"></input>
 </div>
+<ErrorMessage messages={errorMessages}></ErrorMessage>
                     <input className="pointer embolden"  type="submit"></input>
                 </form>
                 <div className='text-center pointer embolden'  onClick={handleLink} data-dest="login">Go to Login</div>

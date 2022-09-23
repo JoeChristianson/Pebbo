@@ -149,6 +149,11 @@ const typeDefs = gql`
     offSettings:[Setting]
   }
 
+  type RegisterResponse{
+    valid:String
+    errors:[String]
+  }
+
   type Query {
     allUsers:[User]
     getDay(userId:ID!,date:String!):Day
@@ -166,7 +171,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-      createUser(name:String!, email: String!, password: String!, birthdate: String!):User
+      createUser(name:String!, email: String!, password: String!, birthdate: String!):RegisterResponse
       login(email: String!, password: String!): Auth
       addHabit(name:String!,prohibition:Boolean,creator:ID!,date:String!):Habit
       removeHabit(userId:ID!,habitId:ID!):User
