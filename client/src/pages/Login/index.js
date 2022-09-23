@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../utils/mutations';
+import ErrorMessage from '../../components/generics/ErrorMessage/index.tsx';
 const auth = require("../../utils/auth").default
 const {useState} = require("react")
 
@@ -7,7 +8,7 @@ const {useState} = require("react")
 export default function Login({setComponent}){
 
     const [formState, setFormState] = useState({ email: '', password: '' });
-
+    const [errorMessages,setErrorMessages] = useState([])
     const [login, { error, data }] = useMutation(LOGIN_USER);
 
     const handleChange = (e)=>{
@@ -29,10 +30,12 @@ export default function Login({setComponent}){
                 password:""
             })
         }catch(err){
-            console.error(err)
+            console.log("found an error");
+            console.log(err);
+            setErrorMessages([err.message])
+            console.log(errorMessages);
         }
     }
-
     const handleLink = (e)=>{
         setComponent(e.target.dataset.dest)
     }
@@ -52,6 +55,10 @@ export default function Login({setComponent}){
                     <div>
                     <input placeholder="password" onChange={handleChange} name="password" type="password"></input>
                     </div>
+                    <ErrorMessage
+                    messages={errorMessages}
+                    
+                    ></ErrorMessage>
                     <input className="pointer embolden" type="submit"></input>
                 </form>
                 <div className='text-center pointer embolden' onClick={handleLink} data-dest="register">Click Here to Register</div>
