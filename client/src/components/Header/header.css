@@ -5,6 +5,9 @@
     position:fixed;
     top:0;
     width:100vw;
+    color: var(--header-color);    
+    font-family: monospace;
+    font-size: 1.2rem;
 }
 
 header ul {
@@ -15,10 +18,12 @@ header ul {
     margin:0
    }
 header a,header>ul>li{
-    padding:20px;
-    cursor:pointer;
+    padding: 20px;
+    font-family: monospace;
+    font-size: 1.2rem;
+    cursor: pointer;
     text-decoration: none;
-    color:black;
+    color: var(--header-color);
 }
 
 header a:hover,header>ul>li:hover{
@@ -32,6 +37,7 @@ header button{
     padding:0px 30px; 
     font-family: var(--main-font-family);
     font-size:1rem;
+    color:var(--header-color)
 }
 
 header button:hover{

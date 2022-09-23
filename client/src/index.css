@@ -1,4 +1,9 @@
 :root{
+  --header-background:hsl(213, 97%, 13%);
+  --header-color:white;
+  --accent-hover:hsl(213, 98%, 19%);
+  --neutral:#191a57;
+  --dash-item:white;
   --light:white;
   --dark:black;
   --light-background:#E8EDDF;
@@ -8,9 +13,7 @@
   --modal-button-hover:hsl(209, 50%, 95%);
   --modal-heading-color:#242423;
   --section-background:#CFDBD5;
-  --header-background:#ffffff;
   --main-text-color:#242423;
-  --accent-hover:hsl(44, 70%, 50%);
   --main-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   --modal-comp-bg:var(--modal-button);
   --main-hover-shadow:0 0 11px rgba(33,33,33,.2);
@@ -21,12 +24,11 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color:var(--main-text-color)
+  color:var(--main-text-color);
+  background-color: var(--neutral);
 }
 
 #root{
