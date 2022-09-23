@@ -106,6 +106,7 @@ query GetDates($userId: ID!) {
     lastReviewed
     lastSetting
     settings
+    orientated
   }
 }
 `

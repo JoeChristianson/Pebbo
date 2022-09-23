@@ -125,17 +125,26 @@ const getDailyQueue = async(parent,{userId,date})=>{
 }
 
 const getDates = async (parent,{userId})=>{
-    const user = await User.findById(userId);
-    const {lastAssessed,lastPopulated,birthdate,lastReviewed,lastSetting,settings} = user;
-    const dates = {settings,lastAssessed,lastPopulated,birthdate,lastReviewed,lastSetting};
-    
-    for (let prop in dates){
-        if (prop!=="settings"){
-            dates[prop] = formatDBDateForComparison(dates[prop])
+    try{
+
+        const user = await User.findById(userId);
+        const {orientated,lastAssessed,lastPopulated,birthdate,lastReviewed,lastSetting,settings} = user;
+        const dates = {orientated,settings,lastAssessed,lastPopulated,birthdate,lastReviewed,lastSetting};
+        console.log(user);
+        for (let prop in dates){
+            if (prop!=="settings"||prop!=="orientated"){
+                dates[prop] = formatDBDateForComparison(dates[prop])
+            }
         }
+        console.log("orientated",orientated);
+        dates.orientated = orientated||false
+        if(!Array.isArray(dates.settings)){
+            dates.settings = []
+        }
+        return dates
+    }catch(err){
+        console.error(err)
     }
-    dates.settings = dates.settings||[]
-    return dates
 }
 
 const getAllUsersAssessments = async (parent,{userId})=>{

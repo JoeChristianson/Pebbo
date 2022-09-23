@@ -39,6 +39,7 @@ const typeDefs = gql`
     lastReviewed:String
     lastSetting:String
     settings:[ID]
+    orientated:String
   }
 
   type SubTask {
@@ -195,6 +196,7 @@ const typeDefs = gql`
       addSubTask(userId:ID!,toDoId:ID!,name:String,date:String):SubTask
       completeSubTask(userId:ID!,toDoId:ID!,subtaskId:ID!,date:String!):String
       addSettingToDay(userId:ID!,settings:[String],date:String):String
+      setOrientated(userId:ID!,value:String!):String
     }
 
 `

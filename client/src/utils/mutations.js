@@ -227,3 +227,9 @@ mutation Mutation($userId: ID!, $itemId: ID!, $note: String!) {
   addQueueNote(userId: $userId, itemId: $itemId, note: $note)
 }
 `
+
+export const SET_ORIENTATED = gql`
+mutation Mutation($userId: ID!, $value: String!) {
+  setOrientated(userId: $userId, value: $value)
+}
+`

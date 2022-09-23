@@ -1,0 +1,11 @@
+.slide{
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-flex{
+    margin-top:20vh
+}

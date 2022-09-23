@@ -1,4 +1,4 @@
-import { POPULATE_DAY } from "../../utils/mutations"
+import { POPULATE_DAY, SET_ORIENTATED } from "../../utils/mutations"
 import "./Main.css"
 import { useEffect,useState } from "react"
 import Dash  from "../../pages/Dash"
@@ -6,6 +6,7 @@ import Review from "../../pages/Review"
 import { ManageAssessments } from "../../pages/ManageAssessments"
 import { BrowserRouter, Route, Routes,useParams } from "react-router-dom"
 import { TodaysSettings } from "../../pages/TodaysSettings"
+import Tutorial from "../../pages/Tutorial/index.js"
 const {useQuery,useMutation} = require("@apollo/client")
 const auth = require("../../utils/auth").default
 const {formatToday,formatYesterday} = require("../../utils/date")
@@ -23,7 +24,9 @@ const Variables = require("../../pages/Variables/index.tsx").default
 
 const Main =  ()=>{
     
+    const [setOrientated,{}]=useMutation(SET_ORIENTATED)
     const userId = auth.getProfile().data._id
+    const [tutorialOn,setTutorialOn] = useState(true)
     const [reviewed,setReviewed] = useState(false)
     const variables = {userId,date:formatToday()}
     const [isPopulated,setIsPopulated] = useState(false)
@@ -74,6 +77,21 @@ const Main =  ()=>{
         )
     }else{
         refetchDates()
+    }
+
+    const endTutorial = ()=>{
+        setTutorialOn(false)
+        setOrientated({variables:{userId,value:"true"}})
+    }
+
+
+    console.log(tutorialOn,datesData.getDates.orientated)
+    if(tutorialOn&&datesData.getDates.orientated==="false"){
+        return(
+            <Tutorial
+            endTutorial={endTutorial}
+            ></Tutorial>
+            )
     }
 
     return (

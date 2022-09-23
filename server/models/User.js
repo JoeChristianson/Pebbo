@@ -34,6 +34,10 @@ assessments:[{
   type:Schema.Types.ObjectId,
   ref:"Assessment"
 }],
+orientated:{
+  type:Boolean,
+  default:false
+},
 lastPopulated:{
   type:Date
 },

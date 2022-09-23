@@ -95,3 +95,12 @@ button{
 .inline-form input:focus-visible{
   outline: none;
 }
+
+.full-screen{
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0px;
+  cursor: pointer;
+}
+

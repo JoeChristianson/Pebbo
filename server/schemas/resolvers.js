@@ -4,14 +4,15 @@ const mutations = require("./mutations");
 const { notesMutations } = require("./notes/notesMutations.js");
 const queries = require("./queries");
 const settingQueries = require("./settingQueries");
-const toDoQueries = require("./toDoQueries")
+const toDoQueries = require("./toDoQueries");
+const tutorialMutations = require("./tutorial/tutorialMutations.js");
 
 const resolvers = {
     Query:{
         ...queries,...settingQueries,...journalQueries
     },
     Mutation:{
-        ...mutations,...journalMutations,...notesMutations
+        ...mutations,...journalMutations,...notesMutations,...tutorialMutations
     }
 }
 
