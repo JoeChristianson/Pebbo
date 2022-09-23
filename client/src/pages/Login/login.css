@@ -1,0 +1,11 @@
+img{
+    width: 150px;
+
+}
+
+.logo-cont{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
+}

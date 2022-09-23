@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../utils/mutations';
 import ErrorMessage from '../../components/generics/ErrorMessage/index.tsx';
+import "./login.css"
 const auth = require("../../utils/auth").default
 const {useState} = require("react")
 
@@ -41,6 +42,11 @@ export default function Login({setComponent}){
     }
 
     return(
+        <>
+        <div className='logo-cont'>
+
+                    <img src='/logo.png'></img>
+        </div>
         <div className="form-card">
             <header>
                 <h2 className=' text-center'>
@@ -64,6 +70,7 @@ export default function Login({setComponent}){
                 <div className='text-center pointer embolden' onClick={handleLink} data-dest="register">Click Here to Register</div>
             </main>
         </div>
+                    </>
 
     )
 
