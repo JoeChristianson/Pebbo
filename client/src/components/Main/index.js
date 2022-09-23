@@ -84,8 +84,6 @@ const Main =  ()=>{
         setOrientated({variables:{userId,value:"true"}})
     }
 
-
-    console.log(tutorialOn,datesData.getDates.orientated)
     if(tutorialOn&&datesData.getDates.orientated==="false"){
         return(
             <Tutorial

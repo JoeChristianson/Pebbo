@@ -1,0 +1,14 @@
+.loading-screen{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--header-background);
+    position: fixed;
+    top: 0;
+}
+
+.loading-screen>span{
+    position: relative;
+    top: 45%;
+    color: white;
+    font-size: 3rem;
+}

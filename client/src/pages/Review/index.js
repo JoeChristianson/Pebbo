@@ -20,7 +20,7 @@ const Review = ({userId,setReviewed,refresh})=>{
     if(loading){
         return <div>Loading...</div>
     }
-    if(!data.getReview?.habitDays){
+    if(!data?.getReview?.habitDays){
         setReviewed(true)
         return
     }
@@ -34,8 +34,11 @@ const Review = ({userId,setReviewed,refresh})=>{
         await toggleQueueComplete({variables:{userId,date,name:e.target.name}})
         await refetchDay()
     }
+    
+    const queueDays = data?.getReview?.habitDays ||[]
 
-    const {habitDays,queueDays} = data.getReview
+    const habitDays = data?.getReview?.habitDays ||[]
+
 
     const handleConfirm = async ()=>{
        const data = await confirmDay({variables:{userId,date:formatToday()}})

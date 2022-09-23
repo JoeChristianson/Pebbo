@@ -9,6 +9,7 @@ import FormElement from "../../components/generics/Form"
 import { useState } from "react"
 import { formatToday } from "../../utils/date"
 import ToDos from "../ToDos"
+import LoadingScreen from "../../components/LoadingScreen/index.tsx"
 
 const Dash = ({userId,date,data,loading,error,refetch,refetchDay})=>{
     
@@ -21,7 +22,7 @@ const Dash = ({userId,date,data,loading,error,refetch,refetchDay})=>{
 
 if(loading){
     return(
-        <div>Loading...</div>
+        <LoadingScreen/>
     )
 }
 
