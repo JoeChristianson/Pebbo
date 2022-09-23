@@ -1,0 +1,11 @@
+.error-field{
+
+}
+
+.error-field>span{
+    text-align: center;
+    margin: auto;
+    font-size: 1.1rem;
+    color:rgb(226, 0, 0);
+    font-weight: bold;
+}

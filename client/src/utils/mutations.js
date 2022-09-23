@@ -1,9 +1,10 @@
 const {gql} = require("@apollo/client")
 
 export const REGISTER = gql`
-mutation CreateUser($name: String!, $email: String!, $password: String!, $birthdate: String!) {
+mutation Mutation($name: String!, $email: String!, $password: String!, $birthdate: String!) {
   createUser(name: $name, email: $email, password: $password, birthdate: $birthdate) {
-    _id
+    valid
+    errors
   }
 }
 `

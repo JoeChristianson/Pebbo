@@ -1,3 +1,4 @@
+const {findError} = require("../utils/errors.ts")
 const { findDay, getDayOfWeek } = require("../utils/date")
 
 const {User,Habit,QueueItem}=require("../models")
@@ -12,6 +13,7 @@ const { ToDoForm } = require("../models/ToDoForm")
 const toDoMutations = require("./toDoMutations")
 const queueMutations = require("./queueMutations")
 const { settingMutations } = require("./settingMutations")
+const { log } = require("console")
 
 
 const mutations = {
@@ -38,9 +40,16 @@ const mutations = {
         }
     }, 
     createUser: async (parent,{name,email,password,birthdate})=>{
-        
-        const user = await User.create({name,email,password,birthdate})
-        return user
+        try{
+            const user = await User.create({name,email,password,birthdate})
+            console.log(user);
+            return {valid:true,errors:[]}
+        }catch(err){
+            // console.log(err.message)
+            const errors = findError(err.message);
+            console.log(errors);
+            return {valid:false,errors}
+        }
     },
     addHabit: async (parent,{name,prohibition,creator,date})=>{
         try{
