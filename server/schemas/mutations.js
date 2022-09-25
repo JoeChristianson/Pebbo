@@ -42,12 +42,12 @@ const mutations = {
     createUser: async (parent,{name,email,password,birthdate})=>{
         try{
             const user = await User.create({name,email,password,birthdate})
-            console.log(user);
+
             return {valid:true,errors:[]}
         }catch(err){
-            // console.log(err.message)
+
             const errors = findError(err.message);
-            console.log(errors);
+            console.error(errors);
             return {valid:false,errors}
         }
     },

@@ -154,6 +154,17 @@ const typeDefs = gql`
     errors:[String]
   }
 
+  type HabitDayPared{
+    name:String
+    isOn:Boolean
+    isComplete:Boolean
+  }
+
+  type HabitAssessmentObject{
+    value:Int
+    habits:[HabitDayPared]
+  }
+
   type Query {
     allUsers:[User]
     getDay(userId:ID!,date:String!):Day
@@ -168,6 +179,7 @@ const typeDefs = gql`
     getAllSettings(userId:ID!):[Setting]
     getAllSettingsAndOffSettings(userId:ID!,queueItemId:ID!):QueueSettings
     getAllJournalEntries(userId:ID!):[Entry]
+    getAllHabitsEffectsOnAssessment(userId:ID!,assessmentId:ID!):[HabitAssessmentObject]
   }
 
   type Mutation {

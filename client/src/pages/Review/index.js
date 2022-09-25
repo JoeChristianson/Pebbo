@@ -21,7 +21,7 @@ const Review = ({userId,setReviewed,refresh})=>{
     if(loading){
         return <LoadingScreen/>
     }
-    console.log("data",data);
+
     if(!data?.getReview?.habitDays){
         setReviewed(true)
         return

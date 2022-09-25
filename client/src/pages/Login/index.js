@@ -31,10 +31,9 @@ export default function Login({setComponent}){
                 password:""
             })
         }catch(err){
-            console.log("found an error");
-            console.log(err);
+
             setErrorMessages([err.message])
-            console.log(errorMessages);
+            console.error(errorMessages);
         }
     }
     const handleLink = (e)=>{

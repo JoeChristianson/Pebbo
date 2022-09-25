@@ -21,7 +21,7 @@ export default function Register({setComponent}){
 
     const handleFormSubmit = async (e)=>{
         e.preventDefault()
-        console.log({...formState});
+
         try{
             const variables = {...formState};
             if(!variables.birthdate){
@@ -40,7 +40,7 @@ export default function Register({setComponent}){
                 })
                 setComponent("login")
             }else{
-                console.log(errors,"erros");
+
                 setErrorMessages(errors)
             }
         }catch(err){

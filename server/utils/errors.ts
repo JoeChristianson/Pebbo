@@ -1,8 +1,7 @@
 
 
-const findError = (errorString)=>{
-    console.log(errorString);
-    
+const findError = (errorString:string)=>{
+
     let errors;
     if(errorString.includes("name")){
         errors = ["username already taken"]
@@ -16,8 +15,7 @@ const findError = (errorString)=>{
     else if (errorString.includes("birthdate")){
         errors = ["Must enter birthdate"]
     }
-    console.log(errors);
-    
+
     return errors
 }
 

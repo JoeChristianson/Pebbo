@@ -66,12 +66,12 @@ const Main =  ()=>{
     }
 
     if(formatToday()!==datesData.getDates?.lastReviewed&&!reviewed){
-        console.log("needs review");
+
         return(
             <Review refresh={refetchDates} userId={userId} setReviewed={setReviewed}/>
         )
     }else{
-        console.log("done reviewing");
+
     }
 
     if(formatToday()!==datesData.getDates?.lastSetting&&datesData.getDates?.settings.length>0){

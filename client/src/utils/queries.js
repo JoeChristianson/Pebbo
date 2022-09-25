@@ -180,3 +180,16 @@ query GetAllSettings($userId: ID!) {
   }
 }
 `
+
+export const GET_ALL_HABITS_EFFECTS_ON_ASSESSMENT = gql`
+query GetAllHabitsEffectsOnAssessment($userId: ID!, $assessmentId: ID!) {
+  getAllHabitsEffectsOnAssessment(userId: $userId, assessmentId: $assessmentId) {
+    value
+    habits {
+      name
+      isOn
+      isComplete
+    }
+  }
+}
+`

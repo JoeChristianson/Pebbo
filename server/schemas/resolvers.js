@@ -1,3 +1,4 @@
+const analyticsQueries = require("./analytics/analyticsQueries.js");
 const journalMutations = require("./journal/journalMutations.js");
 const journalQueries = require("./journal/journalQueries")
 const mutations = require("./mutations");
@@ -9,7 +10,7 @@ const tutorialMutations = require("./tutorial/tutorialMutations.js");
 
 const resolvers = {
     Query:{
-        ...queries,...settingQueries,...journalQueries
+        ...queries,...settingQueries,...journalQueries,...analyticsQueries
     },
     Mutation:{
         ...mutations,...journalMutations,...notesMutations,...tutorialMutations

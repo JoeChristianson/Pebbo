@@ -164,7 +164,7 @@ const getReview = async (parent,{userId,date})=>{
             model:"QueueItem"
         });
         const day = findDay(user,date)
-        console.log(day);
+
         return day
     }catch(err){
         console.error(err)
