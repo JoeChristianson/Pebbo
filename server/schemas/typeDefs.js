@@ -214,6 +214,7 @@ const typeDefs = gql`
       completeSubTask(userId:ID!,toDoId:ID!,subtaskId:ID!,date:String!):String
       addSettingToDay(userId:ID!,settings:[String],date:String):String
       setOrientated(userId:ID!,value:String!):String
+      exportData(userId:ID!):String
     }
 
 `

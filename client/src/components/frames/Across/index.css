@@ -1,0 +1,6 @@
+.across{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    margin: 1rem;
+}

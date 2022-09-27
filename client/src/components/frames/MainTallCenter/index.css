@@ -1,0 +1,10 @@
+.main-tall-center{
+    background: white;
+    width: 800px;
+    margin: auto;
+    min-height: 100vh;
+    color: var(--item-text-color);
+}
+.main-tall-center>section{
+    margin-top: 3.4rem;
+}

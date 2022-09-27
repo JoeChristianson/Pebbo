@@ -71,7 +71,9 @@ export const ManageAssessments = ({userId})=>{
         <main className="main-section assessments">
             <section className="assessment-left">
                 <div className="list">
+                    <div className="assessment-item">
                     <button onClick={openNewAssessment}>Add Assessment</button>
+                    </div>
                     {data.getAllUsersAssessments.map((a,i)=>{
                         return (<div key={i} className="assessment-item" ><span  onClick={select} data-index={i}>
                             {a.name}

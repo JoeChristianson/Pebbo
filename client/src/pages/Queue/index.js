@@ -4,6 +4,7 @@ import QueueList from "../../components/QueueList";
 import SimpleInput from "../../components/simpleInput";
 import { useState } from "react";
 import { formatToday } from "../../utils/date";
+import "./index.css"
 const {useQuery, useMutation} = require("@apollo/client")
 const {ADD_QUEUE_ITEM,COMPLETE_QUEUE_ITEM} = require("../../utils/mutations")
 
@@ -37,7 +38,7 @@ function Queue({userId,date}){
 
 
     return(
-        <main className="main-section">
+        <main className="main-queue-section">
         <SimpleInput handleChange={handleChange} handleSubmit={handleSubmit} text={item}
         formClass="inline-form"
         />

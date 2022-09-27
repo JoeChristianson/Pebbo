@@ -89,8 +89,10 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
                     {q.queueItem.name}
                     
                     </span>
+                    <div className="button-and-percentage-cont">
                     <button className="pointer" onClick={handleComplete} data-name={q.queueItem.name} data-date={q.date}></button>
                     <span className="percentage">{Math.round(q.successes*100/q.attempts)}%</span>
+                    </div>
                     </div>)
             })}
         </div>

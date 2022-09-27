@@ -8,6 +8,7 @@
 .addable-list{
     padding: 0;
     list-style: none;
+    color: var(--item-text-color);
 }
 
 .addable-list>li{

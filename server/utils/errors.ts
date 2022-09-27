@@ -1,6 +1,6 @@
 
 
-const findError = (errorString:string)=>{
+const findError = (errorString)=>{
 
     let errors;
     if(errorString.includes("name")){

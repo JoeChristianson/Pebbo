@@ -1,0 +1,11 @@
+
+.main-queue-section{
+
+    background-color: var(--section-background);
+    padding: .5rem;
+    /* width: 87%; */
+    border: var(--dark);
+    margin: 10px;
+    margin-top:8px;
+    height: 70vh;
+}

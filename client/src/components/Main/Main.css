@@ -96,6 +96,7 @@ body{
 
     margin: 4px;
     background-color: var(--section-background);
+    color: var(--item-text-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -143,6 +144,9 @@ body{
     transform: translate(-50%,-50%);
 }
 
+.queue-item-buttons-cont button:hover:after{
+    content: "";
+}
 
 .list-item button:hover{
     color: black;

@@ -1,3 +1,15 @@
 span.percentage{
     width: 40px;
 }
+
+.button-and-percentage-cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--neutral);
+}
+
+.button-and-percentage-cont>span{
+    background: var(--neutral);
+    color: var(--main-text-color);
+}

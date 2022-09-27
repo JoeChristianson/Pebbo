@@ -234,3 +234,9 @@ mutation Mutation($userId: ID!, $value: String!) {
   setOrientated(userId: $userId, value: $value)
 }
 `
+
+export const EXPORT_DATA = gql`
+mutation Mutation($userId: ID!) {
+  exportData(userId: $userId)
+}
+`
