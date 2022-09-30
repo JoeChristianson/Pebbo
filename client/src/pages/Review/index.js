@@ -23,7 +23,7 @@ const Review = ({userId,setReviewed,refresh})=>{
     }
 
     if(!data?.getReview?.habitDays){
-        setReviewed(true)
+        setTimeout(()=>setReviewed(true),5)
         return
     }
 

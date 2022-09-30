@@ -112,7 +112,7 @@ function ToDos({userId,refetchDash,onDash}){
             try{
 
                 if(!t.toDoForm?.name){
-                    return(<></>)
+                    return(null)
                 }
                 return (<div className="list-item" key={i}>
                 <span onClick={openThisModal}  data-id={t._id} data-name={t.toDoForm.name} >{t.toDoForm.name}</span><button data-id={t._id} onClick={handleComplete}></button>

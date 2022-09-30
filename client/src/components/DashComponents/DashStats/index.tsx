@@ -1,4 +1,4 @@
-import { FC, ReactElement } from "react"
+import React, { FC, ReactElement } from "react"
 import { useQuery } from "@apollo/client"
 import { QUICK_STATS } from "../../../utils/queries"
 import LoadingScreen from "../../LoadingScreen/index.tsx"
@@ -19,8 +19,8 @@ const DashStats:FC<{userId:string}> = ({userId}):ReactElement=>{
     {streaks.length<1?null:(<div>
         <h2>Streaks</h2>
         <div className="stats-cont">
-            {streaks.map((item:NameAndNumber):any=>{
-                return <div>
+            {streaks.map((item:NameAndNumber,key:React.Key):any=>{
+                return <div key={key}>
                     <>
                     {item?.number}&nbsp;days--{item?.name}
                     </>
@@ -31,8 +31,8 @@ const DashStats:FC<{userId:string}> = ({userId}):ReactElement=>{
     {averages.length<1?null:(<div className="stats-cont">
         <h2>Averages</h2>
         <div>
-            {averages.map((item:NameAndNumber):any=>{
-                return <div>
+            {averages.map((item:NameAndNumber,key:React.Key):any=>{
+                return <div key={key}>
                     <>
                     {item?.name}--{item?.number}
                     </>
