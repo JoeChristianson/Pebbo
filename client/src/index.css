@@ -24,6 +24,7 @@
 
 
 body {
+  font-size: 1.1rem;
   margin: 0;
   font-family: monospace;
   -webkit-font-smoothing: antialiased;
@@ -31,6 +32,8 @@ body {
   color:var(--main-text-color);
   background-color: var(--neutral);
 }
+
+
 
 #root{
   width: 100vw;

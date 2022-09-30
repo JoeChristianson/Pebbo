@@ -49,6 +49,10 @@ div.list-item button{
     height: 60px;
 }
 
+.dash-section{
+    color:var(--dark)
+}
+
 @media screen and (max-width:1000px) {
     .dashboard-cont{
         grid-template-columns: repeat(2,1fr);

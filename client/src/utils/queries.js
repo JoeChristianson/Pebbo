@@ -193,3 +193,18 @@ query GetAllHabitsEffectsOnAssessment($userId: ID!, $assessmentId: ID!) {
   }
 }
 `
+
+export const QUICK_STATS = gql`
+query QuickStats($userId: ID!) {
+  quickStats(userId: $userId) {
+    streaks {
+      name
+      number
+    }
+    averages {
+      name
+      number
+    }
+  }
+}
+`

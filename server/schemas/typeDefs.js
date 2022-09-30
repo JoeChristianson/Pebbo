@@ -165,6 +165,16 @@ const typeDefs = gql`
     habits:[HabitDayPared]
   }
 
+  type NameAndNumber{
+    name:String
+    number:Float
+  }
+
+  type QuickStats{
+    streaks:[NameAndNumber]
+    averages:[NameAndNumber]
+  }
+
   type Query {
     allUsers:[User]
     getDay(userId:ID!,date:String!):Day
@@ -180,6 +190,7 @@ const typeDefs = gql`
     getAllSettingsAndOffSettings(userId:ID!,queueItemId:ID!):QueueSettings
     getAllJournalEntries(userId:ID!):[Entry]
     getAllHabitsEffectsOnAssessment(userId:ID!,assessmentId:ID!):[HabitAssessmentObject]
+    quickStats(userId:ID!):QuickStats
   }
 
   type Mutation {

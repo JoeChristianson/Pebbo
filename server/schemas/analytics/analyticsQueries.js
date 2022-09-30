@@ -1,5 +1,7 @@
 const { calculateDaysBetween } = require("../../utils/date");
 const {User} = require("../../models")
+const findStreak = require("../../analysis/assessment/streak.js");
+const findAverage = require("../../analysis/assessment/average");
 
 const analyticsQueries = {
     getAllHabitsEffectsOnAssessment:async (parent,{userId,assessmentId})=>{
@@ -26,6 +28,24 @@ const analyticsQueries = {
         }
 
         return results
+    },
+    quickStats: async (parent,{userId})=>{
+        const user = await User.findById(userId).populate("assessments");
+        const {assessments} = user;
+        const streaks = []
+        const averages = []
+        assessments.forEach(assessment=>{
+            if(assessment.metric==="boolean"){
+                const number = findStreak(user,assessment)
+                streaks.push({name:assessment.name,number})
+            }else{
+                const number = findAverage(user,assessment,10)
+                averages.push({name:assessment.name,number})
+            }
+        })
+        const res = {streaks,averages}
+
+        return res
     }
 }
 

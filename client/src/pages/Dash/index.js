@@ -10,6 +10,7 @@ import { useState } from "react"
 import { formatToday } from "../../utils/date"
 import ToDos from "../ToDos"
 import LoadingScreen from "../../components/LoadingScreen/index.tsx"
+import DashStats from "../../components/DashComponents/DashStats/index.tsx"
 
 const Dash = ({userId,date,data,loading,error,refetch,refetchDay})=>{
     
@@ -110,10 +111,9 @@ const {queueDays,habitDays,toDos} = data.getDash
         </section>
         </div>
         <div>
-        <h2>Feed</h2>
-
+        <h2>Quick Stats</h2>
         <section className="dash-section">
-        Feed Goes here!
+        <DashStats userId={userId}></DashStats>
 
         </section>
         </div>
