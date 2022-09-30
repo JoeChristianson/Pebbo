@@ -9,10 +9,6 @@ export default function FormElement({formInputs,formInputValues,formOptions=[],e
           return (<></>)
         }
 
-        const value = formInputValues[input.name];
-
-
-
         const options = formOptions.find((formOption)=>{
           return formOption.property===input.name
         })?.options||null;
@@ -35,16 +31,16 @@ export default function FormElement({formInputs,formInputValues,formOptions=[],e
             {input.valueType==="boolean"||options?(
             <select
             disabled={disabledFields.includes(input.name)}
-             name={input.name} value={value||undefined} onChange={handleFormInputChange}>
+             name={input.name} value={formInputValues[input.name]||""} onChange={handleFormInputChange}>
                   <option value="" disabled selected>Select your {input.name}</option>
-              <Options options={input.valueType==="boolean"?["true","false"]:options} value={value}></Options>
+              <Options options={input.valueType==="boolean"?["true","false"]:options} value={formInputValues[input.name]||""}></Options>
             </select>):(<input
             disabled={disabledFields.includes(input.name)}
             type={input.valueType?input.valueType:"text"}
             id={input.name}
             name={input.name}
             placeholder={externalLabels?(input.placeholder||""):input.label}
-            value={value||undefined}
+            value={formInputValues[input.name]||""}
             onChange={handleFormInputChange}
             className="form-input" />)
           }
