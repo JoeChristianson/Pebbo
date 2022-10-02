@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes,useParams } from "react-router-dom"
 import { TodaysSettings } from "../../pages/TodaysSettings"
 import Tutorial from "../../pages/Tutorial/index.js"
 import AccountSettings from "../../pages/AccountSettings/index.tsx"
+import AssessmentGuide from "../../pages/Guides/AssessmentGuide/index.tsx"
 const {useQuery,useMutation} = require("@apollo/client")
 const auth = require("../../utils/auth").default
 const {formatToday,formatYesterday} = require("../../utils/date")
@@ -106,6 +107,7 @@ const Main =  ()=>{
             <Route path="/variables" element={<Variables userId={userId}></Variables>}></Route>
             <Route path="/habits" element={<Habits dayLoading={dayLoading} dayData={dayData} refetchDay={refetchDay} refetchDash={refetchDash}></Habits>}></Route>
             <Route path="/settings" element={<AccountSettings userId={userId}></AccountSettings>}></Route>
+            <Route path="/assessment-guide" element={<AssessmentGuide></AssessmentGuide>}></Route>
         </Routes>
     )
     

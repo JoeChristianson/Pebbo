@@ -187,14 +187,30 @@ const getDash = async (parent,{userId,date})=>{
         let incompleteQueueDays = [...queueDays.filter(q=>{
             return !q.isComplete
         })]
+        incompleteQueueDays = incompleteQueueDays.map((qd)=>{
+            const {ordinal} = user.queue.find((qi)=>{
+                console.log(qi.queueItem.toString(),qd.queueItem._id.toString())
+                return qi.queueItem.toString()===qd.queueItem._id.toString()})
+            return {
+                date:qd.date,
+                queueItem:qd.queueItem,
+                isOn:qd.isOn,
+                isComplete:qd.isComplete,
+                skips:qd.skips,
+                _id:qd._id,
+                ordinal
+            }
+        })
+
         let queueItemLowestAdjustedIndex = null;
         let queueItemIndex = null
         incompleteQueueDays.forEach((queueItem,index)=>{
-            if(queueItemIndex===null||(index+(queueItem.skips*1.1))<queueItemLowestAdjustedIndex){
-                queueItemLowestAdjustedIndex = (index+(queueItem.skips*1.1))
+            if(queueItemIndex===null||((((queueItem?.skips||0)*1.1)+queueItem.ordinal)<queueItemLowestAdjustedIndex)){
+                queueItemLowestAdjustedIndex = (((queueItem?.skips||0)*1.1)+queueItem.ordinal)
                 queueItemIndex = index
+                console.log("winning index",index)
             }else{
-                console.error("not low enough",queueItem)
+                // console.error("not low enough",queueItem)
             }
         })
         
@@ -208,6 +224,7 @@ const getDash = async (parent,{userId,date})=>{
             queueDays:incompleteQueueDays.length>0?[incompleteQueueDays[queueItemIndex]]:[],
             habitDays:[...habitDays]
         }
+        console.log(result);
         return result
     }catch(err){
         console.error(err)

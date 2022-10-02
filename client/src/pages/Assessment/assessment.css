@@ -12,6 +12,7 @@
     margin:.5rem;
     box-shadow: 2px 2px ;
     cursor: pointer;
+    background-color: var(--light);
 }
 
 .assessment-btn-cont>button:hover,.assessment-btn-cont>button.selected{
