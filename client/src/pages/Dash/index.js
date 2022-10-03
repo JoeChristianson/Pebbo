@@ -11,15 +11,13 @@ import { formatToday } from "../../utils/date"
 import ToDos from "../ToDos"
 import LoadingScreen from "../../components/LoadingScreen/index.tsx"
 import DashStats from "../../components/DashComponents/DashStats/index.tsx"
+import { ancestrySearch } from "../../utils/DOM.ts"
 
 const Dash = ({userId,date,data,loading,error,refetch,refetchDay})=>{
     
     const [completeQueueItem,{data:qData,loading:qLoading,error:qError}] = useMutation(COMPLETE_QUEUE_ITEM)
     const [completeHabitDay,{data:hData,loading:hLoading,error:hError}] = useMutation(TOGGLE_IS_COMPLETE)
-    const [addToDo,{data:newData,loading:newLoading,error:newError}]=useMutation(ADD_TO_DO)    
-    const [completeToDo,{data:tData,loading:tLoading,error:tError}] = useMutation(COMPLETE_TO_DO)
     const [skipQueueItem,{data:sqData,loading:sqLoading,error:sqError}] = useMutation(SKIP_QUEUE_ITEM)
-    const [inputValues,setInputValues] = useState({newHabit:""})
 
 if(loading){
     return(
@@ -32,26 +30,17 @@ if(error){
 }
 
 const handleQueueComplete = async (e)=>{
-    
-    const {name} = e.target
+    const name = ancestrySearch(e.target,"name")
     const variables = {userId,name,date}
     const resp = await completeQueueItem({variables})
     refetch()
 }
 
 const handleQueueSkip = async (e)=>{
-    const {queueDayId} = e.target.dataset;
+    const queueDayId = ancestrySearch(e.target,"dataset.queueDayId")
+    console.log(queueDayId)
     const variables = {userId,queueItem:queueDayId,date}
     const resp = await skipQueueItem({variables})
-    refetch()
-}
-
-const handleToDoComplete = async (e)=>{
-    const {id:toDoId} = e.target.dataset
-    const variables = {
-        userId,toDoId,date
-    }
-    await completeToDo({variables})
     refetch()
 }
 
@@ -61,28 +50,12 @@ const handleHabitComplete = async (e)=>{
     await refetchDay()
 }
 
-const handleNewHabitFormInputChange = (e)=>{
-    setInputValues({newHabit:e.target.value})
-}
-
-const handleNewHabitFormSubmit = async (e)=>{
-    e.preventDefault()
-    const newToDo = inputValues.newHabit
-    await addToDo({variables:{
-        creator:userId,name:newToDo,date:formatToday()
-    }})
-    refetch()
-    setInputValues({newHabit:""})
-    e.target.elements.newHabit.value = ""
-}
 
 if(!data?.getDash){
     return (<div>Loading</div>)
 }
 
 const {queueDays,habitDays,toDos} = data.getDash
-console.log("queue days",queueDays);
-
 
     return(
         <div className="dashboard-cont">

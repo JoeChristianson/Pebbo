@@ -1,0 +1,13 @@
+.bottom-info-bar{
+    position: fixed;
+    width:100vw;
+    background: white;
+    bottom: 0;
+    z-index: 100;
+    color: black;
+    display: flex;
+}
+
+.bottom-info-bar button{
+    cursor: pointer;
+}

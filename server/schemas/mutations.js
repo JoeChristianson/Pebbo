@@ -42,7 +42,7 @@ const mutations = {
     createUser: async (parent,{name,email,password,birthdate})=>{
         try{
             const user = await User.create({name,email,password,birthdate})
-            await loadTutorialValues(user._id)
+            await loadTutorialValues(user)
             return {valid:true,errors:[]}
         }catch(err){
 

@@ -1,0 +1,10 @@
+.side-by-side{
+    display: flex;
+    justify-content: center;
+}
+
+.confirm-btn{
+    font-size: 1.2rem;
+    background: var(--light);
+    cursor: pointer;
+}

@@ -1,7 +1,7 @@
 import "./modal.css"
 import { SettingsGrid } from "../SettingsGrid"
 
-export const Modal = ({userId,setModalOpen,modalInput,handleDelete,dataId,handlePrioritize,handleSettings,notes,children,onDash})=>{
+export const Modal = ({highlight,userId,setModalOpen,modalInput,handleDelete,dataId,handlePrioritize,handleSettings,notes,children,onDash})=>{
     
 
     const handleModalClose = ()=>{
@@ -9,7 +9,7 @@ export const Modal = ({userId,setModalOpen,modalInput,handleDelete,dataId,handle
     }
 
     return(<div className={`modal ${onDash?"on-dash":""}`}>
-        <button className="close-modal" onClick={handleModalClose}>x</button>
+        <button className={`close-modal ${highlight==="close-modal"?"highlight":""}`} onClick={handleModalClose}>x</button>
         <h3>{modalInput.name}</h3>
         <div className="modal-buttons">
         {handlePrioritize?<button onClick={handlePrioritize} data-id={dataId} className="modal-button">Prioritize</button>:null}

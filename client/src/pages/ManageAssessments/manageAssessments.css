@@ -42,8 +42,20 @@
     width: 100%;
     padding: 1rem;
     cursor: pointer;
+    background: var(--light);
+    z-index: 100;
+}
+
+.list>div{
+    width: 300px;
 }
 
 canvas{
     image-rendering: pixelated
   }
+
+.assessment-list-cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
