@@ -36,9 +36,11 @@ export const ManageAssessments = ({userId,highlight})=>{
     }
 
     const handleDelete = async (e)=>{
-        const variables = {userId,assessmentId:e.target.dataset._id};
+        const variables = {userId,assessmentId:modalOpen._id};
+
         await deleteAssessment({variables})
         refetch()
+        setModalOpen(false)
     }
 
     const openExistingAssessment = (e)=>{
@@ -74,19 +76,19 @@ export const ManageAssessments = ({userId,highlight})=>{
                     <div className="assessment-item">
                     <button className={`${highlight==="add-button"?'highlight':''}`} onClick={openNewAssessment}>Add Assessment</button>
                     </div>
-                    <div className={`assessment-list-cont ${highlight==="assessment-list-cont"?'highlight':''}`}>
+                    <div className={`assessment-list-cont ${highlight==="assessment-list-cont"?'child-highlight':''}`}>
 
                     {data.getAllUsersAssessments.map((a,i)=>{
                         return (<div key={i} className="assessment-item" ><span  onClick={select} data-index={i}>
                             {a.name}
                             </span>
-                            <i onClick={openExistingAssessment} data-index={i}>e</i>
+                            <i  className={` ${highlight==="edit-btn"?'highlight':''}`} onClick={openExistingAssessment} data-index={i}>e</i>
                             </div>)
                     })}
                     </div>
                 </div>
             </section>
-            <section className={`assessment-right ${highlight==="main-graph-area"?"highlight":""}`}>
+            <section className={`assessment-right ${highlight==="main-graph-area"?"inner-highlight":""}`}>
                     {pieData===null?null:<PieChart
                     data={pieData}
                     />}
@@ -108,6 +110,7 @@ export const ManageAssessments = ({userId,highlight})=>{
                 modalInput={modalOpen}
                 onDash={true}
                 setModalOpen={setModalOpen}
+                handleDelete={handleDelete}
                 >
                     <h3>{modalOpen.metric}</h3>
                 </Modal>

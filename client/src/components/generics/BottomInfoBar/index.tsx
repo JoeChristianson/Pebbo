@@ -3,7 +3,8 @@ import "./index.css"
 
 type Page = {
     text:string,
-    highlight:string
+    highlight:string,
+    end?:boolean
 }
 
 type Props = {
@@ -11,11 +12,14 @@ type Props = {
     setHighlight:Function
 }
 
-const BottomInfoBar = ({pages,setHighlight}:Props)=>{
+const BottomInfoBar = ({pages,setHighlight,end}:Props)=>{
 
     const [pageIndex,setPageIndex]:[number,Function] = useState(0);
 
     const handleNextPage = ()=>{
+        if(pages[pageIndex].end){
+            console.log("ending tutorial, make sure to switch to next")
+        }
         if((pageIndex+1)>=pages.length){
             console.log("out of pages");
             return
@@ -27,9 +31,9 @@ const BottomInfoBar = ({pages,setHighlight}:Props)=>{
     }
 
     return(
-        <div className="bottom-info-bar">
+        <div  onClick={handleNextPage} className="bottom-info-bar">
             <p>{pages[pageIndex].text}</p>
-            <button onClick={handleNextPage}>Next</button>
+            <footer>Click here for next instruction...</footer>
         </div>
     )
 }
