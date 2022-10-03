@@ -8,6 +8,8 @@ import { BrowserRouter, Route, Routes,useParams } from "react-router-dom"
 import { TodaysSettings } from "../../pages/TodaysSettings"
 import Tutorial from "../../pages/Tutorial/index.js"
 import AccountSettings from "../../pages/AccountSettings/index.tsx"
+import AssessmentGuide from "../../pages/Guides/AssessmentGuide/index.tsx"
+import { GET_QUEUE } from "../../utils/queries"
 const {useQuery,useMutation} = require("@apollo/client")
 const auth = require("../../utils/auth").default
 const {formatToday,formatYesterday} = require("../../utils/date")
@@ -41,6 +43,9 @@ const Main =  ()=>{
         const {loading:dayLoading,error,data:dayData,refetch:refetchDay} = useQuery(QUERY_DAY,
             {variables:{userId,date:formatToday()}
         })    
+    const queueQuery = useQuery(GET_QUEUE,{
+            variables:{userId,date:formatToday()}
+    })    
     const handleDoublePop = async ()=>{
         if(localStorage.getItem("lastUpdatedHabd")==variables.date){
             return
@@ -100,12 +105,13 @@ const Main =  ()=>{
         <Routes>
             <Route path="/"
             element={<Dash data={dashData} loading={dashLoading} error={dashError} refetch={refetchDash} userId={userId} date={formatToday()} refetchDay={refetchDay}/>}></Route>
-            <Route path="/queue"   element={<Queue userId={userId} date={formatToday()}></Queue>}></Route>
+            <Route path="/queue"   element={<Queue refetchDash={refetchDash} userId={userId} date={formatToday()} queueQuery={queueQuery}></Queue>}></Route>
             <Route path="/to-dos" element={<ToDos refetchDash={refetchDash}  userId={userId}></ToDos>}></Route>
             <Route path="/assessments" element={<ManageAssessments userId={userId}></ManageAssessments>}></Route>
             <Route path="/variables" element={<Variables userId={userId}></Variables>}></Route>
             <Route path="/habits" element={<Habits dayLoading={dayLoading} dayData={dayData} refetchDay={refetchDay} refetchDash={refetchDash}></Habits>}></Route>
             <Route path="/settings" element={<AccountSettings userId={userId}></AccountSettings>}></Route>
+            <Route path="/assessment-guide" element={<AssessmentGuide userId={userId}></AssessmentGuide>}></Route>
         </Routes>
     )
     

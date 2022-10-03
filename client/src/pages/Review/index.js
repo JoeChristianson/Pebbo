@@ -7,7 +7,7 @@ import HabitDay from "../../components/HabitDay"
 import { QueueDay } from "../../components/QueueDay"
 import { CONFIRM_DAY, COMPLETE_QUEUE_ITEM, TOGGLE_IS_COMPLETE } from "../../utils/mutations"
 import LoadingScreen from "../../components/LoadingScreen/index.tsx"
-
+import "./index.css"
 
 const Review = ({userId,setReviewed,refresh})=>{
     const date = formatYesterday()
@@ -50,6 +50,7 @@ const Review = ({userId,setReviewed,refresh})=>{
     return(
         <div className="main-cont">
             <h3>Review Yesterday</h3>
+            <button class="confirm-btn" onClick={handleConfirm}>Confirm</button>
             <div className="side-by-side">
 
             <section className="list-cont">
@@ -74,7 +75,7 @@ const Review = ({userId,setReviewed,refresh})=>{
                 </div>
             </section>
                 </div>
-                <button onClick={handleConfirm}>Confirm</button>
+
         </div>
     )
 }

@@ -13,7 +13,7 @@ const { ToDoForm } = require("../models/ToDoForm")
 const toDoMutations = require("./toDoMutations")
 const queueMutations = require("./queueMutations")
 const { settingMutations } = require("./settingMutations")
-const { log } = require("console")
+const {loadTutorialValues} = require("../utils/tutorial.ts")
 
 
 const mutations = {
@@ -42,7 +42,7 @@ const mutations = {
     createUser: async (parent,{name,email,password,birthdate})=>{
         try{
             const user = await User.create({name,email,password,birthdate})
-
+            await loadTutorialValues(user)
             return {valid:true,errors:[]}
         }catch(err){
 
@@ -94,7 +94,7 @@ const mutations = {
 }
 },
 addAssessment: async (parent,{userId,name,metric})=>{
-    
+    console.log("adding assessment!");
     let assessment = (await Assessment.find({name}))[0];
     
     if (!assessment){

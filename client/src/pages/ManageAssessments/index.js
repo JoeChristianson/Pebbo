@@ -10,7 +10,7 @@ import PieChart from "../../components/Graphs/PieChart/index.tsx"
 import BarGraph from "../../components/Graphs/BarGraph/index.tsx"
 import HabitAssessmentBars from "../../components/Analyses/HabitAssessmentBars/index.tsx"
 
-export const ManageAssessments = ({userId})=>{
+export const ManageAssessments = ({userId,highlight})=>{
 
     const {data,loading,error,refetch} = useQuery(GET_ALL_USERS_ASSESSMENTS,{variables:{userId}})
 
@@ -36,9 +36,11 @@ export const ManageAssessments = ({userId})=>{
     }
 
     const handleDelete = async (e)=>{
-        const variables = {userId,assessmentId:e.target.dataset._id};
+        const variables = {userId,assessmentId:modalOpen._id};
+
         await deleteAssessment({variables})
         refetch()
+        setModalOpen(false)
     }
 
     const openExistingAssessment = (e)=>{
@@ -72,18 +74,21 @@ export const ManageAssessments = ({userId})=>{
             <section className="assessment-left">
                 <div className="list">
                     <div className="assessment-item">
-                    <button onClick={openNewAssessment}>Add Assessment</button>
+                    <button className={`${highlight==="add-button"?'highlight':''}`} onClick={openNewAssessment}>Add Assessment</button>
                     </div>
+                    <div className={`assessment-list-cont ${highlight==="assessment-list-cont"?'child-highlight':''}`}>
+
                     {data.getAllUsersAssessments.map((a,i)=>{
                         return (<div key={i} className="assessment-item" ><span  onClick={select} data-index={i}>
                             {a.name}
                             </span>
-                            <i onClick={openExistingAssessment} data-index={i}>e</i>
+                            <i  className={` ${highlight==="edit-btn"?'highlight':''}`} onClick={openExistingAssessment} data-index={i}>e</i>
                             </div>)
                     })}
+                    </div>
                 </div>
             </section>
-            <section className="assessment-right">
+            <section className={`assessment-right ${highlight==="main-graph-area"?"inner-highlight":""}`}>
                     {pieData===null?null:<PieChart
                     data={pieData}
                     />}
@@ -100,10 +105,12 @@ export const ManageAssessments = ({userId})=>{
             modalOpen===false?null:
 
                 <Modal
+                highlight={highlight}
                 userId={userId}
                 modalInput={modalOpen}
                 onDash={true}
                 setModalOpen={setModalOpen}
+                handleDelete={handleDelete}
                 >
                     <h3>{modalOpen.metric}</h3>
                 </Modal>
@@ -112,19 +119,20 @@ export const ManageAssessments = ({userId})=>{
             newOpen===false?null:
 
                 <Modal
+                highlight={highlight}
                 userId={userId}
                 modalInput={modalOpen}
                 onDash={true}
                 setModalOpen={setNewOpen}
                 >
                             <section className="add-assessment">
-            <input onChange={handleAddChange} data-key="name" placeholder="Assessment Name"></input>
-            <select onChange={handleAddChange} data-key="metric">
+            <input className={`${highlight==="assessment-name"?"highlight":""}`} onChange={handleAddChange} data-key="name" placeholder="Assessment Name"></input>
+            <select className={`${highlight==="assessment-metric"?"highlight":""}`}  onChange={handleAddChange} data-key="metric">
             <option value="boolean">Pass/Fail</option>
             <option value="grade">Grade</option>
             <option value="quantity">Quantity</option>
             </select>
-            <button onClick={handleAddSubmit}>Add Assessment</button>
+            <button className={`${highlight==="assessment-button"?"highlight":""}`} onClick={handleAddSubmit}>Add Assessment</button>
             </section>
                 </Modal>
             }

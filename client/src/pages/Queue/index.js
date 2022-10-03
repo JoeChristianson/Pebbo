@@ -8,12 +8,10 @@ import "./index.css"
 const {useQuery, useMutation} = require("@apollo/client")
 const {ADD_QUEUE_ITEM,COMPLETE_QUEUE_ITEM} = require("../../utils/mutations")
 
-function Queue({userId,date}){
+function Queue({userId,date,queueQuery,refetchDash}){
     const [addQueueItem,{data:queueItemData,loading:queueItemLoading,error:queueAddError}] = useMutation(ADD_QUEUE_ITEM);
     const [completeQueueItem,{data:completeData,loading:completeLoading,error:completeError}] = useMutation(COMPLETE_QUEUE_ITEM)
-    const {loading,error,data:queueData,refetch} = useQuery(GET_QUEUE,{
-        variables:{userId,date}
-    })
+    const {loading,error,data:queueData,refetch} = queueQuery
     const [item,setItem] = useState("")
     const handleChange = (e)=>{
         setItem(e.target.value)
@@ -26,6 +24,7 @@ function Queue({userId,date}){
         }})
         setItem("")
         refetch()
+        refetchDash()
     }
 
     const handleComplete = async (e)=>{
@@ -33,6 +32,7 @@ function Queue({userId,date}){
         const variables = {userId,name,date:formatToday()}
         const resp = await completeQueueItem({variables})
         refetch()
+        refetchDash()
     }
 
 
