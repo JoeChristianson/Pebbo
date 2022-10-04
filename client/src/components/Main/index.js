@@ -9,7 +9,8 @@ import { TodaysSettings } from "../../pages/TodaysSettings"
 import Tutorial from "../../pages/Tutorial/index.js"
 import AccountSettings from "../../pages/AccountSettings/index.tsx"
 import AssessmentGuide from "../../pages/Guides/AssessmentGuide/index.tsx"
-import { GET_QUEUE } from "../../utils/queries"
+import { GET_QUEUE, GET_THEME } from "../../utils/queries"
+import themes from "../../themes/index.ts"
 const {useQuery,useMutation} = require("@apollo/client")
 const auth = require("../../utils/auth").default
 const {formatToday,formatYesterday} = require("../../utils/date")
@@ -42,7 +43,19 @@ const Main =  ()=>{
         const {data:dashData,loading:dashLoading,error:dashError,refetch:refetchDash} = useQuery(GET_DASH,{variables:{userId,date:formatToday()}})
         const {loading:dayLoading,error,data:dayData,refetch:refetchDay} = useQuery(QUERY_DAY,
             {variables:{userId,date:formatToday()}
-        })    
+        })
+        const {data:themeData,refetch:refetchTheme} = useQuery(GET_THEME,{variables:{userId}})
+    
+    useEffect(()=>{
+        if(!themeData?.getTheme){
+            return
+        }
+        const theme = themes.find(theme=>theme.name===themeData.getTheme).css
+        for (let key in theme){
+            document.documentElement.style.setProperty(key, theme[key].replace(";",""));
+        }
+    },[themeData])
+
     const queueQuery = useQuery(GET_QUEUE,{
             variables:{userId,date:formatToday()}
     })    
@@ -100,7 +113,6 @@ const Main =  ()=>{
             ></Tutorial>
             )
     }
-
     return (
         <Routes>
             <Route path="/"
@@ -110,7 +122,7 @@ const Main =  ()=>{
             <Route path="/assessments" element={<ManageAssessments userId={userId}></ManageAssessments>}></Route>
             <Route path="/variables" element={<Variables userId={userId}></Variables>}></Route>
             <Route path="/habits" element={<Habits dayLoading={dayLoading} dayData={dayData} refetchDay={refetchDay} refetchDash={refetchDash}></Habits>}></Route>
-            <Route path="/settings" element={<AccountSettings userId={userId}></AccountSettings>}></Route>
+            <Route path="/settings" element={<AccountSettings theme={themeData?.getTheme} refetchTheme={refetchTheme} userId={userId}></AccountSettings>}></Route>
             <Route path="/assessment-guide" element={<AssessmentGuide userId={userId}></AssessmentGuide>}></Route>
         </Routes>
     )

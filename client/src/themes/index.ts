@@ -1,3 +1,6 @@
+import boringTheme from "./boring.ts"
+import happyElfTheme from "./happyelf.ts"
+import starshipTheme from "./starship.ts"
 
 type Theme = {
     name:String,
@@ -6,7 +9,9 @@ type Theme = {
 
 
 const themes:Theme[] = [
-
+    boringTheme,
+    happyElfTheme,
+    starshipTheme
 ]
 
 export default themes

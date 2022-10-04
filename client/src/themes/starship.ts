@@ -1,15 +1,15 @@
 
 
 
-const happyElfTheme = {
-    name:"Happy Elf",
+const starshipTheme = {
+    name:"Starship",
     css:{
-        "--header-background":"	#217c03",
-        "--header-color":"	#e5dd84",
+        "--header-background":"hsl(213, 97%, 13%);",
+        "--header-color":"hsl(0, 0%, 100%);",
         "--accent-hover":"hsl(213, 98%, 19%);",
-        "--neutral":"hsl(25deg 43% 24%);",
-        "--dash-item":"#f1eedd",
-        "--light":"#f1eedd",
+        "--neutral":"hsl(239, 55%, 22%);",
+        "--dash-item":"hsl(0, 0%, 100%);",
+        "--light":"hsl(0, 0%, 100%);",
         "--dark":"hsl(0, 0%, 0%);",
         "--light-background":"hsl(81, 28%, 90%);",
         "--dark-shadow":"hsl(228, 13%, 37%);",
@@ -17,14 +17,13 @@ const happyElfTheme = {
         "--modal-button":"hsl(209, 50%, 85%);",
         "--modal-button-hover":"hsl(209, 50%, 95%);",
         "--modal-heading-color":"hsl(60, 1%, 14%);",
-        "--section-background":"hsl(150deg 95% 10%);",
+        "--section-background":"hsl(150, 14%, 84%);",
         "--main-text-color":"hsl(60, 1%, 14%);",
+        "--main-font-family": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;",
         "--modal-comp-bg":"var(--modal-button);",
         "--main-hover-shadow":"0 0 11px rgba(33,33,33,.2);",
         "--lighter-shadow":"2px 2px 3px 2px rgba(134, 134, 134, 0.555);",
-        "--main-font-family":"'MedievalSharp', cursive;",
-        "--modal-background":"#f1eedd"
     }
 }
 
-export default happyElfTheme
+export default starshipTheme

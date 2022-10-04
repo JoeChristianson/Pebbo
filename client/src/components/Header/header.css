@@ -6,7 +6,7 @@
     top:0;
     width:100vw;
     color: var(--header-color);    
-    font-family: monospace;
+    font-family: var(--main-font-family);
     font-size: 1.2rem;
 }
 
@@ -19,7 +19,7 @@ header ul {
    }
 header a,header>ul>li{
     padding: 20px;
-    font-family: monospace;
+    font-family: var(--main-font-family);
     font-size: 1.2rem;
     cursor: pointer;
     text-decoration: none;
