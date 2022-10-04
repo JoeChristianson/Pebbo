@@ -63,8 +63,27 @@ div.list-item button{
     .dashboard-cont{
         grid-template-columns: repeat(1,1fr);
     }
+    .dashboard-cont>section, .dashboard-cont>div>section{
+        height: unset;
+    }
+    .list{
+        height: unset;
+    }
+    .dashboard-cont>div>h2,.dashboard-cont h2{
+        font-size: 1.2rem;
+        margin-top: 0;
+    }
+    .dashboard-cont h2{
+        margin-bottom: 0;
+    }
+    div.list-item{
+        min-height: 40px;
+    }
+    div.list-item button{
+        height: 40px;
+    }
 }
 
 .stats-section{
-    color:var(--header-color)
+    color:var(--stats-color)
 }
