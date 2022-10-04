@@ -82,6 +82,17 @@ const {queueDays,habitDays,toDos} = data.getDash
     return(
         <div className="dashboard-cont">
             <div>
+        <h2>Today's Habits</h2>
+
+        <section className="dash-section">
+        {!habitDays.length>0?<h2>No Habit Testing Today</h2>:null}
+        {habitDays.map((h,i)=>{
+            return <HabitDay key={i} handleComplete={handleHabitComplete} habitDay={h}/>
+        })}
+
+        </section>
+        </div>
+            <div>
             <h2>Daily Queue</h2>
 
         <section className="dash-section">
@@ -94,17 +105,7 @@ const {queueDays,habitDays,toDos} = data.getDash
         <ToDos onDash={true}  userId={userId}></ToDos>
         </section>
             </div>
-            <div>
-        <h2>Today's Habits</h2>
-
-        <section className="dash-section">
-        {!habitDays.length>0?<h2>No Habit Testing Today</h2>:null}
-        {habitDays.map((h,i)=>{
-            return <HabitDay key={i} handleComplete={handleHabitComplete} habitDay={h}/>
-        })}
-
-        </section>
-        </div>
+            
         <div>
         <h2>Quick Stats</h2>
         <section className="dash-section stats-section">
