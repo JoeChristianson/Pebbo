@@ -191,6 +191,7 @@ const typeDefs = gql`
     getAllJournalEntries(userId:ID!):[Entry]
     getAllHabitsEffectsOnAssessment(userId:ID!,assessmentId:ID!):[HabitAssessmentObject]
     quickStats(userId:ID!):QuickStats
+    getTheme(userId:ID!):String
   }
 
   type Mutation {
@@ -226,6 +227,7 @@ const typeDefs = gql`
       addSettingToDay(userId:ID!,settings:[String],date:String):String
       setOrientated(userId:ID!,value:String!):String
       exportData(userId:ID!):String
+      changeTheme(userId:ID!,theme:String):String
     }
 
 `

@@ -208,3 +208,9 @@ query QuickStats($userId: ID!) {
   }
 }
 `
+
+export const GET_THEME = gql`
+query Query($userId: ID!) {
+  getTheme(userId: $userId)
+}
+`

@@ -240,3 +240,9 @@ mutation Mutation($userId: ID!) {
   exportData(userId: $userId)
 }
 `
+
+export const CHANGE_THEME = gql`
+mutation Mutation($userId: ID!, $theme: String) {
+  changeTheme(userId: $userId, theme: $theme)
+}
+`

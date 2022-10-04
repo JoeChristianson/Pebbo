@@ -85,7 +85,7 @@ const {queueDays,habitDays,toDos} = data.getDash
         </div>
         <div>
         <h2>Quick Stats</h2>
-        <section className="dash-section">
+        <section className="dash-section stats-section">
         <DashStats userId={userId}></DashStats>
 
         </section>

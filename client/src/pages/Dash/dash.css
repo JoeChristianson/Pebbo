@@ -64,3 +64,7 @@ div.list-item button{
         grid-template-columns: repeat(1,1fr);
     }
 }
+
+.stats-section{
+    color:var(--header-color)
+}

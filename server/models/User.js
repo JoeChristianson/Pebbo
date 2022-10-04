@@ -60,7 +60,11 @@ settings:[{
 journal:[{
   type:Schema.Types.ObjectId,
   ref:"Journal"
-}]
+}],
+theme:{
+  type:String,
+  default:"standard"
+}
 });
 
 // set up pre-save middleware to create password

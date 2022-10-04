@@ -7,11 +7,12 @@ const queries = require("./queries");
 const settingQueries = require("./settingQueries");
 const toDoQueries = require("./toDoQueries");
 const tutorialMutations = require("./tutorial/tutorialMutations.js");
-const mailMutations = require("./mail/mailMutations.ts")
+const mailMutations = require("./mail/mailMutations.ts");
+const themeQueries = require("./tutorial/themeQueries.js");
 
 const resolvers = {
     Query:{
-        ...queries,...settingQueries,...journalQueries,...analyticsQueries,
+        ...queries,...settingQueries,...journalQueries,...analyticsQueries,...themeQueries
     },
     Mutation:{
         ...mutations,...journalMutations,...notesMutations,...tutorialMutations,...mailMutations

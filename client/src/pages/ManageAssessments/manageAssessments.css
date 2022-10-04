@@ -21,7 +21,7 @@
     display: flex;
     justify-content: space-between;
     width: 70%;
-    background: white;
+    background: var(--light-background);
 }
 
 .assessment-left div.assessment-item:first-child{
@@ -32,8 +32,7 @@
 .assessment-right{
     width: calc(100% - 300px);
     height: 100%;
-    background: var(--neutral);
-    background: white;
+    background: var(--light-background);
     display: flex;
 }
 
