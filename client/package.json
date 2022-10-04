@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "apollo-client": "^2.6.10",
     "chart.js": "^3.9.1",
+    "fireworks": "^2.2.7",
     "react": "^18.1.0",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "^18.1.0",

@@ -12,9 +12,25 @@ import ToDos from "../ToDos"
 import LoadingScreen from "../../components/LoadingScreen/index.tsx"
 import DashStats from "../../components/DashComponents/DashStats/index.tsx"
 import { ancestrySearch } from "../../utils/DOM.ts"
+import {Fireworks} from "fireworks/lib/react"
+import Saddy from "../../components/Overlays/Saddy/index.tsx"
 
 const Dash = ({userId,date,data,loading,error,refetch,refetchDay})=>{
+
+    let fxProps = {
+        count: 3,
+        interval: 200,
+        colors: ['#cc3333', '#4CAF50', '#81C784'],
+        calc: (props, i) => ({
+          ...props,
+          x: (i + 1) * (window.innerWidth / 3) - (i + 1) * 100,
+          y: 200 + Math.random() * 100 - 50 + (i === 2 ? -80 : 0)
+        })
+      }
     
+    const [fireworksOn,setFireworksOn] = useState(false)
+    const [sadOn,setSadOn] = useState(false)
+
     const [completeQueueItem,{data:qData,loading:qLoading,error:qError}] = useMutation(COMPLETE_QUEUE_ITEM)
     const [completeHabitDay,{data:hData,loading:hLoading,error:hError}] = useMutation(TOGGLE_IS_COMPLETE)
     const [skipQueueItem,{data:sqData,loading:sqLoading,error:sqError}] = useMutation(SKIP_QUEUE_ITEM)
@@ -33,6 +49,8 @@ const handleQueueComplete = async (e)=>{
     const name = ancestrySearch(e.target,"name")
     const variables = {userId,name,date}
     const resp = await completeQueueItem({variables})
+    setFireworksOn(true);
+    setTimeout(()=>setFireworksOn(false),1000)
     refetch()
 }
 
@@ -41,6 +59,8 @@ const handleQueueSkip = async (e)=>{
     console.log(queueDayId)
     const variables = {userId,queueItem:queueDayId,date}
     const resp = await skipQueueItem({variables})
+    setSadOn(true)
+    setTimeout(()=>setSadOn(false),3000)
     refetch()
 }
 
@@ -48,6 +68,8 @@ const handleHabitComplete = async (e)=>{
     await completeHabitDay({variables:{userId,date,habitDayId:e.target.dataset.habitDayId}})
     await refetch()
     await refetchDay()
+    setFireworksOn(true);
+    setTimeout(()=>setFireworksOn(false),1000)
 }
 
 
@@ -90,6 +112,8 @@ const {queueDays,habitDays,toDos} = data.getDash
 
         </section>
         </div>
+        {fireworksOn&&<Fireworks {...fxProps} />}
+        {sadOn&&<Saddy/>}
         </div>
     )
 }

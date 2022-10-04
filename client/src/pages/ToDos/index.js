@@ -9,9 +9,23 @@ import FormElement from "../../components/generics/Form"
 import { ToDo } from "../../components/ToDo"
 import { EditField } from "../../components/generics/EditField"
 import "./index.css"
+import {Fireworks} from "fireworks/lib/react"
 
 function ToDos({userId,refetchDash,onDash}){
  
+    let fxProps = {
+        count: 3,
+        interval: 200,
+        colors: ['#cc3333', '#4CAF50', '#81C784'],
+        calc: (props, i) => ({
+          ...props,
+          x: (i + 1) * (window.innerWidth / 3) - (i + 1) * 100,
+          y: 200 + Math.random() * 100 - 50 + (i === 2 ? -80 : 0)
+        })
+      }
+    
+    const [fireworksOn,setFireworksOn] = useState(false)
+
     const [newToDo,setNewToDo] = useState("") 
     let {loading,data,refetch} = useQuery(GET_TO_DOS,{variables:{
         userId
@@ -33,6 +47,8 @@ function ToDos({userId,refetchDash,onDash}){
             await completeToDo({variables:{
                 userId,toDoId,date:formatToday()
             }})
+            setFireworksOn(true);
+            setTimeout(()=>setFireworksOn(false),1000)
             refetch()
         } catch(err){
             console.error(err)
@@ -103,6 +119,7 @@ function ToDos({userId,refetchDash,onDash}){
 
     return(
         <div className="flex">
+                    {fireworksOn&&<Fireworks {...fxProps} />}
         <main className="main-section">
         <SimpleInput         formClass="inline-form" text={newToDo} handleChange={handleChange} handleSubmit={handleSubmit}/>
         <div className="list">
