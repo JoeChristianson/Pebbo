@@ -1,3 +1,7 @@
+.stats-cont{
+    color: var(--stats-color);
+}
+
 .stats-cont>div>div{
     margin-bottom: 1rem;
 }

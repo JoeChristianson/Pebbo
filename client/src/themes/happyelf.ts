@@ -23,8 +23,11 @@ const happyElfTheme = {
         "--main-hover-shadow":"0 0 11px rgba(33,33,33,.2);",
         "--lighter-shadow":"2px 2px 3px 2px rgba(134, 134, 134, 0.555);",
         "--main-font-family":"'MedievalSharp', cursive;",
-        "--modal-background":"#f1eedd"
+        "--modal-background":"#f1eedd",
+        "--stats-color":"#e5dd84",
+        "--danger":"#e78f8f"
     }
 }
+// #84bd80
 
 export default happyElfTheme
