@@ -11,7 +11,7 @@ import { EditField } from "../../components/generics/EditField"
 import "./index.css"
 import {Fireworks} from "fireworks/lib/react"
 
-function ToDos({userId,refetchDash,onDash}){
+function ToDos({userId,refetchDash,onDash,setHideHeader}){
  
     let fxProps = {
         count: 3,
@@ -75,6 +75,7 @@ function ToDos({userId,refetchDash,onDash}){
         setModalInput({name:e.target.dataset.name})
         const newSubTasks = data.getToDos.find(td=>td._id===id).subTasks
         setSubtasks(newSubTasks)
+        setHideHeader(true)
     }
 
     const updateSubtasks = ()=>{

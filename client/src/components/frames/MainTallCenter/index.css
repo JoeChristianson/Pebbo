@@ -8,3 +8,8 @@
 .main-tall-center>section{
     margin-top: 3.4rem;
 }
+@media screen and (max-width:800px) {
+    .main-tall-center{
+        width: unset;
+    }
+}

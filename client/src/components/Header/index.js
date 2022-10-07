@@ -6,7 +6,7 @@ const Nav = require("../Nav/index.js").default
 const {formatToday} = require("../../utils/date")
 
 
-function Header({setCurrentSection}) {
+function Header({setCurrentSection,hideHeader}) {
     const handleLogout = ()=>{
         auth.logout()
     }
@@ -22,10 +22,6 @@ function Header({setCurrentSection}) {
         isLink:false,
         onClick:handleLogout
     },
-    {     label:"Close",
-    isLink:false,
-    onClick:()=>{}
-},
     {
         label:"Settings",
         isLink:true,
@@ -35,17 +31,22 @@ function Header({setCurrentSection}) {
         label:"Variables",
         isLink:true,
         link:"/variables"
-    }
+    },
+    {     label:"Close",
+    isLink:false,
+    onClick:()=>{}
+}
     ]
-
+    console.log(hideHeader);
     return(
-        <header>
+        <header className={hideHeader?"hide":"x"}>
 
             <span onClick={handleDropDown} className="mobile">Open</span>
             <Nav setCurrentSection={setCurrentSection} dropDownOpen={dropDownOpen} handleDropDown={handleDropDown}></Nav>
             <h4>{formatToday()}</h4>
             <span className="user-span">
-            {!userMenuOpen?null:            <DropDown
+            {!userMenuOpen?null:            
+            <DropDown
             items={dropDownItems}
             setDropDownOpen={setUserMenuOpen}
             ></DropDown>}

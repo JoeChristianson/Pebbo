@@ -43,7 +43,6 @@ export default function Login({setComponent}){
     return(
         <>
         <div className='logo-cont'>
-
                     <img src='/logo.png'></img>
         </div>
         <div className="form-card">

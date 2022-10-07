@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Modal } from "../Modal"
 import {useMutation} from "@apollo/client"
 import { REORDER_QUEUE,DELETE_QUEUE_ITEM, ADD_NOTE_TO_TO_DO, ADD_NOTE_TO_QUEUE_ITEM } from "../../utils/mutations"
@@ -6,7 +6,7 @@ import {formatToday, formatYesterday} from "../../utils/date"
 import Notes from "../Notes"
 import "./index.css"
 
-const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
+const QueueList = ({queue,handleComplete,userId,refetch,yesterday,setHideHeader})=>{
     queue = queue || []
     let date
     yesterday?date=formatYesterday():date=formatToday()
@@ -22,7 +22,12 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
     const handleOpenModal = (e)=>{
         setModalInput(e.target.dataset)
         setModalOpen(true)
+        setHideHeader(true)
     }
+
+    useEffect(()=>{
+        setHideHeader(openModal)
+    },[openModal])
 
     const handleDelete = async (e)=>{
         const {id} = e.target.dataset;
@@ -32,6 +37,7 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday})=>{
             date
         }
         setModalOpen(false)
+        setHideHeader(false)
         await deleteQueueItem({variables})
         refetch()
     }

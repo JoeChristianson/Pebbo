@@ -3,25 +3,26 @@ import { Link } from "react-router-dom"
 function Nav({setCurrentSection,dropDownOpen,handleDropDown}){
 
     const handleSectionChange = (e)=>{
-        setCurrentSection(e.target.dataset.value)
+        console.log("in it");
+        // setCurrentSection(e.target.dataset.value)
         handleDropDown()
     }
 
     return(
         <ul className={dropDownOpen?"open":"closed"}>
-            <li>
+            <li onClick={()=>{handleSectionChange()}}>
             <img className="logo" src="/logo.png"></img>
             </li>
-        <Link to="/"><li>
+        <Link onClick={()=>{handleSectionChange()}} to="/"><li >
                             </li>Dash
                             </Link>
-                            <Link to="/queue"><li>
+                            <Link  onClick={()=>{handleSectionChange()}} to="/queue"><li onClick={()=>{handleSectionChange()}}>
                             </li>Queue
                             </Link>
-                            <Link to="/assessments"><li>
+                            <Link  onClick={()=>{handleSectionChange()}} to="/assessments"><li onClick={()=>{handleSectionChange()}}>
                             </li>Assessments
                             </Link>
-                            <Link to="/habits"><li>
+                            <Link  onClick={()=>{handleSectionChange()}} to="/habits"><li onClick={()=>{handleSectionChange()}}>
                             </li>Habits
                             </Link>
 
