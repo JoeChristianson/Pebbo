@@ -4,6 +4,8 @@ import "./index.css"
 // items = {label,link,isLink,onClick}
 const DropDown = ({items,setDropDownOpen})=>{
 
+
+
     return(
         <div className="dropdown-menu" 
         onMouseLeave={()=>setDropDownOpen(false)}
@@ -14,7 +16,7 @@ const DropDown = ({items,setDropDownOpen})=>{
                     if(item.isLink){
 
                         return(
-                            <Link key={index} to={item.link}><li>
+                            <Link key={index} to={item.link}><li onClick={()=>{setDropDownOpen(false)}}>
                             {item.label}
                         </li>
                         </Link>

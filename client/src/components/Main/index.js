@@ -28,7 +28,7 @@ const Variables = require("../../pages/Variables/index.tsx").default
 
 
 
-const Main =  ()=>{
+const Main =  ({setHideHeader})=>{
     
     const [setOrientated,{}]=useMutation(SET_ORIENTATED)
     const userId = auth.getProfile().data._id
@@ -119,11 +119,11 @@ const Main =  ()=>{
         <Routes>
             <Route path="/"
             element={<Dash data={dashData} loading={dashLoading} error={dashError} refetch={refetchDash} userId={userId} date={formatToday()} refetchDay={refetchDay}/>}></Route>
-            <Route path="/queue"   element={<Queue refetchDash={refetchDash} userId={userId} date={formatToday()} queueQuery={queueQuery}></Queue>}></Route>
-            <Route path="/to-dos" element={<ToDos refetchDash={refetchDash}  userId={userId}></ToDos>}></Route>
+            <Route path="/queue"   element={<Queue setHideHeader={setHideHeader}  refetchDash={refetchDash} userId={userId} date={formatToday()} queueQuery={queueQuery}></Queue>}></Route>
+            <Route path="/to-dos" element={<ToDos setHideHeader={setHideHeader} refetchDash={refetchDash}  userId={userId}></ToDos>}></Route>
             <Route path="/assessments" element={<ManageAssessments userId={userId}></ManageAssessments>}></Route>
             <Route path="/variables" element={<Variables userId={userId}></Variables>}></Route>
-            <Route path="/habits" element={<Habits dayLoading={dayLoading} dayData={dayData} refetchDay={refetchDay} refetchDash={refetchDash}></Habits>}></Route>
+            <Route path="/habits" element={<Habits setHideHeader={setHideHeader} dayLoading={dayLoading} dayData={dayData} refetchDay={refetchDay} refetchDash={refetchDash}></Habits>}></Route>
             <Route path="/settings" element={<AccountSettings theme={themeData?.getTheme} refetchTheme={refetchTheme} userId={userId}></AccountSettings>}></Route>
             <Route path="/assessment-guide" element={<AssessmentGuide userId={userId}></AssessmentGuide>}></Route>
         </Routes>

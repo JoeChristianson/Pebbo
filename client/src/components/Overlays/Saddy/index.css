@@ -14,3 +14,9 @@
     font-size: 10rem;
     color: white;
 }
+
+@media  screen and (max-width:500px) {
+    .saddy>h1{
+        font-size: 3rem;
+    }
+}

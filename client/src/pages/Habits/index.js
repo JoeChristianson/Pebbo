@@ -11,7 +11,7 @@ const {TOGGLE_IS_COMPLETE, DELETE_HABIT} = require("../../utils/mutations")
 const {formatToday} = require("../../utils/date")
 const auth = require("../../utils/auth").default
 
-function Habits({refetchDash,dayLoading,dayData,refetchDay}){
+function Habits({refetchDash,dayLoading,dayData,refetchDay,setHideHeader}){
     const userId = auth.getProfile().data._id
     const date = formatToday()
     const [modalOpen,setModalOpen] = useState(false)
@@ -51,10 +51,12 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay}){
     }
 
     const openThisModal = (e)=>{
+        console.log("opening");
         const {id} = e.target.dataset;
         setDataId(id)
         setModalOpen(true)
         setModalInput({name:e.target.dataset.name})
+        setHideHeader(true)
     }
 
     const handleDelete = async (e)=>{

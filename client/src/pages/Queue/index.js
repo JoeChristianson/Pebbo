@@ -8,7 +8,7 @@ import "./index.css"
 const {useQuery, useMutation} = require("@apollo/client")
 const {ADD_QUEUE_ITEM,COMPLETE_QUEUE_ITEM} = require("../../utils/mutations")
 
-function Queue({userId,date,queueQuery,refetchDash}){
+function Queue({userId,date,queueQuery,refetchDash,setHideHeader}){
     const [addQueueItem,{data:queueItemData,loading:queueItemLoading,error:queueAddError}] = useMutation(ADD_QUEUE_ITEM);
     const [completeQueueItem,{data:completeData,loading:completeLoading,error:completeError}] = useMutation(COMPLETE_QUEUE_ITEM)
     const {loading,error,data:queueData,refetch} = queueQuery
@@ -42,7 +42,7 @@ function Queue({userId,date,queueQuery,refetchDash}){
         <SimpleInput handleChange={handleChange} handleSubmit={handleSubmit} text={item}
         formClass="inline-form"
         />
-        {!loading?<QueueList refetch={refetch} userId={userId} handleComplete={handleComplete} queue={queueData?.getDailyQueue}></QueueList>:null
+        {!loading?<QueueList setHideHeader={setHideHeader} refetch={refetch} userId={userId} handleComplete={handleComplete} queue={queueData?.getDailyQueue}></QueueList>:null
         }
         </main>
     )

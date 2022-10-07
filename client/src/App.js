@@ -39,7 +39,7 @@ const client = new ApolloClient({
 
 function App() {
   const [currentSection,setCurrentSection] = useState("dash")
-
+  const [hideHeader,setHideHeader] = useState(false)
   const loggedIn = auth.loggedIn()
 
 
@@ -49,8 +49,8 @@ function App() {
     {!loggedIn?<AuthComponent/>:
     
     <div className="App">
-      <Header setCurrentSection={setCurrentSection}></Header>
-      <Main currentSection={currentSection}></Main>
+      <Header hideHeader={hideHeader} setCurrentSection={setCurrentSection}></Header>
+      <Main setHideHeader={setHideHeader} currentSection={currentSection}></Main>
     </div>
   }
     </ApolloProvider>
