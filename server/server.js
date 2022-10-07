@@ -2,9 +2,12 @@ const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
-
+const {User} = require("../server/models/User")
+const fs = require("fs")
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
+const { fstat } = require('fs');
+const cors = require("cors")
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -13,7 +16,7 @@ const server = new ApolloServer({
   resolvers,
   context: authMiddleware,
 });
-
+app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -21,11 +24,24 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
+
 app.get('/', (req, res) => {
   
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
+app.get("/api/export", async (req,res)=>{
+  const {userId} = req.query
+  const user = await User.findById(userId)
+  console.log("being pinged");
+  res.json(user)
+  // await fs.writeFile(`./files/${userId}.json`,JSON.stringify(user),()=>{})
+  // res.sendFile(`${__dirname}/files/${userId}.json`,(err)=>{
+  //   if(err){
+  //     console.error(err)
+  //   }
+  // })
+})
 // comment this in for production
 if (PORT!==3001){
   app.get("*", (req, res) => {
