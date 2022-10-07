@@ -23,6 +23,7 @@ const starshipTheme = {
         "--modal-comp-bg":"var(--modal-button);",
         "--main-hover-shadow":"0 0 11px rgba(33,33,33,.2);",
         "--lighter-shadow":"2px 2px 3px 2px rgba(134, 134, 134, 0.555);",
+        "--stats-color":"hsl(213, 97%, 13%);"
     }
 }
 
