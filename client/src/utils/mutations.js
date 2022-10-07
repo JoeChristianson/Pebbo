@@ -246,3 +246,9 @@ mutation Mutation($userId: ID!, $theme: String) {
   changeTheme(userId: $userId, theme: $theme)
 }
 `
+
+export const SET_MULTIPLE_SETTINGS = gql`
+mutation Mutation($userId: ID!, $settingsArray: [KeyValue]) {
+  setMultipleSettings(userId: $userId, settingsArray: $settingsArray)
+}
+`

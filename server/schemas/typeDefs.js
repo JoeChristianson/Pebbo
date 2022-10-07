@@ -175,6 +175,13 @@ const typeDefs = gql`
     averages:[NameAndNumber]
   }
 
+  input KeyValue{
+    key:String
+    string:String
+    boolean:String
+    int:String
+  }
+
   type Query {
     allUsers:[User]
     getDay(userId:ID!,date:String!):Day
@@ -228,6 +235,7 @@ const typeDefs = gql`
       setOrientated(userId:ID!,value:String!):String
       exportData(userId:ID!):String
       changeTheme(userId:ID!,theme:String):String
+      setMultipleSettings(userId:ID!,settingsArray:[KeyValue]):String
     }
 
 `

@@ -15,6 +15,7 @@ const queueMutations = require("./queueMutations")
 const { settingMutations } = require("./settingMutations")
 const {loadTutorialValues} = require("../utils/tutorial.ts")
 const themeMutations = require("./themes/themeMutations")
+const accountMutations = require("./accountSettings/accountMutations.js")
 
 
 const mutations = {
@@ -400,7 +401,8 @@ reorderQueue: async(parent,{userId,oldOrdinal,newOrdinal})=>{
         ...toDoMutations,
         ...queueMutations,
         ...settingMutations,
-        ...themeMutations
+        ...themeMutations,
+        ...accountMutations
     }
 
 module.exports=mutations
