@@ -1,4 +1,20 @@
 .module{
     height:80vh;
-    margin:auto
+    margin:auto;
+    display:flex;
+    justify-content: center;
+}
+
+.modal{
+    max-width: 500px;
+    margin: 20px;
+}
+
+@media screen and (max-width:700px) {
+    .modal{
+        position: fixed;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+    }
 }

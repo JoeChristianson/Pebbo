@@ -56,7 +56,7 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay,setHideHeader}){
         setDataId(id)
         setModalOpen(true)
         setModalInput({name:e.target.dataset.name})
-        setHideHeader(true)
+        // setHideHeader(true)
     }
 
     const handleDelete = async (e)=>{
@@ -74,8 +74,10 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay,setHideHeader}){
     if(data){
         return(
             <section className="module">
+                <div>
+
             <SubNav options={options} handleSubMenu={handleSubMenu}></SubNav>
-            <section className="module">
+            <section className="dash-section">
                 {subsection==="active"?data.filter(h=>{
                     return h.isOn===true
                 }).map((habitDay,index)=>{
@@ -86,6 +88,7 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay,setHideHeader}){
                     return(<HabitDay key={index} openThisModal={openThisModal} handleComplete={handleComplete} habitDay={habitDay}></HabitDay>)
                 }):null}
             </section>
+                </div>
             {modalOpen?<Modal setModalOpen={setModalOpen} modalInput={modalInput} handleDelete={handleDelete} dataId={dataId} />:null}
         </section>
     )
