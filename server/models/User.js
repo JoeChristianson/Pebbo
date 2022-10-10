@@ -64,8 +64,14 @@ journal:[{
 theme:{
   type:String,
   default:"standard"
+},
+phone:{
+  type:Number,
+  required:false
 }
-});
+},
+{timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }}
+);
 
 // set up pre-save middleware to create password
 UserSchema.pre('save', async function (next) {

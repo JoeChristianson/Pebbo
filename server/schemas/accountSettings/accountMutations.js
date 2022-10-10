@@ -13,6 +13,14 @@ const {User} = require("../../models")
 // }
 
 const accountMutations = {
+    addPhoneToAccount: async (parent,{userId,phoneNumber})=>{
+        const user = await User.findById(userId)
+        console.log("existing",user.phone);
+        user.phone = parseInt(phoneNumber);
+        console.log(user.phone);
+        await user.save()
+        return "success"
+    },
     setMultipleSettings: async(parent,{userId,settingsArray})=>{
         const user = await User.findById(userId)
         for(let prop of settingsArray){
