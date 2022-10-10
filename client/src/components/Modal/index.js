@@ -15,11 +15,11 @@ export const Modal = ({highlight,userId,setModalOpen,modalInput,handleDelete,dat
         {handlePrioritize?<button onClick={handlePrioritize} data-id={dataId} className="modal-button">Prioritize</button>:null}
         <button onClick={handleDelete} data-id={dataId} className="modal-button">Delete</button>
         </div>
-        {handleSettings?(<>
+        {/* {handleSettings?(<>
         <h3>Settings</h3>
         <SettingsGrid userId={userId} dataId={dataId}/>
         </>
-        ):null}
+        ):null} */}
         {children}
         {notes&&notes.length>0&&(<div>There are notes</div>)}
         </div>)

@@ -8,6 +8,7 @@
     color: var(--header-color);    
     font-family: var(--main-font-family);
     font-size: 1.2rem;
+    z-index: 100;
 }
 
 header ul {

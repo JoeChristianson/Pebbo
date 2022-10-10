@@ -27,11 +27,11 @@ function Header({setCurrentSection,hideHeader}) {
         isLink:true,
         link:"/settings"
     },
-    {
-        label:"Variables",
-        isLink:true,
-        link:"/variables"
-    },
+    // {
+    //     label:"Variables",
+    //     isLink:true,
+    //     link:"/variables"
+    // },
     {     label:"Close",
     isLink:false,
     onClick:()=>{}
