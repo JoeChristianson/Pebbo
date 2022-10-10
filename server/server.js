@@ -7,7 +7,8 @@ const fs = require("fs")
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 const { fstat } = require('fs');
-const cors = require("cors")
+const cors = require("cors");
+const textReminders = require("./texting/index.js")
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -64,9 +65,8 @@ const startApolloServer = async (typeDefs, resolvers) => {
     
     db.once('open', () => {
       app.listen(PORT, () => {
-        
-        
       }) 
+      textReminders()
     })
   }catch(err){
     console.error(err)

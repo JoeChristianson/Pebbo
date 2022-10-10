@@ -236,6 +236,7 @@ const typeDefs = gql`
       exportData(userId:ID!):String
       changeTheme(userId:ID!,theme:String):String
       setMultipleSettings(userId:ID!,settingsArray:[KeyValue]):String
+      addPhoneToAccount(userId:ID!,phoneNumber:String!):String
     }
 
 `

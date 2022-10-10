@@ -22,7 +22,12 @@ const getDayOfWeek = (user,date)=>{
 
 const calculateDaysBetween = (date1,date2)=>{
     const dateObj1 = new Date(date1);
-    const dateObj2 = new Date(date2)
+    let dateObj2
+    if(date2){
+        dateObj2 = new Date(date2)
+    }else{
+        dateObj2 = new Date()
+    }
     const timeDiff = dateObj1.getTime()-dateObj2.getTime()
     const dayDiff = timeDiff/(1000*60*60*24)
     return dayDiff
