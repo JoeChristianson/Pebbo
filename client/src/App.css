@@ -42,3 +42,15 @@ input{
     transform: rotate(360deg);
   }
 }
+
+
+@media screen and (max-width: 1000px){
+  .modal,.modal.on-dash{
+      position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 90vw !important;
+  margin: unset !important;
+  }
+}
