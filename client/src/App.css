@@ -54,3 +54,16 @@ input{
   margin: unset !important;
   }
 }
+
+.lock-screen{
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+  position: fixed;
+}
+
+.touch-drag{
+  position: fixed;
+  z-index: 999;
+  background: grey !important;
+}

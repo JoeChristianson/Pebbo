@@ -43,6 +43,7 @@ const mutations = {
     }, 
     createUser: async (parent,{name,email,password,birthdate})=>{
         try{
+            console.log("creating!");
             const user = await User.create({name,email,password,birthdate})
             await loadTutorialValues(user)
             return {valid:true,errors:[]}

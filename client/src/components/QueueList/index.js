@@ -19,11 +19,13 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday,setHideHeader}
     const [openModal,setModalOpen] = useState(false)
     const [modalInput,setModalInput] = useState({})
     const [draggedOrdinal,setDraggedOrdinal] = useState(null)
+    const [touchedElement,setTouchedElement] = useState(null)
     const handleOpenModal = (e)=>{
         setModalInput(e.target.dataset)
         setModalOpen(true)
         setHideHeader(true)
     }
+    const [itemsCoords,setItemsCoords] = useState(null)
 
     useEffect(()=>{
         setHideHeader(openModal)
@@ -74,6 +76,46 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday,setHideHeader}
         refetch()
     }
 
+    const startTouchDrag = (e)=>{
+        document.body.classList.add("lock-screen")
+        e.target.classList.add("touch-drag")
+        setDraggedOrdinal(e.target.dataset.ordinal)
+        setTouchedElement(e.target)
+    }
+
+    const handleTouchEnd = async (e)=>{
+        const y = e.changedTouches[0].clientY
+        const items = Array.from(document.querySelectorAll(".list-item")).map(el=>{
+
+           return {ordinal:el.dataset.ordinal,y:el.offsetTop+el.offsetHeight/2}
+        })
+        .filter(el=>el.ordinal!==draggedOrdinal)
+        let closest = null;
+        let distance = 9000;
+        for (let el of items){
+            if(Math.abs(el.y-y)<distance){
+                closest = el
+                distance = Math.abs(el.y-y)
+            }
+        }
+        const oldOrdinal = parseInt(draggedOrdinal);
+        const newOrdinal = parseInt(closest.ordinal);
+        const variables = {userId,oldOrdinal,newOrdinal}
+
+        await reorderQueue({variables})
+        refetch()
+        e.target.classList.remove("touch-drag")
+        document.body.classList.remove("lock-screen")
+        setTouchedElement(null)
+    }
+
+    const handleTouchMove = (e)=>{
+        const {clientX,clientY} = e.nativeEvent.changedTouches[0];
+        touchedElement.style.top = `${clientY-20}px`
+    }
+
+
+
     if (!queue){
         return(<div>Day did not populate</div>)
     }
@@ -89,6 +131,9 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday,setHideHeader}
                     onDragEnter={handleDragEnter}
                     onDragLeave={handleDragLeave}
                     onDragStart={(e)=>setDraggedOrdinal(e.target.dataset.ordinal)}
+                    onTouchStart={startTouchDrag}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
                     data-id={q.queueItem._id}
                 data-ordinal={q.ordinal} onDrop={handleDrop} className={q.isComplete?"done list-item":"list-item"}>
                     <span data-ordinal={q.ordinal}       data-id={q.queueItem._id} className="pointer" data-name={q.queueItem.name} onClick={handleOpenModal} >
