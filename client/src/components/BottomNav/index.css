@@ -1,0 +1,15 @@
+footer{
+    background:black;
+    color:white;
+    padding: 7px;
+    position: fixed;
+    bottom: 0px;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    z-index: 200;
+}
+footer>a{
+    color: white;
+    font-size: 1.7rem;
+}

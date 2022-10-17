@@ -6,6 +6,7 @@ body{
     padding-top: 70px;
 }
 
+
 .App{
     text-align: center;
     display: flex;
@@ -156,4 +157,15 @@ body{
 
 .side-by-side{
     display: flex;
+}
+
+@media screen and (max-width:700px) {
+    body{
+        padding-top:20px;
+        padding-bottom: 30px;
+    }
+    .dashboard-cont>div>section{
+        margin: 10px auto !important;
+        
+    }
 }

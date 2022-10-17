@@ -2,7 +2,7 @@ import './App.css';
 import Header from "./components/Header"
 import Main from "./components/Main"
 import AuthComponent from './components/Auth';
-import {useState} from "react"
+import {useState,useEffect} from "react"
 import {
   ApolloClient,
   InMemoryCache,
@@ -12,6 +12,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import auth from "./utils/auth"
 import { BrowserRouter } from 'react-router-dom';
+import BottomNav from './components/BottomNav/index.tsx';
 
 const httpLink = createHttpLink({
   // toggle for production/absolute path for development
@@ -41,7 +42,13 @@ function App() {
   const [currentSection,setCurrentSection] = useState("dash")
   const [hideHeader,setHideHeader] = useState(false)
   const loggedIn = auth.loggedIn()
-
+  const [isMobile,setIsMobile] = useState(false)
+  useEffect(()=>{
+      const width = window.screen.width
+      console.log(width);
+      setIsMobile(width<700)
+  },[])
+  console.log(isMobile);
 
   return (
     <BrowserRouter>
@@ -49,8 +56,9 @@ function App() {
     {!loggedIn?<AuthComponent/>:
     
     <div className="App">
-      <Header hideHeader={hideHeader} setCurrentSection={setCurrentSection}></Header>
+      {!isMobile&&<Header hideHeader={hideHeader} setCurrentSection={setCurrentSection}></Header>}
       <Main setHideHeader={setHideHeader} currentSection={currentSection}></Main>
+      {isMobile&&<BottomNav></BottomNav>}
     </div>
   }
     </ApolloProvider>
