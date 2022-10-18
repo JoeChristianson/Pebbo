@@ -85,9 +85,7 @@ const Main =  ({setHideHeader})=>{
     if(pendingAssessmentData?.feedAssessment?._id){
         return(<Assessment refetchAssessment={refetchAssessment} date={formatToday()} userId={userId} assessment={pendingAssessmentData.feedAssessment}></Assessment>)
     }
-
     if(formatToday()!==datesData.getDates?.lastReviewed&&!reviewed){
-
         return(
             <Review refresh={refetchDates} userId={userId} setReviewed={setReviewed}/>
         )

@@ -10,6 +10,7 @@ import LoadingScreen from "../../components/LoadingScreen/index.tsx"
 import "./index.css"
 
 const Review = ({userId,setReviewed,refresh})=>{
+    console.log("we are in the review!");
     const date = formatYesterday()
     const {data,loading,refetch:refetchDay} = useQuery(QUERY_REVIEW,{variables:{
         userId,date
@@ -20,11 +21,6 @@ const Review = ({userId,setReviewed,refresh})=>{
 
     if(loading){
         return <LoadingScreen/>
-    }
-
-    if(!data?.getReview?.habitDays){
-        setTimeout(()=>setReviewed(true),5)
-        return
     }
 
     const handleComplete= async (e)=>{
@@ -50,7 +46,7 @@ const Review = ({userId,setReviewed,refresh})=>{
     return(
         <div className="main-cont">
             <h3>Review Yesterday</h3>
-            <button class="confirm-btn" onClick={handleConfirm}>Confirm</button>
+            <button className="confirm-btn" onClick={handleConfirm}>Confirm</button>
             <div className="side-by-side">
 
             <section className="list-cont">

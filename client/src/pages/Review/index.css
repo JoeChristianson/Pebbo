@@ -8,3 +8,7 @@
     background: var(--light);
     cursor: pointer;
 }
+
+.main-cont{
+    color:var(--light);
+}
