@@ -52,7 +52,10 @@ const Main =  ({setHideHeader})=>{
         if(!themeData?.getTheme){
             return
         }
-        const theme = themes.find(theme=>theme.name===themeData.getTheme).css
+        const theme = themes.find(theme=>theme.name===themeData.getTheme)?.css
+        if(!theme){
+            return
+        }
         for (let key in theme){
             document.documentElement.style.setProperty(key, theme[key].replace(";",""));
         }

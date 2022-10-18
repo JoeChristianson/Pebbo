@@ -258,3 +258,14 @@ mutation Mutation($userId: ID!, $habitId: ID!) {
   makeHabitPermanent(userId: $userId, habitId: $habitId)
 }
 `
+
+export const GOOGLE_LOGIN = gql`
+mutation Mutation($email: String!) {
+  googleLogin(email: $email) {
+    token
+    user {
+      _id
+    }
+  }
+}
+`

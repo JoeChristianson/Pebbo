@@ -1,12 +1,18 @@
 import { useMutation } from '@apollo/client';
+import { useEffect } from 'react';
 import { LOGIN_USER } from '../../utils/mutations';
 import ErrorMessage from '../../components/generics/ErrorMessage/index.tsx';
 import "./login.css"
+import {GoogleLogin} from "react-google-login"
+import {gapi} from "gapi-script"
+import GoogleIDService from '../../components/GoogleIDService/index.tsx';
 const auth = require("../../utils/auth").default
 const {useState} = require("react")
 
 
 export default function Login({setComponent}){
+
+
 
     const [formState, setFormState] = useState({ email: '', password: '' });
     const [errorMessages,setErrorMessages] = useState([])
@@ -65,6 +71,7 @@ export default function Login({setComponent}){
                     ></ErrorMessage>
                     <input className="pointer embolden" type="submit"></input>
                 </form>
+                <GoogleIDService></GoogleIDService>
                 <div className='text-center pointer embolden' onClick={handleLink} data-dest="register">Click Here to Register</div>
             </main>
         </div>
