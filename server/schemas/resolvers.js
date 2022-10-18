@@ -9,13 +9,14 @@ const toDoQueries = require("./toDoQueries");
 const tutorialMutations = require("./tutorial/tutorialMutations.js");
 const mailMutations = require("./mail/mailMutations.js");
 const themeQueries = require("./tutorial/themeQueries.js");
+const habitMutations = require("./habits/habitsMutations.js")
 
 const resolvers = {
     Query:{
         ...queries,...settingQueries,...journalQueries,...analyticsQueries,...themeQueries
     },
     Mutation:{
-        ...mutations,...journalMutations,...notesMutations,...tutorialMutations,...mailMutations
+        ...mutations,...journalMutations,...notesMutations,...tutorialMutations,...mailMutations,...habitMutations
     }
 }
 

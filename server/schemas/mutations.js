@@ -134,8 +134,11 @@ populateDay: async (parent,{userId,date})=>{
         const habits = user.habits
         const habitDays = []
         for(let habit of habits){
+            console.log(user.permanentHabits, habit._id);
+            const isPermanent = user.permanentHabits.includes(habit._id)
+            console.log(isPermanent);
             const habitDay = {
-                date,habit:habit._id,isOn:randBoolean(.5),isComplete:false
+                date,habit:habit._id,isOn:(isPermanent?true:randBoolean(0)),isComplete:false
             }
             habitDays.push(habitDay)
         }
@@ -153,6 +156,8 @@ populateDay: async (parent,{userId,date})=>{
         const day = {date,habitDays,queueDays,environmentalVariables}
 
         user.days.push(day);    
+
+
         await user.save()
         return user;
     }catch(err){

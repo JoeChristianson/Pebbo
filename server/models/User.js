@@ -30,6 +30,10 @@ habits:[{
   type:Schema.Types.ObjectId,
   ref:"Habit",
 }],
+permanentHabits:[{
+  type:Schema.Types.ObjectId,
+  ref:"Habit"
+}],
 assessments:[{
   type:Schema.Types.ObjectId,
   ref:"Assessment"

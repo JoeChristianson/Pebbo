@@ -7,7 +7,7 @@ const HabitDay = require("../../components/HabitDay").default
 const {useQuery,useMutation} = require("@apollo/client")
 const SubNav = require("../../components/SubNav").default
 const {QUERY_DAY} = require("../../utils/queries")
-const {TOGGLE_IS_COMPLETE, DELETE_HABIT} = require("../../utils/mutations")
+const {TOGGLE_IS_COMPLETE, DELETE_HABIT, MAKE_HABIT_PERMANENT} = require("../../utils/mutations")
 const {formatToday} = require("../../utils/date")
 const auth = require("../../utils/auth").default
 
@@ -20,7 +20,7 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay,setHideHeader}){
     const [deleteHabit,{data:deleteData,loading:deleteLoading,error:deleteError}] = useMutation(DELETE_HABIT)
 
     const [toggleIsComplete,{data:toggleData,loading:toggleLoading,error:toggleError}] = useMutation(TOGGLE_IS_COMPLETE)
-
+    const [makeHabitPermanent,{}] = useMutation(MAKE_HABIT_PERMANENT)
     let data = null;
     if (dayLoading){
     }
@@ -67,6 +67,12 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay,setHideHeader}){
         setModalOpen(false)
     }
 
+    const handleMakePermanent = async ()=>{
+        const variables = {userId,habitId:dataId}
+        const res = await makeHabitPermanent({variables})
+        console.log(res);
+    }
+
     if(dayLoading){
         return(<h1>Loading</h1>)
     }
@@ -89,7 +95,9 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay,setHideHeader}){
                 }):null}
             </section>
                 </div>
-            {modalOpen?<Modal setModalOpen={setModalOpen} modalInput={modalInput} handleDelete={handleDelete} dataId={dataId} />:null}
+            {modalOpen?<Modal setModalOpen={setModalOpen} modalInput={modalInput} handleDelete={handleDelete} dataId={dataId}>
+                <button onClick={handleMakePermanent}>Make Permanent!</button>
+            </Modal>:null}
         </section>
     )
 }

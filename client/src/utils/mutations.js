@@ -252,3 +252,9 @@ mutation Mutation($userId: ID!, $settingsArray: [KeyValue]) {
   setMultipleSettings(userId: $userId, settingsArray: $settingsArray)
 }
 `
+
+export const MAKE_HABIT_PERMANENT = gql`
+mutation Mutation($userId: ID!, $habitId: ID!) {
+  makeHabitPermanent(userId: $userId, habitId: $habitId)
+}
+`
