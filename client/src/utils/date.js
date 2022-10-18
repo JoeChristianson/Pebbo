@@ -13,8 +13,8 @@ export const formatYesterday = ()=>{
     const yyyy = yesterday.getFullYear();
     let mm = yesterday.getMonth() + 1;
     let dd = yesterday.getDate();
-yesterday = mm + '/' + dd + '/' + yyyy;
-return yesterday
+    yesterday = mm + '/' + dd + '/' + yyyy;
+    return yesterday
 }
 
 

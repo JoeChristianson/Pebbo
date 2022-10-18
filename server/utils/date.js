@@ -11,7 +11,9 @@ const formatDBDateForComparison = (raw)=>{
 }   
 
 const findDay = (user,date)=>{
-
+    if(!user.days){
+        return false
+    }
     return user.days.filter(d=>{
         return formatDBDateForComparison(d.date)===date})[0]
 }

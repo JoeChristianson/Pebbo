@@ -5,7 +5,11 @@ import { slides } from "./slidesArray"
 
 const Tutorial = ({endTutorial})=>{
 
-    // const slides = [{title:"Slide One",img:"/img.png",paragraphs:["this is the paragrpah"]}]
+    const slides = [{title:"THIS IS Pebbo!",img:"/logo.png",paragraphs:["I don't know how you got into this, but the only way you are leaving is in a casket, or maybe if you get bored of it."]},
+    
+
+
+]
     const [slideIndex,setSlideIndex] = useState(0)
 
     const slide = slides[slideIndex]
@@ -18,7 +22,7 @@ const Tutorial = ({endTutorial})=>{
             endTutorial()
         }
     }
-
+    console.log(slide);
 
     return(
         <main onClick={handleClick} className="full-screen slide">

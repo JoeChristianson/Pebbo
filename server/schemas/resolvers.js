@@ -11,10 +11,11 @@ const mailMutations = require("./mail/mailMutations.js");
 const themeQueries = require("./tutorial/themeQueries.js");
 const habitMutations = require("./habits/habitsMutations.js");
 const authenticationMutations = require("./authentication/authenticationMutations.js");
+const passthruQueries = require("./passthru/passthruQueries.js");
 
 const resolvers = {
     Query:{
-        ...queries,...settingQueries,...journalQueries,...analyticsQueries,...themeQueries
+        ...queries,...settingQueries,...journalQueries,...analyticsQueries,...themeQueries,...passthruQueries
     },
     Mutation:{
         ...mutations,...journalMutations,...notesMutations,...tutorialMutations,...mailMutations,...habitMutations,...authenticationMutations

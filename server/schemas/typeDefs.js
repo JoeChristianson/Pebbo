@@ -199,6 +199,7 @@ const typeDefs = gql`
     getAllHabitsEffectsOnAssessment(userId:ID!,assessmentId:ID!):[HabitAssessmentObject]
     quickStats(userId:ID!):QuickStats
     getTheme(userId:ID!):String
+    getRenders(userId:ID!,date:String!):String
   }
 
   type Mutation {
@@ -239,6 +240,7 @@ const typeDefs = gql`
       addPhoneToAccount(userId:ID!,phoneNumber:String!):String
       makeHabitPermanent(userId:ID!,habitId:ID!):String
       googleLogin(email:String!):Auth
+
     }
 
 `

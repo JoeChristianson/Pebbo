@@ -286,12 +286,13 @@ reorderQueue: async(parent,{userId,oldOrdinal,newOrdinal})=>{
         }
         const user = await User.findById(userId)
         const queue = user.queue;
-        let ordinal = queue.map(el=>el.ordinal).reduce((a,b)=>{
+        let ordinal = queue?.map(el=>el.ordinal).reduce((a,b)=>{
             return Math.max(a,b)
-        },0)
+        },0) || 0
         user.queue.push({queueItem,ordinal:ordinal+1})
         const day = findDay(user,date);
-        day.queueDays.push({
+        console.log("day",day);
+            day.queueDays.push({
             date,queueItem,isOn:true,isComplete:false
         })
         await user.save()
