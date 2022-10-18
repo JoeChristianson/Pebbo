@@ -238,6 +238,7 @@ const typeDefs = gql`
       setMultipleSettings(userId:ID!,settingsArray:[KeyValue]):String
       addPhoneToAccount(userId:ID!,phoneNumber:String!):String
       makeHabitPermanent(userId:ID!,habitId:ID!):String
+      googleLogin(email:String!):Auth
     }
 
 `

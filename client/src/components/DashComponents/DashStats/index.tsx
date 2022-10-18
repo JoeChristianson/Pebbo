@@ -13,8 +13,8 @@ const DashStats:FC<{userId:string}> = ({userId}):ReactElement=>{
     if(loading){
         return <LoadingScreen/>
     }
-    const {streaks,averages} = data.quickStats
-    
+    const streaks = data?.quickStats?.streaks || []
+    const averages = data?.quickStats?.averages || []
     return (<>
     {streaks.length<1?null:(<div>
         <h2>Streaks</h2>
