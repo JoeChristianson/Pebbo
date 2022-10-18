@@ -24,8 +24,26 @@ export default function Register({setComponent}){
 
         try{
             const variables = {...formState};
+            if(variables.name.length<6){
+                setErrorMessages(["Username of at least six charactrers required."])
+                return
+            }
+            if(!variables.email.match(/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/)){
+                setErrorMessages(["Incorrect e-mail form."])
+                return
+            }
+            if(variables.password.length<7){
+                setErrorMessages(["Password must be at least seven characters"])
+                return
+            }
+            if(variables.password!==variables.confirmPassword){
+                setErrorMessages(["Passwords do not match"])
+                return
+            }
             if(!variables.birthdate){
                 variables.birthdate = ""
+                setErrorMessages(["Birthdate required."])
+                return
             }
             const {data} = await register({
                 variables
@@ -40,7 +58,6 @@ export default function Register({setComponent}){
                 })
                 setComponent("login")
             }else{
-
                 setErrorMessages(errors)
             }
         }catch(err){
