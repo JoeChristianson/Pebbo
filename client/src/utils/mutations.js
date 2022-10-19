@@ -269,3 +269,19 @@ mutation Mutation($email: String!) {
   }
 }
 `
+
+export const REQUEST_PASSWORD_EMAIL = gql`
+mutation Mutation($email: String!) {
+  resetPasswordRequest(email: $email) {
+    message
+  }
+}
+`
+
+export const RESET_PASSWORD = gql`
+mutation Mutation($email: String!, $password: String!, $code: String!) {
+  resetPassword(email: $email, password: $password, code: $code) {
+    message
+  }
+}
+`
