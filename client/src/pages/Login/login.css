@@ -10,6 +10,18 @@ img{
     margin-bottom: 100px;
 }
 
+#sign-in-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:1rem;
+}
+
+.login-links{
+    margin: 1rem;
+    color:black;
+}
+
 @media screen and (max-width:500px) {
     .logog-cont img{
         width: 120px;

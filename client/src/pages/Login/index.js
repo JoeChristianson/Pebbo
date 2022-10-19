@@ -67,6 +67,7 @@ export default function Login({setComponent}){
                      Login
                 </h2>
             </header>
+            <GoogleIDService></GoogleIDService>
             <main>
                 <form onSubmit={handleFormSubmit}>
                     <div>
@@ -81,9 +82,8 @@ export default function Login({setComponent}){
                     ></ErrorMessage>
                     <input className="pointer embolden" type="submit"></input>
                 </form>
-                <div className='text-center pointer embolden' onClick={handleSendEmail} >Forgot Password?</div>
-                <GoogleIDService></GoogleIDService>
-                <div className='text-center pointer embolden' onClick={handleLink} data-dest="register">Click Here to Register</div>
+                <div className='text-center pointer embolden login-links' onClick={handleSendEmail} >Forgot Password?</div>
+                <div className='text-center pointer embolden login-links' onClick={handleLink} data-dest="register">Click Here to Register</div>
             </main>
         </div>
                     </>
