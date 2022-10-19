@@ -9,7 +9,8 @@ const db = require('./config/connection');
 const { fstat } = require('fs');
 const cors = require("cors");
 const textReminders = require("./texting/index.js")
-
+const dotenv = require("dotenv")
+dotenv.config()
 const PORT = process.env.PORT || 3001;
 const app = express();
 const server = new ApolloServer({

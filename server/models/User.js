@@ -72,6 +72,10 @@ theme:{
 phone:{
   type:Number,
   required:false
+},
+resetCode:{
+  type:String,
+  required:false
 }
 },
 {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }}

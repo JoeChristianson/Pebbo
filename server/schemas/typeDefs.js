@@ -175,12 +175,18 @@ const typeDefs = gql`
     averages:[NameAndNumber]
   }
 
+  type messageObj{
+    message:String
+  }
+
   input KeyValue{
     key:String
     string:String
     boolean:String
     int:String
   }
+
+  
 
   type Query {
     allUsers:[User]
@@ -240,7 +246,8 @@ const typeDefs = gql`
       addPhoneToAccount(userId:ID!,phoneNumber:String!):String
       makeHabitPermanent(userId:ID!,habitId:ID!):String
       googleLogin(email:String!):Auth
-
+      resetPasswordRequest(email:String!):messageObj
+      resetPassword(email:String!,password:String!,code:String!):messageObj
     }
 
 `
