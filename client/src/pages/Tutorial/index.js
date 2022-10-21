@@ -6,6 +6,7 @@ import { slides } from "./slidesArray"
 const Tutorial = ({endTutorial})=>{
 
     const slides = [{title:"THIS IS Pebbo!",img:"/logo.png",paragraphs:["I don't know how you got into this, but the only way you are leaving is in a casket, or maybe if you get bored of it."]},
+    {title:"THIS IS Pebbo 2!",img:"/logo.png",paragraphs:["I don't know how you got into this, but the only way you are leaving is in a casket, or maybe if you get bored of it."]},
     
 
 
@@ -19,6 +20,7 @@ const Tutorial = ({endTutorial})=>{
         if(newIndex<slides.length){
             setSlideIndex(newIndex)
         }else{
+            console.log("ending tutorial");
             endTutorial()
         }
     }

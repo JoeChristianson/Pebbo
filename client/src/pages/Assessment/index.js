@@ -25,6 +25,7 @@ const Assessment = ({userId,date,assessment,refetchAssessment})=>{
             const variables = {userId,date,assessmentId:assessment._id,value:parseInt(value)}
 
             const resp = await makeAssessment({variables})
+            console.log(resp);
             if(resp){
                 refetchAssessment()
             }

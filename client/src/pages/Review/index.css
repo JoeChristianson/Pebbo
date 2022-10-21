@@ -12,3 +12,6 @@
 .main-cont{
     color:var(--light);
 }
+.review-list{
+    background:rgb(199, 199, 199);
+}

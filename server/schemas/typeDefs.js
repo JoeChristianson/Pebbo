@@ -186,6 +186,17 @@ const typeDefs = gql`
     int:String
   }
 
+  type ReviewItems{
+    queueItems: [QueueDay]
+    habits:[HabitDay]
+  }
+
+  type PassThruData{
+    orientated:Boolean
+    reviewItems:ReviewItems
+    assessments:[Assessment]
+  }
+
   
 
   type Query {
@@ -205,7 +216,7 @@ const typeDefs = gql`
     getAllHabitsEffectsOnAssessment(userId:ID!,assessmentId:ID!):[HabitAssessmentObject]
     quickStats(userId:ID!):QuickStats
     getTheme(userId:ID!):String
-    getRenders(userId:ID!,date:String!):String
+    getRenders(userId:ID!,date:String!):PassThruData
   }
 
   type Mutation {

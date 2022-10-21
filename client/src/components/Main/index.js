@@ -1,25 +1,33 @@
-import { POPULATE_DAY, SET_ORIENTATED } from "../../utils/mutations"
-import "./Main.css"
+// third-party-libs
+import { BrowserRouter, Route, Routes,useParams } from "react-router-dom"
 import { useEffect,useState } from "react"
+
+// pages
 import Dash  from "../../pages/Dash"
 import Review from "../../pages/Review"
+import Passthru from "../Passthru/index.tsx"
 import { ManageAssessments } from "../../pages/ManageAssessments"
-import { BrowserRouter, Route, Routes,useParams } from "react-router-dom"
 import { TodaysSettings } from "../../pages/TodaysSettings"
 import Tutorial from "../../pages/Tutorial/index.js"
 import AccountSettings from "../../pages/AccountSettings/index.tsx"
 import AssessmentGuide from "../../pages/Guides/AssessmentGuide/index.tsx"
-import { GET_QUEUE, GET_THEME } from "../../utils/queries"
+
+// apollo resolvers
+import { POPULATE_DAY, SET_ORIENTATED } from "../../utils/mutations"
+import { GET_PASSTHRUS, GET_QUEUE, GET_THEME } from "../../utils/queries"
+
+// styling
+import "./Main.css"
 import themes from "../../themes/index.ts"
 
 
 const {useQuery,useMutation} = require("@apollo/client")
 const auth = require("../../utils/auth").default
-const {formatToday,formatYesterday} = require("../../utils/date")
-
+const {formatToday} = require("../../utils/date")
+const checkPassthruData = require("../../utils/checkPassthruData.ts")
 const {FEED_ASSESSMENT, GET_DATES, GET_DASH,QUERY_DAY} = require("../../utils/queries")
 
-
+// pages
 const Habits = require("../../pages/Habits").default
 const Queue = require("../../pages/Queue").default
 const ToDos = require("../../pages/ToDos").default
@@ -29,9 +37,20 @@ const Variables = require("../../pages/Variables/index.tsx").default
 
 
 const Main =  ({setHideHeader})=>{
-    
-    const [setOrientated,{}]=useMutation(SET_ORIENTATED)
     const userId = auth.getProfile().data._id
+    
+    const [passThrus,setPassThrus] = useState(null)
+    const passThruVariables = {userId,date:formatToday()}
+    const {data:passThruData,loading:passThruLoading} = useQuery(GET_PASSTHRUS,{variables:passThruVariables})
+    useEffect(()=>{
+        if(passThruLoading){
+            return
+        }
+        const needPassthru = checkPassthruData(passThruData)
+        setPassThrus(passThruData.getRenders)
+    },[passThruData])
+
+    const [setOrientated,{data:setOrientedData}]=useMutation(SET_ORIENTATED)
     const [tutorialOn,setTutorialOn] = useState(true)
     const [reviewed,setReviewed] = useState(false)
     const variables = {userId,date:formatToday()}
@@ -39,7 +58,7 @@ const Main =  ({setHideHeader})=>{
     const {data:datesData,loading:datesLoading,refetch:refetchDates} = useQuery(GET_DATES,{variables:{userId}})
     const {loading:assessmentLoading,data:pendingAssessmentData,refetch:refetchAssessment} = useQuery(FEED_ASSESSMENT,
         {variables})
-        
+    
         const [populateDay,{data:popData,loading:popLoading,error:errPop}]=useMutation(POPULATE_DAY)
         const [populatedAttempt,setPopulatedAttempt] = useState(false)
         const {data:dashData,loading:dashLoading,error:dashError,refetch:refetchDash} = useQuery(GET_DASH,{variables:{userId,date:formatToday()}})
@@ -82,19 +101,24 @@ const Main =  ({setHideHeader})=>{
         handleDoublePop()
     }
 
-    if(assessmentLoading||popLoading||datesLoading){
+
+
+// This section handles all the passthru screens!
+    if(assessmentLoading||popLoading||datesLoading||!passThrus){
         return(<h1>Loading</h1>)
     }
-    if(pendingAssessmentData?.feedAssessment?._id){
-        return(<Assessment refetchAssessment={refetchAssessment} date={formatToday()} userId={userId} assessment={pendingAssessmentData.feedAssessment}></Assessment>)
-    }
-    if(formatToday()!==datesData.getDates?.lastReviewed&&!reviewed){
+    const {orientated,assessments} = passThrus
+    const {habits,queueItems} =passThrus.reviewItems
+    if(!orientated||habits.length>0||assessments.length>0||queueItems.length>0){
         return(
-            <Review refresh={refetchDates} userId={userId} setReviewed={setReviewed}/>
+            <Passthru passThrus={passThrus} setPassThrus={setPassThrus} userId={userId}></Passthru>
         )
-    }else{
-
     }
+
+
+
+
+
 
     if(formatToday()!==datesData.getDates?.lastSetting&&datesData.getDates?.settings.length>0){
         return (
@@ -104,18 +128,7 @@ const Main =  ({setHideHeader})=>{
         refetchDates()
     }
 
-    const endTutorial = ()=>{
-        setTutorialOn(false)
-        setOrientated({variables:{userId,value:"true"}})
-    }
 
-    if(tutorialOn&&datesData.getDates.orientated==="false"){
-        return(
-            <Tutorial
-            endTutorial={endTutorial}
-            ></Tutorial>
-            )
-    }
     return (
         <Routes>
             <Route path="/"

@@ -1,4 +1,3 @@
-import QueueList from "../../components/QueueList"
 import { useMutation, useQuery } from "@apollo/client"
 import { QUERY_REVIEW } from "../../utils/queries"
 import { formatToday, formatYesterday } from "../../utils/date"
@@ -10,7 +9,6 @@ import LoadingScreen from "../../components/LoadingScreen/index.tsx"
 import "./index.css"
 
 const Review = ({userId,setReviewed,refresh})=>{
-    console.log("we are in the review!");
     const date = formatYesterday()
     const {data,loading,refetch:refetchDay} = useQuery(QUERY_REVIEW,{variables:{
         userId,date
@@ -29,14 +27,23 @@ const Review = ({userId,setReviewed,refresh})=>{
     }
 
     const handleQueueComplete= async (e)=>{
-        await toggleQueueComplete({variables:{userId,date,name:e.target.name}})
+        let name = e.target?.name;
+        let parentNode = e.target.parentNode
+        while(!name){
+            console.log(name);
+            console.log(parentNode);
+            name = parentNode?.name
+            parentNode = parentNode.parentNode
+        }
+        console.log(name);
+        const variables = {userId,date,name};
+        console.log(variables);
+        await toggleQueueComplete({variables})
         await refetchDay()
     }
     
     const queueDays = data?.getReview?.queueDays ||[]
-
     const habitDays = data?.getReview?.habitDays ||[]
-
 
     const handleConfirm = async ()=>{
        const data = await confirmDay({variables:{userId,date:formatToday()}})
@@ -51,7 +58,7 @@ const Review = ({userId,setReviewed,refresh})=>{
 
             <section className="list-cont">
             <h4>Habits</h4>
-            <div className="list">
+            <div className="list review-list">
 
             {habitDays.map((h,i)=>{
                 return(
@@ -62,7 +69,7 @@ const Review = ({userId,setReviewed,refresh})=>{
             </section>
             <section>
                 <h4>Queue</h4>
-                <div className="list">
+                <div className="list review-list">
                 {queueDays.map((q,i)=>{
                     return(
                         <QueueDay key={i} handleComplete={handleQueueComplete} queueDay={q}></QueueDay>

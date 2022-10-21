@@ -45,10 +45,8 @@ function App() {
   const [isMobile,setIsMobile] = useState(false)
   useEffect(()=>{
       const width = window.screen.width
-      console.log(width);
       setIsMobile(width<700)
   },[])
-  console.log(isMobile);
 
   return (
     <BrowserRouter>

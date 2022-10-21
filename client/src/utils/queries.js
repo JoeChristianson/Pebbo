@@ -214,3 +214,42 @@ query Query($userId: ID!) {
   getTheme(userId: $userId)
 }
 `
+
+export const GET_PASSTHRUS = gql`
+query GetRenders($userId: ID!, $date: String!) {
+  getRenders(userId: $userId, date: $date) {
+    orientated
+    assessments {
+      _id
+      name
+      metric
+      creator
+    }
+    reviewItems {
+      habits {
+        isOn
+        isComplete
+        habit {
+          name
+          _id
+          prohibition
+        }
+      }
+      queueItems {
+        date
+        queueItem {
+          name
+          _id
+        }
+        isOn
+        isComplete
+        ordinal
+        skips
+        attempts
+        successes
+        note
+      }
+    }
+  }
+}
+`

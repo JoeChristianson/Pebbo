@@ -1,37 +1,52 @@
-const { findDay } = require("../../utils/date")
+const { findDay, calculateDaysBetween } = require("../../utils/date")
 const { User } = require("../../models")
 
 const passthruQueries = {
     getRenders: async (parent,{userId,date})=>{
-        const user = await User.findById(userId).populate("assessments")
+        const user = await User.findById(userId).populate("assessments").populate({path:"days.queueDays.queueItem",model:"QueueItem"}).populate({path:"days.habitDays.habit",model:"Habit"})
         const {lastReviewed,orientated,days} = user
-        const assessmentDays = findDay(user,date).assessmentDays
+        const assessmentDays = findDay(user,date).assessmentDays || []
+        console.log(user.assessments.length===assessmentDays.length);
+        let assessments = []
+        if(user.assessments.length!==assessmentDays.length){
+            assessments = user.assessments
+            findDay(user,date).assessmentDays = []
+        }
+        await user.save()
         const res = {
             orientated:user.orientated,
             reviewItems:{
-                queueItems:yesterdaysQueueItems(user),habits:yesterdaysHabits(user)
+                queueItems:yesterdaysQueueItems(user),                
+                habits:yesterdaysHabits(user)
             },
-            assessments:user.assessments.filter(assessment=>{
-                return (assessmentDays.filter(ad=>ad.assessment.toString()===assessment._id.toString()).length===0)
-            })
+            assessments
         }
-        console.log(res);
-        return "working"
+        const daysSinceLastReview = calculateDaysBetween(date,user.lastReviewed)
+        if(daysSinceLastReview===0){
+            res.reviewItems = {queueItems:[],habits:[]}
+        }
+
+        return res
     }
 }
 
+
 function yesterdaysQueueItems(user){
-    if(!findDay(user,formatYesterday())){
+    const yesterday = findDay(user,formatYesterday())
+    if(!yesterday){
         console.log("no yesterday");
         return []
     }
+    return yesterday.queueDays
 }
 
 function yesterdaysHabits(user){
-    if(!findDay(user,formatYesterday())){
+    const yesterday = findDay(user,formatYesterday())
+    if(!yesterday){
         console.log("no yesterday");
         return []
     }
+    return yesterday.habitDays
 }
 
 function formatYesterday(){

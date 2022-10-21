@@ -10,7 +10,7 @@ export const QueueDay = ({queueDay,handleComplete,handleQueueSkip})=>{
             <span>{queueDay.attempts}</span>
             <div className="queue-item-buttons-cont">
             <button name={queueDay.queueItem.name} data-queue-day-id={queueDay.queueItem._id} onClick={handleComplete}>
-            <FontAwesomeIcon className="large-icon" icon={faSquareCheck}/>
+            <FontAwesomeIcon name={queueDay.queueItem.name} className="large-icon" icon={faSquareCheck}/>
 
             </button>
             {handleQueueSkip?<button name={queueDay.queueItem.name} data-queue-day-id={queueDay.queueItem._id} onClick={handleQueueSkip}>

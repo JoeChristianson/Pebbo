@@ -37,7 +37,6 @@ function Header({setCurrentSection,hideHeader}) {
     onClick:()=>{}
 }
     ]
-    console.log(hideHeader);
     return(
         <header className={hideHeader?"hide":"x"}>
 
