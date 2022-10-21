@@ -50,14 +50,9 @@ const Main =  ({setHideHeader})=>{
         setPassThrus(passThruData.getRenders)
     },[passThruData])
 
-    const [setOrientated,{data:setOrientedData}]=useMutation(SET_ORIENTATED)
-    const [tutorialOn,setTutorialOn] = useState(true)
-    const [reviewed,setReviewed] = useState(false)
     const variables = {userId,date:formatToday()}
     const [isPopulated,setIsPopulated] = useState(false)
     const {data:datesData,loading:datesLoading,refetch:refetchDates} = useQuery(GET_DATES,{variables:{userId}})
-    const {loading:assessmentLoading,data:pendingAssessmentData,refetch:refetchAssessment} = useQuery(FEED_ASSESSMENT,
-        {variables})
     
         const [populateDay,{data:popData,loading:popLoading,error:errPop}]=useMutation(POPULATE_DAY)
         const [populatedAttempt,setPopulatedAttempt] = useState(false)
@@ -65,6 +60,8 @@ const Main =  ({setHideHeader})=>{
         const {loading:dayLoading,error,data:dayData,refetch:refetchDay} = useQuery(QUERY_DAY,
             {variables:{userId,date:formatToday()}
         })
+
+    
         const {data:themeData,refetch:refetchTheme} = useQuery(GET_THEME,{variables:{userId}})
     
     useEffect(()=>{
@@ -104,7 +101,7 @@ const Main =  ({setHideHeader})=>{
 
 
 // This section handles all the passthru screens!
-    if(assessmentLoading||popLoading||datesLoading||!passThrus){
+    if(popLoading||datesLoading||!passThrus){
         return(<h1>Loading</h1>)
     }
     const {orientated,assessments} = passThrus
