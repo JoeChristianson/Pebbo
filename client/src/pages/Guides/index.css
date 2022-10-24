@@ -9,9 +9,26 @@ body{
     /* opacity: 0.9; */
 }
 
+h1,h3,h4{
+  color:black
+}
+
+.slide h1{
+  color:white;
+}
+
 .highlight{
     animation: pulse-animation 1s infinite;
     position: relative;
+}
+
+.modal{
+  position: fixed;
+  max-width: 500px;
+    margin: 20px;
+    max-height: 500px;
+    overflow: scroll;
+    transform: translate(-50%,-60%);
 }
 
 @keyframes pulse-animation {
@@ -60,4 +77,12 @@ header{
 }
 .main-section.assessments{
     z-index: 3;
+}
+
+
+@media screen and (max-width:600px) {
+  button{
+    padding:1rem;
+    font-size: 1.5rem;
+  }
 }

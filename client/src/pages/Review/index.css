@@ -1,3 +1,14 @@
+div.review-cont{
+    width: 100vw;
+    position: fixed;
+    top:0;
+}
+
+div.review-cont h3{
+    margin: .5rem;
+}
+
+
 .side-by-side{
     display: flex;
     justify-content: center;
@@ -12,6 +23,21 @@
 .main-cont{
     color:var(--light);
 }
-.review-list{
-    background:rgb(199, 199, 199);
+div.list-item.done{
+    background: grey;
+    color: white;
+    max-width: 80vw;
+}
+
+@media screen and (max-width:500px) {
+    .side-by-side{
+        flex-direction: column;
+    }
+    div.list{
+        height: unset;
+    }
+    h4{
+        text-align: left;
+        margin-left: 2rem;
+    }
 }

@@ -11,7 +11,7 @@ import { EditField } from "../../components/generics/EditField"
 import "./index.css"
 import {Fireworks} from "fireworks/lib/react"
 
-function ToDos({userId,refetchDash,onDash,setHideHeader}){
+function ToDos({userId,mockToDos,refetchDash,onDash,setHideHeader,highlight,end}){
  
     let fxProps = {
         count: 3,
@@ -30,6 +30,8 @@ function ToDos({userId,refetchDash,onDash,setHideHeader}){
     let {loading,data,refetch} = useQuery(GET_TO_DOS,{variables:{
         userId
     }})
+
+    
     data = data || {getToDos:[]}
     const [addToDo,{data:newData,loading:newLoading,error}]=useMutation(ADD_TO_DO)    
     const [completeToDo,{data:completedData,loading:completedLoading,error:completedError}] = useMutation(COMPLETE_TO_DO);
@@ -61,6 +63,10 @@ function ToDos({userId,refetchDash,onDash,setHideHeader}){
 
     const handleSubmit = async (e)=>{
         e.preventDefault()
+        if(highlight!==null){
+            console.log("adding mock to do")
+            return
+        }
         await addToDo({variables:{
             creator:userId,name:newToDo,date:formatToday()
         }})
@@ -122,6 +128,7 @@ function ToDos({userId,refetchDash,onDash,setHideHeader}){
         <div className="flex">
                     {fireworksOn&&<Fireworks {...fxProps} />}
         <main className="main-section">
+            <h1>To Dos</h1>
         <SimpleInput         formClass="inline-form" text={newToDo} handleChange={handleChange} handleSubmit={handleSubmit}/>
         <div className="list">
 

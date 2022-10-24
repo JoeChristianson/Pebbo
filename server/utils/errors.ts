@@ -3,6 +3,8 @@
 const findError = (errorString)=>{
 
     let errors;
+    console.log(errorString);
+    
     if(errorString.includes("name")){
         errors = ["username already taken"]
     }
@@ -14,6 +16,8 @@ const findError = (errorString)=>{
     }
     else if (errorString.includes("birthdate")){
         errors = ["Must enter birthdate"]
+    }else{
+        errors = ["Unknown"]
     }
 
     return errors

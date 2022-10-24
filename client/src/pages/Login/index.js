@@ -67,7 +67,7 @@ export default function Login({setComponent}){
                      Login
                 </h2>
             </header>
-            <GoogleIDService></GoogleIDService>
+            <GoogleIDService setComponent={setComponent}></GoogleIDService>
             <main>
                 <form onSubmit={handleFormSubmit}>
                     <div>

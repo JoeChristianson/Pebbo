@@ -5,12 +5,14 @@ const passthruQueries = {
     getRenders: async (parent,{userId,date})=>{
         const user = await User.findById(userId).populate("assessments").populate({path:"days.queueDays.queueItem",model:"QueueItem"}).populate({path:"days.habitDays.habit",model:"Habit"})
         const {lastReviewed,orientated,days} = user
-        const assessmentDays = findDay(user,date).assessmentDays || []
-        console.log(user.assessments.length===assessmentDays.length);
+        const assessmentDays = findDay(user,date)?.assessmentDays || []
         let assessments = []
         if(user.assessments.length!==assessmentDays.length){
             assessments = user.assessments
-            findDay(user,date).assessmentDays = []
+            if(findDay(user,date)){
+                findDay(user,date).assessmentDays = []
+            }
+            
         }
         await user.save()
         const res = {
@@ -25,7 +27,7 @@ const passthruQueries = {
         if(daysSinceLastReview===0){
             res.reviewItems = {queueItems:[],habits:[]}
         }
-
+        console.log("this is the res",res);
         return res
     }
 }

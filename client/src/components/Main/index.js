@@ -4,11 +4,9 @@ import { useEffect,useState } from "react"
 
 // pages
 import Dash  from "../../pages/Dash"
-import Review from "../../pages/Review"
 import Passthru from "../Passthru/index.tsx"
 import { ManageAssessments } from "../../pages/ManageAssessments"
 import { TodaysSettings } from "../../pages/TodaysSettings"
-import Tutorial from "../../pages/Tutorial/index.js"
 import AccountSettings from "../../pages/AccountSettings/index.tsx"
 import AssessmentGuide from "../../pages/Guides/AssessmentGuide/index.tsx"
 
@@ -38,7 +36,6 @@ const Variables = require("../../pages/Variables/index.tsx").default
 
 const Main =  ({setHideHeader})=>{
     const userId = auth.getProfile().data._id
-    
     const [passThrus,setPassThrus] = useState(null)
     const passThruVariables = {userId,date:formatToday()}
     const {data:passThruData,loading:passThruLoading} = useQuery(GET_PASSTHRUS,{variables:passThruVariables})

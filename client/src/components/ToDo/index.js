@@ -1,6 +1,7 @@
 
 
 export const ToDo = ({toDo,handleComplete,key})=>{
+    console.log("subtask id",toDo);
     return(
 
         <div className="list-item" key={key}>

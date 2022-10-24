@@ -1,5 +1,5 @@
 .slide{
-    background: rgb(17, 107, 1);
+    background: rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,10 +7,19 @@
     color: rgb(255, 251, 196);
 }
 
+.slide h1{
+    width: 600px;
+    max-width: 90vw;
+    margin: auto;
+    margin-bottom: 1em;
+}
+
+
 .slide p{
     max-width: 90vw;
     width:400px;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    margin: auto;
 }
 
 header.x{
@@ -19,4 +28,23 @@ header.x{
 
 .bottom-flex{
     margin-top:20vh
+}
+
+.tutorial-gif{
+    width:50vw;
+}
+
+#blocker{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top:0;
+}
+
+header.x{
+    display: none  !important;
+}
+footer{
+    display: none !important;
 }

@@ -4,6 +4,7 @@
     import { useMutation } from "@apollo/client"
 import { GOOGLE_LOGIN, REGISTER } from "../../utils/mutations"
 import auth from "../../utils/auth"
+import { Link } from "react-router-dom"
 
 type UserObj = {
     aud:string,
@@ -22,7 +23,7 @@ type UserObj = {
     sub:string
 }
 
-    const GoogleIDService = ()=>{
+    const GoogleIDService = ({setComponent})=>{
         const [register, { error, data:regData }] = useMutation(REGISTER);
 
         const [login,{data}] = useMutation(GOOGLE_LOGIN)
@@ -32,14 +33,12 @@ type UserObj = {
         const handleCallbackResp = async (resp)=>{
             const {credential} = resp;
             const userObj:UserObj = jwt_decode(credential)
-            console.log(userObj);
             setUser(userObj)
             const variables = {email:userObj.email}
             try{
 
                 const {data} = await login({variables})
                 const {token,user} = data.googleLogin
-                console.log(token);
                 auth.login(token)
             }catch(err){
                 setNewUserOpen(true)
@@ -70,24 +69,21 @@ type UserObj = {
                 password:Math.floor(Math.random()*1000000000000)+"e",
                 birthdate:"1/1/1900"
             }
-            console.log(variables);
             
             const {data} = await register({
                 variables
             })
-            console.log(data);
-            
             const {data:loginData} = await login({variables:{email:variables.email}})
             const {token} = loginData.googleLogin
-            console.log(token);
             auth.login(token)
         }
 
         return(
 <>
             {!newUserOpen?(<div id="sign-in-div"></div>):
-            (<div><h3>No Pebbo Account Exists?</h3>
+            (<div className="big-prompt"><h3>No Pebbo Account Exists for that Google Account</h3>
                 <button onClick={handleGoogleRegister}>Make One</button>
+                <button onClick={()=>setComponent("register")}>Register Manually</button>
             </div>)}
             </>
         )

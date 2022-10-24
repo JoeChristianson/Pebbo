@@ -4,6 +4,7 @@
     width: 300px;
     margin: auto;
     grid-template-columns: 1fr 1fr;
+    justify-items: center;
 }
 
 .assessment-btn-cont>button{
@@ -13,6 +14,7 @@
     box-shadow: 2px 2px ;
     cursor: pointer;
     background-color: var(--light);
+    width: 90%;
 }
 
 .assessment-btn-cont>button:hover,.assessment-btn-cont>button.selected{

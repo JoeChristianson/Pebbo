@@ -19,6 +19,7 @@ const BottomInfoBar = ({pages,setHighlight,end}:Props)=>{
     const handleNextPage = ()=>{
         if(pages[pageIndex].end){
             console.log("ending tutorial, make sure to switch to next")
+            end()
         }
         if((pageIndex+1)>=pages.length){
             console.log("out of pages");

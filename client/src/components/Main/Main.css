@@ -12,6 +12,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
 }
 
 .form-card{
@@ -168,4 +169,16 @@ body{
         margin: 10px auto !important;
         
     }
+    .assessment-btn-cont button{
+        font-size: 2rem;
+        width: 6rem;
+        height: 4rem;
+    }
+    .assessment-btn-cont + .big-button{
+        font-size:2rem;
+        margin: 1rem;
+        height: 4rem;
+        padding:0;
+    }
+    
 }

@@ -4,7 +4,7 @@ import { ManageAssessments } from "../../ManageAssessments"
 import "../index.css"
 import BottomInfoBar from "../../../components/generics/BottomInfoBar/index.tsx"
 
-const AssessmentGuide = ({userId,end})=>{
+const QueueGuide = ({userId,end})=>{
     const [highlight,setHighlight] = useState("")
     const pages = [{text:"This is your page for managing assessments. Assessments are items that you will rate every morning. We've added three assessments for you to start out with."},
     {text:"The assessments that you currently have for your account will be displayed here.",highlight:"assessment-list-cont"},
@@ -30,4 +30,4 @@ return (<>
     )
 }
 
-export default AssessmentGuide
+export default QueueGuide

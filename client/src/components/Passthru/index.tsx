@@ -26,17 +26,15 @@
 
         if(!orientated){
             return(
-                <Tutorial endTutorial={()=>handleNext("tutorial")}></Tutorial>
+                <Tutorial userId={userId} endTutorial={()=>handleNext("tutorial")}></Tutorial>
                 )
         }
         if(assessments.length>0){
-            return(<Assessment refetchAssessment={()=>handleNext("assessment")} date={formatToday()} userId={userId} assessment={assessments[0]}></Assessment>)
+            return(<Assessment highlight="false" refetchAssessment={()=>handleNext("assessment")} date={formatToday()} userId={userId} assessment={assessments[0]}></Assessment>)
         }
         if(habits.length>0||queueItems.length>0){
             return(<Review refresh={()=>{handleNext("review")}} userId={userId} setReviewed={()=>{handleNext("review")}}/>)
         }
-
-
 
         return(
             <h1>Passthru Component Goes Here</h1>

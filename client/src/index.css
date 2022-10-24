@@ -118,3 +118,37 @@ button{
 .font-medium{
   font-size: 1.1rem;
 }
+
+.big-prompt{
+  max-width: 80vw;
+  max-height: 80vh;
+  width: 400px;
+  height: 650px;
+  background: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 10px solid #f1f1f1;
+  }
+
+  .big-prompt>h3{
+    font-size: 2rem;
+    font-style: oblique;
+    text-decoration: underline;
+    text-align: center;
+  }
+
+  .big-prompt button{
+    margin-top: 2rem;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .big-prompt button:hover{
+    background: rgb(198, 197, 197);
+  }

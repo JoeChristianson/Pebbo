@@ -48,7 +48,6 @@ export default function Register({setComponent}){
             const {data} = await register({
                 variables
             })
-
             const {valid,errors} = data.createUser;
             if(valid==="true"){
 
@@ -56,6 +55,7 @@ export default function Register({setComponent}){
                     email:"",
                     password:""
                 })
+                // Nah, let's redirect to the login page
                 setComponent("login")
             }else{
                 setErrorMessages(errors)
