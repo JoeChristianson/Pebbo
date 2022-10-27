@@ -83,32 +83,33 @@ const {queueDays,habitDays,toDos} = data.getDash
 
     return(
         <div className="dashboard-cont">
-            <div>
+        <img className="logo centered" src="/logo.png"></img>
+            <div className="card">
         <h2>Today's Habits</h2>
 
         <section className="dash-section">
-        {!habitDays.length>0?<h2>No Habit Testing Today</h2>:null}
+        {!habitDays.length>0?<span>No Habit Testing Today</span>:null}
         {habitDays.map((h,i)=>{
             return <HabitDay key={i} handleComplete={handleHabitComplete} habitDay={h}/>
         })}
 
         </section>
         </div>
-            <div>
+            <div  className="card">
             <h2>Daily Queue</h2>
 
         <section className="dash-section">
-           {queueDays[0]?<QueueDay handleQueueSkip={handleQueueSkip} handleComplete={handleQueueComplete} queueDay={queueDays[0]}/>:<h2>All Done!</h2>}
+           {queueDays[0]?<QueueDay handleQueueSkip={handleQueueSkip} handleComplete={handleQueueComplete} queueDay={queueDays[0]}/>:<span>All Done!</span>}
         </section>
             </div>
-            <div>
+            <div  className="card">
         <h2>Tasks</h2>
         <section className="dash-section">
         <ToDos onDash={true}  userId={userId}></ToDos>
         </section>
             </div>
             
-        <div>
+        <div  className="card">
         <h2>Quick Stats</h2>
         <section className="dash-section stats-section">
         <DashStats userId={userId}></DashStats>

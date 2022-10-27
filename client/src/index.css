@@ -2,7 +2,7 @@
   --header-background:hsl(213, 97%, 13%);
   --header-color:hsl(0, 0%, 100%);
   --accent-hover:hsl(213, 98%, 19%);
-  --neutral:hsl(239, 55%, 22%);
+  --neutral:#281e22cf;
   --dash-item:hsl(0, 0%, 100%);
   --light:hsl(0, 0%, 100%);
   --dark:hsl(0, 0%, 0%);
@@ -12,7 +12,7 @@
   --modal-button:hsl(209, 50%, 85%);
   --modal-button-hover:hsl(209, 50%, 95%);
   --modal-heading-color:hsl(60, 1%, 14%);
-  --section-background:hsl(150, 14%, 84%);
+  --section-background:hsl(150, 18%, 96%);
   --main-text-color:hsl(0, 0%, 100%);
   --item-text-color:black;
   --main-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -25,6 +25,12 @@
   --danger:"#e78f8f";
   --stats-color:black;
   --footer-display:flex;
+  /* Dash */
+  --dash-heading-color:black;
+  /* cards */
+  --card-bg-color:rgb(250, 253, 252);
+  --card-heading-color:rgb(0, 0, 0);
+  --card-heading-bg-color:rgb(240, 240, 240);
 }
 
 
@@ -152,4 +158,48 @@ button{
 
   .big-prompt button:hover{
     background: rgb(198, 197, 197);
+  }
+/* Dash */
+  .logo.centered{
+    margin: auto;
+    width: 140px;
+    margin-bottom: 1rem;
+  }
+
+  .card{
+    background: var(--card-bg-color);
+    margin:.5rem;
+    padding: 0;
+    box-shadow: 1px 1px 3px black;
+  }
+  .card>h2{
+    background: var(--card-heading-bg-color);
+    color: var(--card-heading-color);
+    padding: .4em;
+    font-size: 1.4rem;
+    margin:0;
+    text-align: left;
+    padding-left: 1em;
+  }
+
+  .card>section{
+    margin: 0;
+    padding: 0;
+  }
+
+  .card .form-cont{
+    margin: 0;
+    /* width: 100%; */
+    padding:1em;
+    padding-top:0em;
+    background: var(--card-heading-bg-color);
+  }
+
+  .card .form-cont>form{
+    width: unset !important;
+    margin:unset !important;
+  }
+
+  .card .card-body{
+    margin:.5rem;
   }

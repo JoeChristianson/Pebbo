@@ -208,7 +208,7 @@ const getDash = async (parent,{userId,date})=>{
             if(queueItemIndex===null||((((queueItem?.skips||0)*1.1)+queueItem.ordinal)<queueItemLowestAdjustedIndex)){
                 queueItemLowestAdjustedIndex = (((queueItem?.skips||0)*1.1)+queueItem.ordinal)
                 queueItemIndex = index
-                console.log("winning index",index)
+
             }else{
                 // console.error("not low enough",queueItem)
             }
@@ -224,7 +224,6 @@ const getDash = async (parent,{userId,date})=>{
             queueDays:incompleteQueueDays.length>0?[incompleteQueueDays[queueItemIndex]]:[],
             habitDays:[...habitDays]
         }
-        console.log(result);
         return result
     }catch(err){
         console.error(err)
