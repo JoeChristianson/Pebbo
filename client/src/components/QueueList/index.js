@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react"
 import { Modal } from "../Modal"
-import {useMutation} from "@apollo/client"
-import { REORDER_QUEUE,DELETE_QUEUE_ITEM, ADD_NOTE_TO_TO_DO, ADD_NOTE_TO_QUEUE_ITEM } from "../../utils/mutations"
 import {formatToday, formatYesterday} from "../../utils/date"
 import Notes from "../Notes"
 import "./index.css"
 
-const QueueList = ({queue,handleComplete,userId,refetch,yesterday,setHideHeader})=>{
+const QueueList = ({highlight,reorderQueue,queue,handleComplete,userId,yesterday,setHideHeader})=>{
+    console.log(highlight);
     queue = queue || []
     let date
     yesterday?date=formatYesterday():date=formatToday()
 
-    const [reorderQueue,{data,error,loading}] = useMutation(REORDER_QUEUE)
-    const [deleteQueueItem,{data:deleteData,error:deleteError,loading:deleteLoading}] = useMutation(DELETE_QUEUE_ITEM)
     const sortedQueue = [...queue].sort((a,b)=>{
         return (a.ordinal-b.ordinal)
     })
@@ -25,7 +22,6 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday,setHideHeader}
         setModalOpen(true)
         setHideHeader(true)
     }
-    const [itemsCoords,setItemsCoords] = useState(null)
 
     useEffect(()=>{
         setHideHeader(openModal)
@@ -33,15 +29,7 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday,setHideHeader}
 
     const handleDelete = async (e)=>{
         const {id} = e.target.dataset;
-        const variables = {
-            userId,
-            queueItemId:id,
-            date
-        }
-        setModalOpen(false)
-        setHideHeader(false)
-        await deleteQueueItem({variables})
-        refetch()
+
     }
 
     
@@ -61,7 +49,6 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday,setHideHeader}
 
     const handleDragLeave = (e)=>{
         e.preventDefault()
-
     }
 
 
@@ -71,9 +58,7 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday,setHideHeader}
         const oldOrdinal = parseInt(draggedOrdinal);
         const newOrdinal = parseInt(e.target.dataset.ordinal);
         const variables = {userId,oldOrdinal,newOrdinal}
-
-        await reorderQueue({variables})
-        refetch()
+        reorderQueue(variables)
     }
 
     const startTouchDrag = (e)=>{
@@ -100,10 +85,8 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday,setHideHeader}
         }
         const oldOrdinal = parseInt(draggedOrdinal);
         const newOrdinal = parseInt(closest.ordinal);
-        const variables = {userId,oldOrdinal,newOrdinal}
-
-        await reorderQueue({variables})
-        refetch()
+        const variables = {oldOrdinal,newOrdinal}
+        reorderQueue(variables)
         e.target.classList.remove("touch-drag")
         document.body.classList.remove("lock-screen")
         setTouchedElement(null)
@@ -135,14 +118,14 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday,setHideHeader}
                     onTouchMove={handleTouchMove}
                     onTouchEnd={handleTouchEnd}
                     data-id={q.queueItem._id}
-                data-ordinal={q.ordinal} onDrop={handleDrop} className={q.isComplete?"done list-item":"list-item"}>
-                    <span data-ordinal={q.ordinal}       data-id={q.queueItem._id} className="pointer" data-name={q.queueItem.name} onClick={handleOpenModal} >
+                data-ordinal={q.ordinal} onDrop={handleDrop} className={`${q.isComplete?"done list-item":"list-item"} ${highlight==="drag"&&"highlight"}`}>
+                    <span data-ordinal={q.ordinal}       data-id={q.queueItem._id} className="pointer" data-name={q.queueItem.name} onClick={()=>{}} >
                     {q.queueItem.name}
                     
                     </span>
                     <div className="button-and-percentage-cont">
-                    <button className="pointer" onClick={handleComplete} data-name={q.queueItem.name} data-date={q.date}></button>
-                    <span className="percentage">{Math.round(q.successes*100/q.attempts)}%</span>
+                    <button className={`pointer ${highlight==="check"&&"highlight"}`} onClick={handleComplete} data-name={q.queueItem.name} data-date={q.date}></button>
+                    <span className={`percentage ${highlight==="rate"&&"highlight"}`} >{Math.round(q.successes*100/q.attempts)}%</span>
                     </div>
                     </div>)
             })}
@@ -150,7 +133,7 @@ const QueueList = ({queue,handleComplete,userId,refetch,yesterday,setHideHeader}
             {openModal?<Modal userId={userId} handleSettings={handleSettings}  handleDelete={handleDelete} dataId={modalInput.id} modalInput={modalInput} setModalOpen={setModalOpen}>
             <Notes
             userId={userId}
-            mutation={ADD_NOTE_TO_QUEUE_ITEM}
+            mutation={()=>{}}
             item={addItemId(sortedQueue.find(q=>q.queueItem._id===modalInput.id))}
             refetch={()=>{}}
             ></Notes>

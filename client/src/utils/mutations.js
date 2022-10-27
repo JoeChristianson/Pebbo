@@ -285,3 +285,9 @@ mutation Mutation($email: String!, $password: String!, $code: String!) {
   }
 }
 `
+
+export const FINISH_TUTORIAL = gql`
+mutation Mutation($userId: ID!, $value: String!) {
+  setOrientated(userId: $userId, value: $value)
+}
+`

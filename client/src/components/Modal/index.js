@@ -13,7 +13,7 @@ export const Modal = ({highlight,userId,setModalOpen,modalInput,handleDelete,dat
         <h3>{modalInput.name}</h3>
         <div className="modal-buttons">
         {handlePrioritize?<button onClick={handlePrioritize} data-id={dataId} className="modal-button">Prioritize</button>:null}
-        <button onClick={handleDelete} data-id={dataId} className="modal-button">Delete</button>
+        {handleDelete&&<button onClick={handleDelete} data-id={dataId} className="modal-button">Delete</button>}
         </div>
         {/* {handleSettings?(<>
         <h3>Settings</h3>

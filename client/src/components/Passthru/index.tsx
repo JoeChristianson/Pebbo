@@ -3,18 +3,28 @@
     import Review from "../../pages/Review"
     import React from "react"
     import { formatToday } from "../../utils/date"
+    import { useMutation } from "@apollo/client"
+    import { FINISH_TUTORIAL } from "../../utils/mutations"
 
     const Passthru = ({userId,passThrus,setPassThrus}:any)=>{
 
         const {orientated,assessments} = passThrus
         const {habits,queueItems} = passThrus.reviewItems
+        const [finishTutorial,{}] = useMutation(FINISH_TUTORIAL)
+        console.log(userId,"id in passthru");
         
-        const handleNext = (action:string)=>{
+        
+        const handleNext = async (action:string)=>{
             let newPassThrus = {...passThrus}
             switch(action){
                 case "tutorial":
-                    newPassThrus.orientated = true
-                case "assessment":
+                    newPassThrus.orientated = true;
+                    const variables = {userId,value:"true"}
+                    console.log(variables);
+                    
+                    const res = await finishTutorial({variables})
+                    console.log(res);
+                    case "assessment":
                     newPassThrus.assessments = [...newPassThrus.assessments].slice(1)
                     break;
                 case "review":

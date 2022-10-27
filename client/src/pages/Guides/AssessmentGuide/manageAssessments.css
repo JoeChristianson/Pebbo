@@ -1,0 +1,72 @@
+.main-section.assessments{
+    height: 93vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--neutral);
+}
+
+.assessment-left{
+    width: 300px;
+    background: var(--neutral);
+    height: 100%;
+    font-size: 1.2rem;
+    color: rgb(80, 80, 80);
+    font-weight: bold;
+}
+
+.assessment-left div.assessment-item{
+    cursor: pointer;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    background: var(--light-background);
+}
+
+.assessment-left div.assessment-item:first-child{
+    padding-bottom: 10px;
+}
+
+
+.assessment-right{
+    width: calc(100% - 300px);
+    height: 100%;
+    background: var(--light-background);
+    display: flex;
+}
+
+.assessment-left button{
+    margin: auto;
+    width: 100%;
+    padding: 1rem;
+    cursor: pointer;
+    background: var(--light);
+    z-index: 100;
+}
+
+.list>div{
+    width: 300px;
+}
+
+canvas{
+    image-rendering: pixelated
+  }
+
+.assessment-list-cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media screen and (max-width:500px) {
+    .main-section.assessments{
+        flex-direction: column;
+    }
+    .assessment-right{
+        width: unset;
+    }
+    header{
+        z-index: 900 !important;
+    }
+}

@@ -8,8 +8,6 @@ import Review from "../../Review"
 
 const ReviewGuide = ({userId,end})=>{
 
-    const assessments = [{name:"Sleep Well",metric:"grade"}]
-    const [assessmentIndex,setAssessmentIndex] = useState(0)
     const [highlight,setHighlight] = useState("")
     const pages = [
         {text:"After making your assessments, Pebbo offers you the opportunity to review what you completed the previous day."},

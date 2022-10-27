@@ -6,7 +6,7 @@ import { GET_DASH } from "../../utils/queries"
 import { COMPLETE_QUEUE_ITEM, COMPLETE_TO_DO, SKIP_QUEUE_ITEM, TOGGLE_IS_COMPLETE,ADD_TO_DO } from "../../utils/mutations"
 import HabitDay from "../../components/HabitDay"
 import FormElement from "../../components/generics/Form"
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { formatToday } from "../../utils/date"
 import ToDos from "../ToDos"
 import LoadingScreen from "../../components/LoadingScreen/index.tsx"
@@ -16,7 +16,9 @@ import {Fireworks} from "fireworks/lib/react"
 import Saddy from "../../components/Overlays/Saddy/index.tsx"
 
 const Dash = ({userId,date,data,loading,error,refetch,refetchDay})=>{
-
+    useEffect(()=>{
+        document.documentElement.style.setProperty("--footer-display","flex");
+    },[])
     let fxProps = {
         count: 3,
         interval: 200,

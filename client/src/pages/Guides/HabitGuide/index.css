@@ -1,0 +1,16 @@
+h1{
+    text-align: center;
+    margin: auto;
+}
+
+header ul{
+    flex-direction: row;
+}
+
+header a, header>ul>li{
+    color:black;
+}
+
+header a:hover, header>ul>li:hover{
+    color:white;
+}

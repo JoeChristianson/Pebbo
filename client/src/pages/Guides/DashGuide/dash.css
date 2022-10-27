@@ -1,0 +1,96 @@
+.dashboard-cont{
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}
+.dashboard-cont>div>h2{
+    color:var(--header-color);
+    text-align:left;
+    padding-left: 32px;
+    padding-bottom: 0;
+}
+
+.dashboard-cont>section,.dashboard-cont>div>section{
+    background-color: var(--section-background);
+    padding: .5rem;
+    width: 87%;
+    border: var(--dark);
+    margin: 10px;
+    margin-top:8px;
+    height: 70vh;
+}
+
+.dashboard-cont section main{
+    margin:0;
+    width: 100%;
+}
+
+.dashboard-cont .inline-form{
+    width: 100%;
+}
+.dashboard-cont .inline-form input[type="text"]{
+    width: calc(100% - 50px);
+}
+
+
+.dashboard-cont .inline-form input[type="submit"]{
+    width: 50px;
+}
+
+div.list-item{
+    background: var(--dash-item);
+    width: calc(99%);
+    min-height: 60px;
+    border:solid 1px black;
+}
+div.list-item button{
+    height: 60px;
+}
+
+.dash-section{
+    color:var(--dark)
+}
+
+@media screen and (max-width:1000px) {
+    .dashboard-cont{
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media screen and (max-width:500px) {
+    .dashboard-cont{
+        grid-template-columns: repeat(1,1fr);
+    }
+    .dashboard-cont>section, .dashboard-cont>div>section{
+        height: unset;
+    }
+    .list{
+        height: unset;
+    }
+    .dashboard-cont>div>h2,.dashboard-cont h2{
+        font-size: 1.2rem;
+        margin-top: 0;
+    }
+    .dashboard-cont h2{
+        margin-bottom: 0;
+    }
+    div.list-item{
+        min-height: 40px;
+    }
+    div.list-item button{
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.stats-section{
+    color:var(--stats-color)
+}
+
+header.x{
+    display: flex !important;
+}

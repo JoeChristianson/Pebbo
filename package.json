@@ -34,9 +34,13 @@
     "gapi-script": "^1.2.0",
     "jwt-decode": "^3.1.2",
     "mockeye": "^1.1.1",
+    "module-alias": "^2.2.2",
     "nodemailer": "^6.8.0",
     "react-google-login": "^5.2.2",
     "react-router-dom": "^6.3.0",
     "typescript": "^4.7.4"
+  },
+  "_moduleAliases": {
+    "@components":"./client/src/components"
   }
 }

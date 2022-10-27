@@ -63,7 +63,7 @@ function ToDos({userId,mockToDos,refetchDash,onDash,setHideHeader,highlight,end}
 
     const handleSubmit = async (e)=>{
         e.preventDefault()
-        if(highlight!==null){
+        if(highlight){
             console.log("adding mock to do")
             return
         }

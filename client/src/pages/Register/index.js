@@ -82,7 +82,7 @@ export default function Register({setComponent}){
                 <form onSubmit={handleFormSubmit}>
                 <div>
 
-<input onChange={handleChange} placeholder="Name" name="name" type="text"></input>
+<input onChange={handleChange} placeholder="Username" name="name" type="text"></input>
 </div>
                     <div>
 

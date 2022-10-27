@@ -1,49 +1,74 @@
-import AddQueueItemComp from "../../components/AddQueueItem"
-import { GET_QUEUE } from "../../utils/queries";
-import QueueList from "../../components/QueueList";
-import SimpleInput from "../../components/simpleInput";
+import AddQueueItemComp from "../../../components/AddQueueItem"
+import QueueList from "../../../components/QueueList";
+import SimpleInput from "../../../components/simpleInput";
 import { useState } from "react";
-import { formatToday } from "../../utils/date";
-import "./index.css"
-const {useQuery, useMutation} = require("@apollo/client")
-const {ADD_QUEUE_ITEM,COMPLETE_QUEUE_ITEM} = require("../../utils/mutations")
+import "../../Queue/index.css"
+import mockQueueData from "./mockQueueData.ts"
 
-function Queue({userId,date,queueQuery,refetchDash,setHideHeader}){
-    const [addQueueItem,{data:queueItemData,loading:queueItemLoading,error:queueAddError}] = useMutation(ADD_QUEUE_ITEM);
-    const [completeQueueItem,{data:completeData,loading:completeLoading,error:completeError}] = useMutation(COMPLETE_QUEUE_ITEM)
-    const {loading,error,data:queueData,refetch} = queueQuery
+
+function Queue({highlight}){
+
+    const [queueData,setQueueData] = useState(mockQueueData)
     const [item,setItem] = useState("")
+    const userId = null;
+    const refetch = ()=>{}
+
     const handleChange = (e)=>{
+        console.log("changin");
         setItem(e.target.value)
     }
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        await addQueueItem({variables:{
-            name:item,userId,date
-        }})
-        setItem("")
-        refetch()
-        refetchDash()
+        const newQueueData = [...queueData];
+        const newItem = {id:newQueueData.length+1,isComplete:false,ordinal:newQueueData.length+1,queueItem:{name:item},attempts:1,successes:0}
+        setQueueData([...newQueueData,newItem])
     }
 
     const handleComplete = async (e)=>{
         const {name} = e.target.dataset
-        const variables = {userId,name,date:formatToday()}
-        const resp = await completeQueueItem({variables})
-        refetch()
-        refetchDash()
+        console.log(name);
+        const newQueueData = [...queueData];
+
+        const item = newQueueData.find(q=>q.queueItem.name==name)
+        item.isComplete = !item.isComplete
+        item.successes+=item.isComplete?1:-1
+        setQueueData(newQueueData)
     }
 
+    const reorderQueue = ({oldOrdinal,newOrdinal})=>{
+        try{
 
-
+            const newQueueData = [...queueData];
+            const movedItem = newQueueData.find(q=>q.ordinal===oldOrdinal)
+            for (let item of newQueueData){
+                const ordinal = item.ordinal
+                if(ordinal<oldOrdinal&&ordinal<newOrdinal){
+                    continue
+                }else if( ordinal>oldOrdinal&&ordinal>newOrdinal){
+                    continue
+                }else if(ordinal>oldOrdinal&&ordinal<=newOrdinal){
+                    item.ordinal-=1
+                }else if(ordinal<oldOrdinal&&ordinal>=newOrdinal){
+                    item.ordinal+=1
+                }
+            }
+            movedItem.ordinal = newOrdinal
+            setQueueData(newQueueData)
+        }catch(err){
+            return
+        }
+        }
+        
+        
     return(
         <main className="main-queue-section">
-        <SimpleInput handleChange={handleChange} handleSubmit={handleSubmit} text={item}
+        <h1>Queue</h1>
+        <SimpleInput highlight={highlight} handleChange={handleChange} handleSubmit={handleSubmit} text={item}
         formClass="inline-form"
         />
-        {!loading?<QueueList setHideHeader={setHideHeader} refetch={refetch} userId={userId} handleComplete={handleComplete} queue={queueData?.getDailyQueue}></QueueList>:null
-        }
+        <QueueList highlight={highlight} reorderQueue={reorderQueue} setHideHeader={()=>{}} refetch={refetch} userId={userId} handleComplete={handleComplete} queue={queueData}></QueueList>
+
         </main>
     )
 }

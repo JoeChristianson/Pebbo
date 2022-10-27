@@ -3,8 +3,26 @@ const { User } = require("../../models")
 
 const passthruQueries = {
     getRenders: async (parent,{userId,date})=>{
+
+
+
+
         const user = await User.findById(userId).populate("assessments").populate({path:"days.queueDays.queueItem",model:"QueueItem"}).populate({path:"days.habitDays.habit",model:"Habit"})
         const {lastReviewed,orientated,days} = user
+
+
+        // let's check to see if today exists
+
+
+
+
+
+
+
+
+
+
+
         const assessmentDays = findDay(user,date)?.assessmentDays || []
         let assessments = []
         if(user.assessments.length!==assessmentDays.length){
