@@ -45,7 +45,6 @@ const passthruQueries = {
         if(daysSinceLastReview===0){
             res.reviewItems = {queueItems:[],habits:[]}
         }
-        console.log("this is the res",res);
         return res
     }
 }
@@ -54,7 +53,6 @@ const passthruQueries = {
 function yesterdaysQueueItems(user){
     const yesterday = findDay(user,formatYesterday())
     if(!yesterday){
-        console.log("no yesterday");
         return []
     }
     return yesterday.queueDays
@@ -63,7 +61,6 @@ function yesterdaysQueueItems(user){
 function yesterdaysHabits(user){
     const yesterday = findDay(user,formatYesterday())
     if(!yesterday){
-        console.log("no yesterday");
         return []
     }
     return yesterday.habitDays

@@ -38,13 +38,26 @@ function Queue({userId,date,queueQuery,refetchDash,setHideHeader}){
 
 
     return(
-        <main className="main-queue-section">
+        <div className="card tall">
+            <h2>Queue</h2>
+        <section className="dash-section">
+            <div className="flex">
+              <div className="main-section">
+                  <div className="form-cont">
+
         <SimpleInput handleChange={handleChange} handleSubmit={handleSubmit} text={item}
         formClass="inline-form"
         />
+        </div>
+        <div className="form-body">
+
         {!loading?<QueueList setHideHeader={setHideHeader} refetch={refetch} userId={userId} handleComplete={handleComplete} queue={queueData?.getDailyQueue}></QueueList>:null
         }
-        </main>
+        </div>
+        </div>  
+        </div>
+        </section>
+        </div>
     )
 }
 

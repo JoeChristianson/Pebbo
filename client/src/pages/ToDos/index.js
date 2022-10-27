@@ -128,14 +128,19 @@ function ToDos({userId,mockToDos,refetchDash,onDash,setHideHeader,highlight,end}
         <div className="flex">
                     {fireworksOn&&<Fireworks {...fxProps} />}
         <main className="main-section">
-            <h1>To Dos</h1>
+            {!onDash&&<h1>To Dos</h1>}
+        <div className="form-cont">
+
         <SimpleInput         formClass="inline-form" text={newToDo} handleChange={handleChange} handleSubmit={handleSubmit}/>
+        </div>
+        <div className="card-body">
+
         <div className="list">
 
         {sortedToDos.
         map((t,i)=>{
             try{
-
+                
                 if(!t.toDoForm?.name){
                     return(null)
                 }
@@ -146,6 +151,7 @@ function ToDos({userId,mockToDos,refetchDash,onDash,setHideHeader,highlight,end}
                 console.error(err)
             }
         })}
+        </div>
         </div>
         </main>
         {modalOpen?<Modal onDash={onDash} handlePrioritize={handlePrioritize} setModalOpen={setModalOpen} modalInput={modalInput} handleDelete={handleDelete} dataId={dataId} >

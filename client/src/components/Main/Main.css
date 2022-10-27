@@ -165,10 +165,6 @@ body{
         padding-top:20px;
         padding-bottom: 30px;
     }
-    .dashboard-cont>div>section{
-        margin: 10px auto !important;
-        
-    }
     .assessment-btn-cont button{
         font-size: 2rem;
         width: 6rem;
