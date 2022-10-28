@@ -11,12 +11,48 @@
     border:var(--main-border)
 }
 
-.close-modal{
-    align-self:flex-end;
-    padding: .21rem .5rem;
+.modal>header h3{
+    margin:.3em;
+    text-decoration: underline;
+}
+
+.modal-comp-cont{
+    background: #f5f0f0ad !important;
+    border-radius: 10px;
+}
+
+.modal-buttons-cont{
+    display: flex;
+    justify-content: center;
 }
 
 
+.modal-comp-cont h4{
+    text-align: center !important;
+    margin: .6em 0 !important;
+}
+
+.modal-comp-cont .flex{
+    align-items: center;
+}
+.modal-comp-cont .flex div{
+    width: 100%;
+    margin-left: 1em;
+    text-align: justify;
+    padding: 0 1em;
+    font-size: 1rem;
+}
+
+.close-modal{
+    position: absolute;
+    right: -36px;
+    color: black;
+    font-weight: 800;
+}
+
+.modal-header{
+    position: relative;
+}
 
 .modal-button{
     transition: box-shadow .3s;

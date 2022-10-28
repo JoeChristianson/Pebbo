@@ -95,7 +95,7 @@ const {queueDays,habitDays,toDos} = data.getDash
 
         </section>
         </div>
-            <div  className="card">
+            <div id="queue-card" className="card">
             <h2>Daily Queue</h2>
 
         <section className="dash-section">

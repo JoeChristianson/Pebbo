@@ -9,19 +9,24 @@ export const Modal = ({highlight,userId,setModalOpen,modalInput,handleDelete,dat
     }
 
     return(<div className={`modal ${onDash?"on-dash":""}`}>
-        <button className={`close-modal ${highlight==="close-modal"?"highlight":""}`} onClick={handleModalClose}>x</button>
+        <header className="modal-header">
+        <button className={`close-modal ${highlight==="close-modal"?"highlight":""}`} onClick={handleModalClose}>&#10005;</button>
         <h3>{modalInput.name}</h3>
+        </header>
         <div className="modal-buttons">
-        {handlePrioritize?<button onClick={handlePrioritize} data-id={dataId} className="modal-button">Prioritize</button>:null}
-        {handleDelete&&<button onClick={handleDelete} data-id={dataId} className="modal-button">Delete</button>}
         </div>
         {/* {handleSettings?(<>
         <h3>Settings</h3>
         <SettingsGrid userId={userId} dataId={dataId}/>
         </>
-        ):null} */}
+    ):null} */}
         {children}
         {notes&&notes.length>0&&(<div>There are notes</div>)}
+        <div className="modal-buttons-cont">
+
+    {handlePrioritize?<button onClick={handlePrioritize} data-id={dataId} className="modal-button">Prioritize</button>:null}
+    {handleDelete&&<button onClick={handleDelete} data-id={dataId} className="modal-button danger">Delete</button>}
+        </div>
         </div>)
 }
 

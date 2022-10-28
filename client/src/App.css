@@ -47,7 +47,7 @@ input{
 @media screen and (max-width: 1000px){
   .modal,.modal.on-dash{
       position: fixed;
-  top: 50%;
+  top: 140px;
   left: 50%;
   transform: translate(-50%,-50%);
   width: 90vw !important;
@@ -64,6 +64,8 @@ input{
 
 .touch-drag{
   position: fixed;
+  font-weight: 700;
   z-index: 999;
-  background: grey !important;
+  border:3px solid gold !important;
+  background: rgb(225, 225, 225) !important;
 }

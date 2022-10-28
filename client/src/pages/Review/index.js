@@ -51,7 +51,7 @@ const Review = ({userId,setReviewed,refresh,highlight})=>{
     let habitDays = data?.getReview?.habitDays ||[]
 
     const handleConfirm = async ()=>{
-        if(highlight!==null){
+        if(highlight!=null){
             setSuccessScreen(true)
             return
         }

@@ -74,6 +74,8 @@ const Main =  ({setHideHeader})=>{
         }
     },[themeData])
 
+
+    // REVIEW: we will delete this queueQuery and stop passing it down if it is not necessary.
     const queueQuery = useQuery(GET_QUEUE,{
             variables:{userId,date:formatToday()}
     })    
