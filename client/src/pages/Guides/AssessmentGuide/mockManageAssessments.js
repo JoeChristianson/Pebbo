@@ -60,12 +60,11 @@ export const ManageAssessments = ({highlight})=>{
 console.log(currentAssessment);
     return(
         <>
-        <main className="main-section assessments">
+        <div className="card tall">
+        <h2>Assessment</h2>
+            <button className={`primary my-1 font-medium-large ${highlight==="add-button"?'highlight':''}`} onClick={openNewAssessment}>Add Assessment</button>
             <section className="assessment-left">
                 <div className="list">
-                    <div className="assessment-item">
-                    <button className={`${highlight==="add-button"?'highlight':''}`} onClick={openNewAssessment}>Add Assessment</button>
-                    </div>
                     <div className={`assessment-list-cont ${highlight==="assessment-list-cont"?'child-highlight':''}`}>
 
                     {assessments.map((a,i)=>{
@@ -90,7 +89,7 @@ console.log(currentAssessment);
 
 
 
-            </main>
+            </div>
             {
             modalOpen===false?null:
 

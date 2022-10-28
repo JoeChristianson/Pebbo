@@ -4,7 +4,6 @@
     background: var(--modal-background);
     /* transform: translate(-50%, -50%); */
     border-radius: 10px;
-    box-shadow: var(--lighter-shadow);
     display: flex;
     flex-direction: column;
     padding:10px;
@@ -71,10 +70,9 @@
 
 .on-dash.modal{
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    top:40px;
+    transform: translate(-50%, -0%);
     max-width: 90vw;
     z-index:300
 }
-

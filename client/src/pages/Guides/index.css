@@ -28,7 +28,8 @@ h1,h3,h4{
     margin: 20px;
     max-height: 500px;
     overflow: scroll;
-    transform: translate(-50%,-60%);
+    transform: translate(-50%,0%);
+  top:20px;
 }
 
 @keyframes pulse-animation {
@@ -81,8 +82,5 @@ header{
 
 
 @media screen and (max-width:600px) {
-  button{
-    padding:1rem;
-    font-size: 1.5rem;
-  }
+
 }

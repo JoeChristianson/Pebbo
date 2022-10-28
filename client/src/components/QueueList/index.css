@@ -1,5 +1,6 @@
 span.percentage{
     width: 40px;
+    color: var(--dark);
 }
 
 .button-and-percentage-cont{

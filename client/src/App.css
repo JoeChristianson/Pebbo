@@ -49,9 +49,10 @@ input{
       position: fixed;
   top: 140px;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%,0);
   width: 90vw !important;
   margin: unset !important;
+  box-shadow: 0px 0px 0px 500px #000000c2;
   }
 }
 
