@@ -194,9 +194,9 @@ const SubTasks = ({userId,toDoId,subTasks,refetch,update})=>{
 
     return(
         <div className="modal-comp-cont">
-        <h2>
+        <h4>
             Sub-Tasks
-        </h2>
+        </h4>
         <FormElement formInputs={[{name:"text",label:"text"}]} formInputValues={{text}}
         handleFormSubmit={handleFormSubmit}
         handleFormInputChange={handleFormInputChange}
@@ -224,7 +224,7 @@ const ToDoNotes = ({userId,toDo,refetch})=>{
     }
 
     return(<div className="modal-comp-cont">
-        <h2>Notes</h2>
+        <h4>Notes</h4>
         <EditField mutation={saveHandler} text={note}
         buttonClass="no-background-or-border"
         ></EditField>

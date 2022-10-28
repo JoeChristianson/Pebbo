@@ -171,7 +171,15 @@ button{
     margin:.5rem;
     padding: 0;
     box-shadow: 1px 1px 3px black;
+    border-radius: 7px;
+    padding-bottom: 5px;
+    box-shadow: 4px 4px 5px 3px black;
   }
+
+  .card.tall h2{
+    text-align: center;
+  }
+
   .card>h2{
     background: var(--card-heading-bg-color);
     color: var(--card-heading-color);
@@ -180,11 +188,15 @@ button{
     margin:0;
     text-align: left;
     padding-left: 1em;
+    border-radius: 7px 7px 0 0;
   }
 
   .card>section{
     margin: 0;
     padding: 0;
+  }
+  .card#queue-card>section{
+    width:98%
   }
 
   .card .form-cont{
@@ -202,4 +214,53 @@ button{
 
   .card .card-body{
     margin:.5rem;
+  }
+
+  .list-item button{
+    height: 100%;
+    width: 30px;
+    box-shadow: 1px 1px 1px #00000066;
+    border: solid hsl(150deg 14% 30%) 0px;
+    background: var(--item-button);
+    color: grey;
+    cursor: pointer;
+    position: relative;
+  }
+
+  div.list-item span.percentage{
+    text-decoration: unset !important;
+    padding: .2em !important;
+    text-align: center;
+    font-size: .9rem;
+  }
+
+  @media screen and (max-width:600px) {
+    .list>div{
+      width:92vw !important;
+      max-width: unset;
+    }
+  }
+
+  .danger{
+    border:none;
+    color:white;
+    background: rgb(208, 53, 53);
+  }
+
+  button.danger{
+    border-radius: 4px;
+    padding: .1em .3em;
+  }
+  button.danger:hover{
+    background: rgb(208, 53, 53);
+    cursor: pointer;
+  }
+
+  .inline-form input{
+    width: unset !important;
+  }
+
+  .subtask-list .list-item{
+    width: 90% !important;
+    margin-left: 10px;
   }

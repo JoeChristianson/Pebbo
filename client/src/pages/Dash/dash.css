@@ -33,6 +33,8 @@ div.list-item button{
     height: 60px;
 }
 
+
+
 @media screen and (max-width:1000px) {
     .dashboard-cont{
         grid-template-columns: repeat(2,1fr);

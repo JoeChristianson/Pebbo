@@ -10,6 +10,6 @@ span.percentage{
 }
 
 .button-and-percentage-cont>span{
-    background: var(--neutral);
+    background: var(#50484c);
     color: var(--contrast-text-color);
 }

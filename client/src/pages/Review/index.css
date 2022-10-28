@@ -26,7 +26,6 @@ div.review-cont h3{
 div.list-item.done{
     background: grey;
     color: white;
-    max-width: 80vw;
 }
 
 @media screen and (max-width:500px) {
