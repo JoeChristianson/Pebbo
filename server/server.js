@@ -27,12 +27,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
-app.get('/', (req, res) => {
-  
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
-
-// comment this in for production
 if (PORT!==3001){
   app.get("*", (req, res) => {
     
@@ -42,6 +36,12 @@ if (PORT!==3001){
     res.sendFile(url);
   });
 }
+app.get('/', (req, res) => {
+  
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+
+// comment this in for production
 
 app.get("/api/export", async (req,res)=>{
   const {userId} = req.query
