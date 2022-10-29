@@ -99,7 +99,7 @@ const Review = ({userId,setReviewed,refresh,highlight})=>{
     if(highlight!==null){
         return(
             <div className="main-cont review-cont">
-                <h3>Review Yesterday</h3>
+                <h2>Review Yesterday</h2>
                 <div className="side-by-side">
     
                 <section className="list-cont">
@@ -134,7 +134,7 @@ const Review = ({userId,setReviewed,refresh,highlight})=>{
     
     return(
         <div className="main-cont">
-            <h3>Review Yesterday</h3>
+            <h2>Review Yesterday</h2>
             <div className="side-by-side">
             <section className="list-cont">
             <h4>Habits</h4>

@@ -61,6 +61,8 @@ console.log(currentAssessment);
     return(
         <>
         <div className="card tall">
+            <div>
+
         <h2>Assessment</h2>
             <button className={`primary my-1 font-medium-large ${highlight==="add-button"?'highlight':''}`} onClick={openNewAssessment}>Add Assessment</button>
             <section className="assessment-left">
@@ -77,6 +79,7 @@ console.log(currentAssessment);
                     </div>
                 </div>
             </section>
+                    </div>
             <section className={`assessment-right ${highlight==="main-graph-area"?"inner-highlight":""}`}>
                     {pieData===null?null:<PieChart
                     data={pieData}

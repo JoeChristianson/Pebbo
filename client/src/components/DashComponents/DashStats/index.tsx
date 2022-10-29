@@ -16,9 +16,9 @@ const DashStats:FC<{userId:string}> = ({userId}):ReactElement=>{
     const streaks = data?.quickStats?.streaks || []
     const averages = data?.quickStats?.averages || []
     return (<>
-    {streaks.length<1?null:(<div>
+    {streaks.length<1?null:(<div className="stats-cont">
         <h4>Streaks</h4>
-        <div className="stats-cont">
+        <div>
             {streaks.map((item:NameAndNumber,key:React.Key):any=>{
                 return <span key={key}>
                     <>

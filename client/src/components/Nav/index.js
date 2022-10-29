@@ -9,9 +9,9 @@ function Nav({setCurrentSection,dropDownOpen,handleDropDown}){
     }
 
     return(
-        <ul className={dropDownOpen?"open":"closed"}>
+        <ul id="nav" className={dropDownOpen?"open":"closed"}>
             <li onClick={()=>{handleSectionChange()}}>
-            <img className="logo" src="/logo.png"></img>
+            {/* <img className="logo" src="/logo.png"></img> */}
             </li>
         <Link onClick={()=>{handleSectionChange()}} to="/"><li >
                             </li>Dash

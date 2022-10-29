@@ -8,6 +8,10 @@ div.review-cont h3{
     margin: .5rem;
 }
 
+div.review-cont .list{
+    height: 50vh;
+}
+
 
 .side-by-side{
     display: flex;
@@ -20,9 +24,6 @@ div.review-cont h3{
     cursor: pointer;
 }
 
-.main-cont{
-    color:var(--light);
-}
 div.list-item.done{
     background: grey;
     color: white;

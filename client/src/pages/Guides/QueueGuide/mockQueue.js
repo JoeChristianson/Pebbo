@@ -60,7 +60,7 @@ function Queue({highlight}){
         }
         }
         
-        
+        console.log(queueData);
     return(
         <main className="main-queue-section">
         <h1>Queue</h1>

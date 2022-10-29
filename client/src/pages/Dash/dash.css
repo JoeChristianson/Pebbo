@@ -69,5 +69,5 @@ div.list-item button{
 }
 
 header.x{
-    display: flex !important;
+    display: flex;
 }

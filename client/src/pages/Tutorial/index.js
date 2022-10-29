@@ -44,12 +44,12 @@ const Tutorial = ({endTutorial,userId})=>{
     const demos = [
 
 
+        <AssessmentGuide end={endDemo}></AssessmentGuide>,
+        <QueueGuide end={endDemo}></QueueGuide>,
         <YesterdayAssessmentGuide userId={userId} end={endDemo}></YesterdayAssessmentGuide>,
         <ReviewGuide end={endDemo}></ReviewGuide>,
         <ToDoGuide end={endDemo}></ToDoGuide>,
-        <QueueGuide end={endDemo}></QueueGuide>,
         <HabitGuide end={endDemo}></HabitGuide>,
-        <AssessmentGuide end={endDemo}></AssessmentGuide>,
         <DashGuide end={endDemo}></DashGuide>
     ]
 

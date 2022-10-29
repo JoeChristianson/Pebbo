@@ -45,17 +45,19 @@ const mutations = {
     addHabit: async (parent,{name,prohibition,creator,date})=>{
         try{
             
-            let habit = await Habit.find({name})
+            let habit = await Habit.findOne({name})
+            console.log(habit);
             const creatorId = mongoose.Types.ObjectId(creator)
             
-            if (habit.length === 0){
+            if (!habit){
                 
                 habit = await Habit.create({name,prohibition,creator:creatorId})
             }
             const user = await User.findById(creator);
-            
+            if(!habit_id){
+                throw "habit not formed correctly"
+            }
             user.habits.push(habit._id)
-            
             const day = findDay(user,date);
             day.habitDays.push({date,habit:habit._id,isOn:randBoolean(.5),isComplete:false})
             user.save()
@@ -63,7 +65,7 @@ const mutations = {
             habit = Habit.findById(habit._id).populate("creator")
             return habit
         }catch(err){
-            
+            console.error(err)
         }
     },
     addToDo: async (parent,{name,creator,date})=>{

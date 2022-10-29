@@ -39,8 +39,6 @@ function Header({setCurrentSection,hideHeader}) {
     ]
     return(
         <header className={hideHeader?"hide":"x"}>
-
-            <span onClick={handleDropDown} className="mobile">Open</span>
             <Nav setCurrentSection={setCurrentSection} dropDownOpen={dropDownOpen} handleDropDown={handleDropDown}></Nav>
             <h4>{formatToday()}</h4>
             <span className="user-span">

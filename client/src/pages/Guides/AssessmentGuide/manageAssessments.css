@@ -92,3 +92,17 @@ canvas{
         margin-bottom: 2em !important;
     }
 }
+
+@media screen and (min-width:501px) {
+    .card.tall:has(.assessment-right){
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+    }
+    .assessment-right>div>.graph-cont{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .assessment-right>div>h1{
+        width:100%
+    }
+}
