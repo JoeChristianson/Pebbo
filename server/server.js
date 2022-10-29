@@ -27,6 +27,18 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
+app.get('/', (req, res) => {
+  
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+
+app.get("/api/export", async (req,res)=>{
+  const {userId} = req.query
+  const user = await User.findById(userId)
+  console.log("being pinged");
+  res.json(user)
+})
+// comment this in for production
 if (PORT!==3001){
   app.get("*", (req, res) => {
     
@@ -36,26 +48,6 @@ if (PORT!==3001){
     res.sendFile(url);
   });
 }
-app.get('/', (req, res) => {
-  
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
-
-// comment this in for production
-
-app.get("/api/export", async (req,res)=>{
-  const {userId} = req.query
-  const user = await User.findById(userId)
-  console.log("being pinged");
-  res.json(user)
-  // await fs.writeFile(`./files/${userId}.json`,JSON.stringify(user),()=>{})
-  // res.sendFile(`${__dirname}/files/${userId}.json`,(err)=>{
-  //   if(err){
-  //     console.error(err)
-  //   }
-  // })
-})
-
  
  
 // Create a new instance of an Apollo server with the GraphQL schema
