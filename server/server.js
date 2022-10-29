@@ -37,23 +37,24 @@ app.get("/api/export", async (req,res)=>{
   const user = await User.findById(userId)
   console.log("being pinged");
   res.json(user)
-  // await fs.writeFile(`./files/${userId}.json`,JSON.stringify(user),()=>{})
-  // res.sendFile(`${__dirname}/files/${userId}.json`,(err)=>{
-  //   if(err){
-  //     console.error(err)
-  //   }
-  // })
 })
 // comment this in for production
-if (PORT!==3001){
-  app.get("*", (req, res) => {
+// if (PORT!==3001){
+//   app.get("*", (req, res) => {
     
-    let url = path.join(__dirname, '../client/build', 'index.html');
-    if (!url.startsWith('/app/'))
+//     let url = path.join(__dirname, '../client/build', 'index.html');
+//     if (!url.startsWith('/app/'))
+//     url = url.substring(1);
+//     res.sendFile(url);
+//   });
+// }
+
+app.get("*", (req, res) => {
+  let url = path.join(__dirname, '../client/build', 'index.html');
+  if (!url.startsWith('/app/'))
     url = url.substring(1);
-    res.sendFile(url);
-  });
-}
+  res.sendFile(url);
+});
  
  
 // Create a new instance of an Apollo server with the GraphQL schema
