@@ -45,10 +45,12 @@ const HabitAssessmentBars = ({assessmentName,highlight}:Props)=>{
     return(
         <div>
             <h1>{assessmentName}</h1>
+            <div className="graph-cont">
+
             {
                 graphData.map(d=>{
                     return (
-                    <div className={`${highlight===d.name&&"highlight"}`}>
+                        <div className={`${highlight===d.name&&"highlight"}`}>
                     <h4>{d.name}</h4>
                     <BarGraph
                         chartData={{name:d.name,data:[{key:"on",value:d.onValue},
@@ -60,13 +62,14 @@ const HabitAssessmentBars = ({assessmentName,highlight}:Props)=>{
                 })
             }
                                 {/* {barData===null?null:barData.map(d=>{
-                        return (<BarGraph
-                            chartData={{name:d.name,data:[{key:"on",value:d.onValue},
-                            {key:"off",value:d.offValue}
-                        ]}} 
-                            colors={["red","blue"]}                       
-                        ></BarGraph>)
-                    })} */}
+                                    return (<BarGraph
+                                        chartData={{name:d.name,data:[{key:"on",value:d.onValue},
+                                        {key:"off",value:d.offValue}
+                                    ]}} 
+                                    colors={["red","blue"]}                       
+                                    ></BarGraph>)
+                                })} */}
+                                </div>
         </div>
     )
 }

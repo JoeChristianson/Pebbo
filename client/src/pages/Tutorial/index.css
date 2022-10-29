@@ -1,4 +1,7 @@
- 
+div:has(.bottom-info-bar)>header.x,div:has(.slide)>header.x{
+    display: none !important;
+}
+
 
 .slide{
     background: rgb(0, 0, 0);
@@ -45,6 +48,4 @@ header.x{
     top:0;
 }
 
-header.x{
-    display: none  !important;
-}
+

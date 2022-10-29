@@ -71,6 +71,8 @@ export const ManageAssessments = ({userId,highlight})=>{
     return(
         <>
         <div className="card tall">
+            <div>
+
             <h2>Assessment</h2>
             <button className={`primary my-1 font-medium-large ${highlight==="add-button"?'highlight':''}`} onClick={openNewAssessment}>Add Assessment</button>
             <section className="assessment-left">
@@ -87,6 +89,7 @@ export const ManageAssessments = ({userId,highlight})=>{
                     </div>
                 </div>
             </section>
+                </div>
             <section className={`assessment-right ${highlight==="main-graph-area"?"inner-highlight":""}`}>
                     {pieData===null?null:<PieChart
                     data={pieData}
@@ -94,7 +97,7 @@ export const ManageAssessments = ({userId,highlight})=>{
 
                     {!currentAssessment?null:(
                         <HabitAssessmentBars userId={userId} assessment={currentAssessment}></HabitAssessmentBars>
-                    )}
+                        )}
             </section>
 
 

@@ -18,7 +18,7 @@ header ul {
 
     margin:0
    }
-header a,header>ul>li{
+header a,header>ul>li,header a.x{
     padding: 20px;
     font-family: var(--main-font-family);
     font-size: 1.2rem;
@@ -29,6 +29,19 @@ header a,header>ul>li{
 
 header a:hover,header>ul>li:hover{
     background-color: var(--accent-hover);
+}
+
+.App>header{
+    height: 4rem;
+}
+
+#nav li, #nav a{
+    color:white
+}
+
+.App>header>h4{
+    margin:auto;
+    color:var(--header-color)
 }
 
 header button{

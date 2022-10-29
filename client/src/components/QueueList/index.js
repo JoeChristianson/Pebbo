@@ -34,7 +34,8 @@ const QueueList = ({highlight,reorderQueue,queue,handleComplete,userId,yesterday
         }
         // setHideHeader(true)
     }
-
+    console.log("modal input",modalInput);
+    console.log(queue)
     // useEffect(()=>{
     //     setHideHeader(openModal)
     // },[openModal])

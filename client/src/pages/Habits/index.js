@@ -6,12 +6,12 @@ const {useState} = require("react")
 const HabitDay = require("../../components/HabitDay").default
 const {useQuery,useMutation} = require("@apollo/client")
 const SubNav = require("../../components/SubNav").default
-const {QUERY_DAY} = require("../../utils/queries")
 const {TOGGLE_IS_COMPLETE, DELETE_HABIT, MAKE_HABIT_PERMANENT} = require("../../utils/mutations")
 const {formatToday} = require("../../utils/date")
 const auth = require("../../utils/auth").default
 
 function Habits({refetchDash,dayLoading,dayData,refetchDay,setHideHeader}){
+    console.log(dayData);
     const userId = auth.getProfile().data._id
     const date = formatToday()
     const [modalOpen,setModalOpen] = useState(false)
@@ -97,8 +97,10 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay,setHideHeader}){
                 }):null}
             </section>
                 </div>
-            {modalOpen?<Modal setModalOpen={setModalOpen} modalInput={modalInput} handleDelete={handleDelete} dataId={dataId}>
-                <button onClick={handleMakePermanent}>Make Permanent!</button>
+            {modalOpen?<Modal  setModalOpen={setModalOpen} modalInput={modalInput} handleDelete={handleDelete} dataId={dataId}
+            additionalButtons={[<button onClick={handleMakePermanent}>Make Permanent!</button>]}
+            >
+                
             </Modal>:null}
         </section>
                 </div>

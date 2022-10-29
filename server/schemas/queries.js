@@ -12,7 +12,7 @@ const allUsers = async ()=>{
 
 
 const getDay = async (parent,{userId,date})=>{
-    
+
     
     const user = await User.findById(userId).populate({
         path: 'days.habitDays.habit',
@@ -27,6 +27,7 @@ const getDay = async (parent,{userId,date})=>{
 
     for(let day of user.days){
         const dayStr = JSON.stringify(day.date)
+
         const splitSearchDate = dayStr.split("T")[0].split("-")
         const searchObj = {
             month:parseInt(splitSearchDate[1]),
@@ -42,7 +43,7 @@ const getDay = async (parent,{userId,date})=>{
             }
         }
         if (found){
-            
+
             return day
         }
 
@@ -189,7 +190,6 @@ const getDash = async (parent,{userId,date})=>{
         })]
         incompleteQueueDays = incompleteQueueDays.map((qd)=>{
             const {ordinal} = user.queue.find((qi)=>{
-                console.log(qi.queueItem.toString(),qd.queueItem._id.toString())
                 return qi.queueItem.toString()===qd.queueItem._id.toString()})
             return {
                 date:qd.date,
