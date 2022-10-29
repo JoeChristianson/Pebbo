@@ -32,6 +32,17 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
+// comment this in for production
+if (PORT!==3001){
+  app.get("*", (req, res) => {
+    
+    let url = path.join(__dirname, '../client/build', 'index.html');
+    if (!url.startsWith('/app/'))
+    url = url.substring(1);
+    res.sendFile(url);
+  });
+}
+
 app.get("/api/export", async (req,res)=>{
   const {userId} = req.query
   const user = await User.findById(userId)
@@ -44,16 +55,7 @@ app.get("/api/export", async (req,res)=>{
   //   }
   // })
 })
-// comment this in for production
-if (PORT!==3001){
-  app.get("*", (req, res) => {
-    
-    let url = path.join(__dirname, '../client/build', 'index.html');
-    if (!url.startsWith('/app/'))
-    url = url.substring(1);
-    res.sendFile(url);
-  });
-}
+
  
  
 // Create a new instance of an Apollo server with the GraphQL schema
