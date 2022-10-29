@@ -49,7 +49,7 @@ const HabitAssessmentBars = ({assessmentName,highlight}:Props)=>{
                 graphData.map(d=>{
                     return (
                     <div className={`${highlight===d.name&&"highlight"}`}>
-
+                    <h4>{d.name}</h4>
                     <BarGraph
                         chartData={{name:d.name,data:[{key:"on",value:d.onValue},
                         {key:"off",value:d.offValue}

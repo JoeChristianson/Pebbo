@@ -1,7 +1,22 @@
 
-.export-btn{
-    font-size: 2rem;
-    background: white;
-    margin: auto;
-    cursor: pointer;
+.account-settings-form{
+    margin-left: 3rem;
+    text-align: left;
+}
+
+.account-settings-form label,.account-settings-form button{
+    display: block;
+    font-size: 1rem;
+    margin-top:1rem
+}
+
+.account-settings-form select,.account-settings-form input{
+    box-sizing: border-box;
+    width:70vw;
+    padding:.5rem 1rem;
+    margin-top:.5em;
+    border:1px solid grey;
+}
+.account-settings-form input:focus,.account-settings-form select:focus{
+    border: unset;
 }

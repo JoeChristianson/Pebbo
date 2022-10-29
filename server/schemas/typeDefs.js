@@ -259,6 +259,7 @@ const typeDefs = gql`
       googleLogin(email:String!):Auth
       resetPasswordRequest(email:String!):messageObj
       resetPassword(email:String!,password:String!,code:String!):messageObj
+      deleteUser(userId:ID!):String
     }
 
 `

@@ -4,3 +4,45 @@
     display:flex;
     justify-content: center;
 }
+
+.card.tall .sub-nav{
+    background: var(--card-heading-bg-color);
+    width: 90vw;
+    max-width: 350px;
+    display: flex;
+}
+
+
+.card.tall .sub-nav li{
+    font-size: 1rem;
+    padding-top: .5rem;
+    padding-bottom:.5rem;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.374);
+    color: black;
+    
+}
+
+.card.tall .sub-nav .selected{
+    background: var(--card-bg-color);
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    border: 2px solid rgba(128, 128, 128, 0.374);
+    border-bottom:none;
+}
+.sub-nav span{
+    flex-grow: 1;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.374);
+}
+
+.habits input{
+    background: rgb(233, 233, 233);
+    box-sizing: border-box;
+}
+
+.habits .list-item{
+    width: unset;
+}
+
+.dash-section{
+    padding:1em;
+}

@@ -40,20 +40,24 @@ const BarGraph = ({chartData,colors}:Props)=>{
    
     const options = {
         responsive: false,
+        title:{
+          fontSize:20
+        },
         plugins: {
           legend: {
             position: 'top' as const,
             labels:{
                 font:{
-                    size:20,
+                    size:0,
                     family:"'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
 
                 }
             }
           },
           title: {
-            display: true,
+            display: false,
             text: chartData.name,
+            fontSize:24,
           },
         },
       };

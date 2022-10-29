@@ -7,7 +7,7 @@ const Slide = ({title,img,paragraphs,handleClick})=>{
         e.stopPropagation()
     }
 
-    return <div>
+    return <div id="tutorial">
         <div id="blocker" onClick={handleBlocker}></div>
         <h1>{title}</h1>
         {img&&

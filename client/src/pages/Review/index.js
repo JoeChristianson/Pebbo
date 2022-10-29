@@ -40,9 +40,7 @@ const Review = ({userId,setReviewed,refresh,highlight})=>{
             name = parentNode?.name
             parentNode = parentNode.parentNode
         }
-        console.log(name);
         const variables = {userId,date,name};
-        console.log(variables);
         await toggleQueueComplete({variables})
         await refetchDay()
     }
@@ -126,7 +124,7 @@ const Review = ({userId,setReviewed,refresh,highlight})=>{
                     </div>
                 </section>
                     </div>
-                    <button className={`confirm-button ${highlight==="confirm"&&"highlight"}`} onClick={handleConfirm}>Confirm</button>
+                    <button className={`primary font-medium-large my-1 ${highlight==="confirm"&&"highlight"}`} onClick={handleConfirm}>Confirm</button>
     
             </div>
         )

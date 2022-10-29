@@ -79,6 +79,8 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay,setHideHeader}){
 
     if(data){
         return(
+            <div className="card tall habits">
+            <h2>Habits</h2>
             <section className="module">
                 <div>
 
@@ -99,6 +101,7 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay,setHideHeader}){
                 <button onClick={handleMakePermanent}>Make Permanent!</button>
             </Modal>:null}
         </section>
+                </div>
     )
 }
 }

@@ -1,10 +1,12 @@
+ 
+
 .slide{
     background: rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: rgb(255, 251, 196);
+    color: white;
 }
 
 .slide h1{
@@ -12,13 +14,14 @@
     max-width: 90vw;
     margin: auto;
     margin-bottom: 1em;
+    font-size: 1.7rem;
 }
 
 
 .slide p{
     max-width: 90vw;
     width:400px;
-    font-size: 2rem;
+    font-size: 1.7rem;
     margin: auto;
 }
 

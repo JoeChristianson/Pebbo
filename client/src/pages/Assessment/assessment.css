@@ -5,9 +5,11 @@
     margin: auto;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
+    margin-top: 2em;
 }
 
 .assessment-btn-cont>button{
+
     height:100px;
     font-size: 3rem;
     margin:.5rem;
@@ -15,10 +17,14 @@
     cursor: pointer;
     background-color: var(--light);
     width: 90%;
+    border:none;
+    border-radius: 10px;
+
 }
 
 .assessment-btn-cont>button:hover,.assessment-btn-cont>button.selected{
-   background: #afcdad
+   background: #4242af;
+   color:white;
 }
 
 .assessment-input-cont>input{
@@ -35,7 +41,10 @@
     font-size: 3rem;
     box-shadow: 2px 2px ;
     margin:2rem;
-    background-color: black;
-    color:#afcdad;
     cursor: pointer;
+    background: #4242af;
+    border: none;
+    color:rgb(238, 231, 231);
+    border-radius: 4px;
+    margin-top: 1em !important;
 }

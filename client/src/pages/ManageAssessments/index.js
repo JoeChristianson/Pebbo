@@ -70,19 +70,18 @@ export const ManageAssessments = ({userId,highlight})=>{
     }
     return(
         <>
-        <main className="main-section assessments">
+        <div className="card tall">
+            <h2>Assessment</h2>
+            <button className={`primary my-1 font-medium-large ${highlight==="add-button"?'highlight':''}`} onClick={openNewAssessment}>Add Assessment</button>
             <section className="assessment-left">
                 <div className="list">
-                    <div className="assessment-item">
-                    <button className={`${highlight==="add-button"?'highlight':''}`} onClick={openNewAssessment}>Add Assessment</button>
-                    </div>
                     <div className={`assessment-list-cont ${highlight==="assessment-list-cont"?'child-highlight':''}`}>
 
                     {data.getAllUsersAssessments.map((a,i)=>{
                         return (<div key={i} className="assessment-item" ><span  onClick={select} data-index={i}>
                             {a.name}
                             </span>
-                            <i  className={` ${highlight==="edit-btn"?'highlight':''}`} onClick={openExistingAssessment} data-index={i}>e</i>
+                            <icon  className={` ${highlight==="edit-btn"?'highlight':''}`} onClick={openExistingAssessment} data-index={i}>&#x24D8;</icon>
                             </div>)
                     })}
                     </div>
@@ -100,7 +99,7 @@ export const ManageAssessments = ({userId,highlight})=>{
 
 
 
-            </main>
+            </div>
             {
             modalOpen===false?null:
 
@@ -112,7 +111,7 @@ export const ManageAssessments = ({userId,highlight})=>{
                 setModalOpen={setModalOpen}
                 handleDelete={handleDelete}
                 >
-                    <h3>{modalOpen.metric}</h3>
+                    <p className="left">Metric: {modalOpen.metric}</p>
                 </Modal>
             }
                         {
@@ -125,14 +124,16 @@ export const ManageAssessments = ({userId,highlight})=>{
                 onDash={true}
                 setModalOpen={setNewOpen}
                 >
-                            <section className="add-assessment">
+            <section className="add-assessment">
+            <label>Assessment Name</label>
             <input className={`${highlight==="assessment-name"?"highlight":""}`} onChange={handleAddChange} data-key="name" placeholder="Assessment Name"></input>
+            <label>Metric</label>
             <select className={`${highlight==="assessment-metric"?"highlight":""}`}  onChange={handleAddChange} data-key="metric">
             <option value="boolean">Pass/Fail</option>
             <option value="grade">Grade</option>
             <option value="quantity">Quantity</option>
             </select>
-            <button className={`${highlight==="assessment-button"?"highlight":""}`} onClick={handleAddSubmit}>Add Assessment</button>
+            <button className={`primary my-1 font-medium-large  ${highlight==="assessment-button"?"highlight":""}`} onClick={handleAddSubmit}>Add Assessment</button>
             </section>
                 </Modal>
             }

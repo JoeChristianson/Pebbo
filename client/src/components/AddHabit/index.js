@@ -25,7 +25,7 @@ const AddHabitComp = ({refetchDay,userId,date,addQueueItem})=>{
 
     return(
         <SimpleInput 
-        formClass="inline-form"
+        formClass="inline-form" placeholder="Enter New Habit Name"
         text={habitName} handleChange={handleChange} handleSubmit={handleSubmit}/>
     )
 }
