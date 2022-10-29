@@ -33,7 +33,7 @@ div.list-item.done{
     .side-by-side{
         flex-direction: column;
     }
-    div.list{
+    div.review-cont div.list{
         height: unset;
     }
     h4{

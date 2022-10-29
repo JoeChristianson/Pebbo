@@ -20,11 +20,11 @@ const DashStats:FC<{userId:string}> = ({userId}):ReactElement=>{
         <h4>Streaks</h4>
         <div>
             {streaks.map((item:NameAndNumber,key:React.Key):any=>{
-                return <span key={key}>
+                return <div key={key}>
                     <>
                     {item?.number}&nbsp;days--{item?.name}
                     </>
-                    </span>
+                    </div>
             })}
         </div>
     </div>)}
@@ -32,11 +32,11 @@ const DashStats:FC<{userId:string}> = ({userId}):ReactElement=>{
         <h4>Averages</h4>
         <div>
             {averages.map((item:NameAndNumber,key:React.Key):any=>{
-                return <span key={key}>
+                return <div key={key}>
                     <>
                     {item?.name}--{item?.number}
                     </>
-                    </span>
+                    </div>
             })}
         </div>
     </div>)}

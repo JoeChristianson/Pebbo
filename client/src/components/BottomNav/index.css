@@ -8,6 +8,7 @@ footer{
     display: var(--footer-display);
     justify-content: space-around;
     z-index: 200;
+    padding-bottom: 20px;
 }
 footer>a{
     color: white;

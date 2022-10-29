@@ -49,7 +49,10 @@ const Assessment = ({userId,date,assessment,refetchAssessment,highlight})=>{
     <div>
         <h1>{assessment.name}</h1>
 
-        {assessment.metric==="boolean"?(<div  className="assessment-btn-cont"><button  className={value==1?"selected":""} data-value={1} onClick={handleButton} >Success</button><button className={value==0?"selected":""} data-value={0} onClick={handleButton} >Failure</button></div>):null}
+        {assessment.metric==="boolean"?(<div  className="assessment-btn-cont">
+            <button className={value==0?"selected":""} data-value={0} onClick={handleButton} >✗</button>
+            <button  className={value==1?"selected":""} data-value={1} onClick={handleButton} >✓</button>
+            </div>):null}
         {assessment.metric==="grade"?(
             <div className="assessment-btn-cont">
                 <button data-value={4} onClick={handleButton} className={`${value==4?"selected":""} ${highlight==="grade"?"highlight":""}`}>A</button>

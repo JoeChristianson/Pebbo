@@ -51,14 +51,23 @@ const HabitAssessmentBars = ({assessment,userId}:Props)=>{
 
     return(
         <div>
+            <h1>{assessment.name}</h1>
+            <div className="graph-cont"></div>
+
+
             {
                 graphData.map(d=>{
-                    return (<BarGraph
+                    return (
+                        <div>
+                        <h4>{d.name}</h4>
+                    <BarGraph
                         chartData={{name:d.name,data:[{key:"on",value:d.onValue},
                         {key:"off",value:d.offValue}
                     ]}} 
                         colors={["red","blue"]}                       
-                    ></BarGraph>)
+                    ></BarGraph>
+                    </div>
+                    )
                 })
             }
                                 {/* {barData===null?null:barData.map(d=>{
