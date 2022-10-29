@@ -25,7 +25,6 @@
 
 div.list-item{
     background: var(--dash-item);
-    width: calc(99%);
     min-height: 60px;
     border:solid 1px black;
 }

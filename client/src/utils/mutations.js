@@ -291,3 +291,9 @@ mutation Mutation($userId: ID!, $value: String!) {
   setOrientated(userId: $userId, value: $value)
 }
 `
+
+export const DELETE_USER = gql`
+mutation Mutation($userId: ID!) {
+  deleteUser(userId: $userId)
+}
+`

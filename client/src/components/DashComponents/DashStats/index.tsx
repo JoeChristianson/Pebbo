@@ -17,26 +17,26 @@ const DashStats:FC<{userId:string}> = ({userId}):ReactElement=>{
     const averages = data?.quickStats?.averages || []
     return (<>
     {streaks.length<1?null:(<div>
-        <h2>Streaks</h2>
+        <h4>Streaks</h4>
         <div className="stats-cont">
             {streaks.map((item:NameAndNumber,key:React.Key):any=>{
-                return <div key={key}>
+                return <span key={key}>
                     <>
                     {item?.number}&nbsp;days--{item?.name}
                     </>
-                    </div>
+                    </span>
             })}
         </div>
     </div>)}
     {averages.length<1?null:(<div className="stats-cont">
-        <h2>Averages</h2>
+        <h4>Averages</h4>
         <div>
             {averages.map((item:NameAndNumber,key:React.Key):any=>{
-                return <div key={key}>
+                return <span key={key}>
                     <>
                     {item?.name}--{item?.number}
                     </>
-                    </div>
+                    </span>
             })}
         </div>
     </div>)}

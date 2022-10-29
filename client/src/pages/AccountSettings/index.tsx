@@ -1,6 +1,6 @@
 import "./index.css"
 import { useMutation } from "@apollo/client";
-import { EXPORT_DATA,CHANGE_THEME,SET_MULTIPLE_SETTINGS } from "../../utils/mutations.js";
+import { EXPORT_DATA,CHANGE_THEME,SET_MULTIPLE_SETTINGS, DELETE_USER } from "../../utils/mutations.js";
 import MainTallCenter from "../../components/frames/MainTallCenter/index.tsx";
 import Across from "../../components/frames/Across/index.tsx";
 import themes from "../../themes/index.ts";
@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import LoadingScreen from "../../components/LoadingScreen/index.tsx";
 
 const AccountSettings = ({userId,theme,refetchTheme})=>{
+    const [deleteAccount,{}] = useMutation(DELETE_USER)
     const [downloadHREF,setDownloadHREF] = useState("")
     const [download,setDownload] = useState("")
     const [exportData,{data}] = useMutation(EXPORT_DATA) 
@@ -39,7 +40,17 @@ const AccountSettings = ({userId,theme,refetchTheme})=>{
         setSelectedTheme(theme)
     },[theme])
 
-    
+    const handleDeleteAccount = async (e)=>{
+        e.preventDefault()
+        const confirmation = window.confirm("Do you really wish to delete your account?")
+        if(!confirmation){
+            console.log("Thanks for staying");
+            return
+        }
+        deleteAccount({variables:{userId}})
+        localStorage.clear()
+        window.location.reload()
+    }
 
     const handleThemeSelect = async (e)=>{
         const theme = e.target.value;
@@ -62,19 +73,14 @@ const AccountSettings = ({userId,theme,refetchTheme})=>{
         
         return <LoadingScreen></LoadingScreen>
     }
-    console.log(inputValues)
     return(
         <MainTallCenter title="Account Settings">
         <form className="account-settings-form" action="">
-        <Across className={"font-medium"}>
+
         <label htmlFor="phone">Phone Number</label>
-        <div>
         <input value={inputValues.phone} onChange={handleInputChange} data-type="number" name="phone"></input>
-        <button>Save</button>
-        </div>
-        </Across>
-    <Across className={"font-medium"}>
-        <label htmlFor="theme">Theme</label>
+        {/* I'll add theme back later */}
+        {/* <label htmlFor="theme">Theme</label>
         <select value={selectedTheme} onChange={handleThemeSelect} name="theme" id="theme-selector">
             {themes.map((theme)=>{
                 console.log(theme.name,selectedTheme);
@@ -82,13 +88,10 @@ const AccountSettings = ({userId,theme,refetchTheme})=>{
                     <option selected={theme.name===selectedTheme?true:false} value={theme.name}>{theme.name}</option>
                     )
             })}
-        </select>
-        </Across>
-<Across className={"font-medium"}>
-    <span>Export</span>
-{download===""?<button onClick={handleDataExport} className="export-btn">Export Data</button>:
+        </select> */}
+{download===""?<button onClick={handleDataExport} className="normal font-medium-large">Export Data</button>:
 <a href={downloadHREF} download={download}>Download</a>}
-</Across>
+<button onClick={handleDeleteAccount} className="normal danger font-medium-large">Delete Account</button>
 
         </form>
         </MainTallCenter>

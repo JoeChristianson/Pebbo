@@ -12,18 +12,18 @@
 }
 
 .assessment-left div.assessment-item{
-    cursor: pointer;
-    padding: 1rem;
+    width: 85%;
     display: flex;
+    width: 81%;
+    display: flex;
+    background: #f1f1f1;
+    padding: 0.3em;
     justify-content: space-between;
-    width: 79vw;
-    margin-left:1em;
-    margin-right:1em;
+    margin-bottom: 0.3em;
+    border-radius: 5px;
 }
 
-.assessment-left div.assessment-item:first-child{
-    padding-bottom: 10px;
-}
+
 
 
 .assessment-right{

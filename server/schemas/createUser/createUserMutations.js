@@ -10,6 +10,10 @@ const createUserMutations = {
             const errors = findError(err.message);
             return {valid:false,errors}
         }
+    },
+    deleteUser: async (parent,{userId})=>{
+        await User.deleteOne({_id:userId})
+        return "goodbye!"
     }
 }
 

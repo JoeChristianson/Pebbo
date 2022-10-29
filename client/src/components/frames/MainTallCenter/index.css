@@ -1,15 +1,27 @@
 .main-tall-center{
-    background: white;
+    background: #f7f7f7;
     width: 800px;
     margin: auto;
     min-height: 100vh;
     color: var(--item-text-color);
+    width: unset;
+    position: fixed;
+    top: 0;
 }
 .main-tall-center>section{
-    margin-top: 3.4rem;
+    margin-top: 1.5em;
 }
 @media screen and (max-width:800px) {
     .main-tall-center{
-        width: unset;
+        width: 100vw;
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    .main-tall-center h1{
+        font-size: 1.5rem;
+        padding-top:1.3em;
+        text-align: left;
+        margin-left: 3rem;
+        
     }
 }
