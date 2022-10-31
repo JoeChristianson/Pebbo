@@ -174,7 +174,6 @@ const QueueList = ({highlight,reorderQueue,queue,handleComplete,userId,yesterday
             for(let i=0;i<matchPropertiesArray.length;i++){
                 prop = prop[matchPropertiesArray[i]]
             }
-            console.log("this is the prop",prop);
             return prop===matchValue
         })
         const setPropertiesArray = setProperties.split(".")

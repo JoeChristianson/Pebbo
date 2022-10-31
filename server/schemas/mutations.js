@@ -54,7 +54,7 @@ const mutations = {
                 habit = await Habit.create({name,prohibition,creator:creatorId})
             }
             const user = await User.findById(creator);
-            if(!habit_id){
+            if(!habit._id){
                 throw "habit not formed correctly"
             }
             user.habits.push(habit._id)

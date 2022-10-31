@@ -43,7 +43,7 @@
             return(<Assessment highlight="false" refetchAssessment={()=>handleNext("assessment")} date={formatToday()} userId={userId} assessment={assessments[0]}></Assessment>)
         }
         if(habits.length>0||queueItems.length>0){
-            return(<Review refresh={()=>{handleNext("review")}} userId={userId} setReviewed={()=>{handleNext("review")}}/>)
+            return(<Review highlight="false" refresh={()=>{handleNext("review")}} userId={userId} setReviewed={()=>{handleNext("review")}}/>)
         }
 
         return(

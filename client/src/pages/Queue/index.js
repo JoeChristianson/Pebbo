@@ -11,20 +11,23 @@ const {useQuery, useMutation} = require("@apollo/client")
 const {ADD_QUEUE_ITEM,COMPLETE_QUEUE_ITEM, REORDER_QUEUE} = require("../../utils/mutations")
 
 function Queue({userId,date,refetchDash,setHideHeader}){
-    const queueQuery = useQuery(GET_QUEUE,{
-        variables:{userId,date:formatToday()}
-})    
     const [addQueueItem,{data:queueItemData,loading:queueItemLoading,error:queueAddError}] = useMutation(ADD_QUEUE_ITEM);
     const [completeQueueItem,{data:completeData,loading:completeLoading,error:completeError}] = useMutation(COMPLETE_QUEUE_ITEM)
-    const {loading,error,data:initialQueueData,refetch} = queueQuery
+    const {loading,error,data:initialQueueData,refetch} = useQuery(GET_QUEUE,{
+        variables:{userId,date:formatToday()},fetchPolicy: "no-cache"
+})   
     const [reorderMutation,{}]=useMutation(REORDER_QUEUE)
     const [item,setItem] = useState("")
     const handleChange = (e)=>{
         setItem(e.target.value)
     }
     const [queueData,setQueueData] = useState([])
+    if(loading){
+        console.log("loading!");
+    }
 
     useEffect(()=>{
+        console.log("setting");
         setQueueData(initialQueueData?.getDailyQueue||[])
     },[initialQueueData])
 
@@ -36,7 +39,7 @@ function Queue({userId,date,refetchDash,setHideHeader}){
         addQueueItem({variables:{
             name:item,userId,date
         }})
-        refetchDash()
+        await refetchDash()
     }
 
     const handleComplete = async (e)=>{

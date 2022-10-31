@@ -23,7 +23,6 @@ const Review = ({userId,setReviewed,refresh,highlight})=>{
     const [confirmDay,{data:cData,loading:cLoading,error:cError}]= useMutation(CONFIRM_DAY)
     const [demoHabitDays,setDemoHabitDays] = useState(initialHabitDemoState)
     const [demoQueueDays,setDemoQueueDays] = useState(initialQueueDemoState)
-    console.log(demoQueueDays);
     if(loading){
         return <LoadingScreen/>
     }
@@ -49,7 +48,7 @@ const Review = ({userId,setReviewed,refresh,highlight})=>{
     let habitDays = data?.getReview?.habitDays ||[]
 
     const handleConfirm = async ()=>{
-        if(highlight!=null){
+        if(highlight!=="false"){
             setSuccessScreen(true)
             return
         }
@@ -96,7 +95,7 @@ const Review = ({userId,setReviewed,refresh,highlight})=>{
         setDemoQueueDays(newDemoQueueDays)
     }
 
-    if(highlight!==null){
+    if(highlight!=="false"){
         return(
             <div className="main-cont review-cont">
                 <h2>Review Yesterday</h2>
