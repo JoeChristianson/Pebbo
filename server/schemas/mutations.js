@@ -114,7 +114,9 @@ populateDay: async (parent,{userId,date})=>{
     try{
         console.log("populating!");
         const user = await User.findById(userId).populate("habits").populate("queue");
-        if(user.lastPopulated && formatDBDateForComparison(user.lastPopulated) === date){
+        console.log(user);
+        console.log(user?.lastPopulated);
+        if(user?.lastPopulated && formatDBDateForComparison(user.lastPopulated) === date){
             
             return user
         }
