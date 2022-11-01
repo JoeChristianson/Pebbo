@@ -112,7 +112,7 @@ removeHabit: async (parent,{userId,habitId})=>{
 },
 populateDay: async (parent,{userId,date})=>{
     try{
-        
+        console.log("populating!");
         const user = await User.findById(userId).populate("habits").populate("queue");
         if(user.lastPopulated && formatDBDateForComparison(user.lastPopulated) === date){
             
@@ -312,7 +312,9 @@ reorderQueue: async(parent,{userId,oldOrdinal,newOrdinal})=>{
         console.log("this is the first date reformatted: ",formatDBDateForComparison(d.date))
         return formatDBDateForComparison(d.date) === date
     })[0];
-    console.log("this is the day",day);
+    // if(!day){
+    //     await this.populateDay()
+    // }
     const assessmentDay = {date,assessment:assessmentId,value};
     day.assessmentDays.push(assessmentDay);
     user.save();

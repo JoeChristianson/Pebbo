@@ -1,5 +1,6 @@
 const { findDay, calculateDaysBetween } = require("../../utils/date")
 const { User } = require("../../models")
+const { populateDay } = require("../mutations")
 
 const passthruQueries = {
     getRenders: async (parent,{userId,date})=>{
@@ -10,19 +11,11 @@ const passthruQueries = {
         const user = await User.findById(userId).populate("assessments").populate({path:"days.queueDays.queueItem",model:"QueueItem"}).populate({path:"days.habitDays.habit",model:"Habit"})
         const {lastReviewed,orientated,days} = user
 
-
         // let's check to see if today exists
-
-
-
-
-
-
-
-
-
-
-
+        if(!findDay(user,date)){
+            await populateDay(parent,userId,date)
+        }
+        console.log("day",findDay(user,date));
         const assessmentDays = findDay(user,date)?.assessmentDays || []
         let assessments = []
         if(user.assessments.length!==assessmentDays.length){
