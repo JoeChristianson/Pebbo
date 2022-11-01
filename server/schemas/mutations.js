@@ -112,6 +112,7 @@ removeHabit: async (parent,{userId,habitId})=>{
 },
 populateDay: async (parent,{userId,date})=>{
     try{
+        console.log(userId);
         console.log("populating!");
         const user = await User.findById(userId).populate("habits").populate("queue");
         console.log(user);
@@ -309,9 +310,6 @@ reorderQueue: async(parent,{userId,oldOrdinal,newOrdinal})=>{
     const user = await User.findById(userId);
     console.log("this is the user: ",user._id);
     const day = user.days.filter(d=>{
-        console.log("these are the two dates");
-        console.log(d.date,date);
-        console.log("this is the first date reformatted: ",formatDBDateForComparison(d.date))
         return formatDBDateForComparison(d.date) === date
     })[0];
     // if(!day){
