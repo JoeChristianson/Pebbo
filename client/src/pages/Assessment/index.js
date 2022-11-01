@@ -19,7 +19,6 @@ const Assessment = ({userId,date,assessment,refetchAssessment,highlight})=>{
 
     const handleSubmit = async ()=>{
         if(highlight!=="false"){
-            console.log(highlight);
             setSuccessScreen(true)
             return
         }
@@ -28,8 +27,9 @@ const Assessment = ({userId,date,assessment,refetchAssessment,highlight})=>{
         }
         try{
             const variables = {userId,date,assessmentId:assessment._id,value:parseInt(value)}
+            console.log("these are the variables going in",variables);
             const resp = await makeAssessment({variables})
-            console.log(resp);
+            console.log("this is the response coming out!");
             if(resp){
                 refetchAssessment()
             }
