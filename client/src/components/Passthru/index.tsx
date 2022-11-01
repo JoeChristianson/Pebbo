@@ -11,7 +11,7 @@
         const {orientated,assessments} = passThrus
         const {habits,queueItems} = passThrus.reviewItems
         const [finishTutorial,{}] = useMutation(FINISH_TUTORIAL)
-        console.log(userId,"id in passthru");
+        console.log("passThrus",passThrus);
         
         
         const handleNext = async (action:string)=>{
@@ -33,7 +33,7 @@
             }
             setPassThrus(newPassThrus)
         }
-
+        
         if(!orientated){
             return(
                 <Tutorial userId={userId} endTutorial={()=>handleNext("tutorial")}></Tutorial>
