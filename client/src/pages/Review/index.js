@@ -139,7 +139,7 @@ const Review = ({userId,setReviewed,refresh,highlight})=>{
             <h4>Habits</h4>
             <div className="list review-list">
 
-            {demoHabitDays.map((h,i)=>{
+            {habitDays.map((h,i)=>{
                 return(
                     <HabitDay key={i} handleComplete={handleComplete} habitDay={h}></HabitDay>
                     )
