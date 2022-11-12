@@ -195,14 +195,21 @@ const getDash = async (parent,{userId,date})=>{
             model:"ToDoForm"
         });
         let {habitDays,queueDays} = findDay(user,date) || {habitDays:[],queueDays:[]};
+        // this is adding the notes
+        queueDays.forEach(qd=>{
+            qd.note = "This is the note!"
+            console.log(qd);
+        })
+
         let incompleteQueueDays = [...queueDays.filter(q=>{
             return !q.isComplete
         })]
         incompleteQueueDays = incompleteQueueDays.map((qd)=>{
-            const {ordinal} = user.queue.find((qi)=>{
+            const {ordinal,note} = user.queue.find((qi)=>{
                 return qi.queueItem.toString()===qd.queueItem._id.toString()})
             return {
                 date:qd.date,
+                note,
                 queueItem:qd.queueItem,
                 isOn:qd.isOn,
                 isComplete:qd.isComplete,

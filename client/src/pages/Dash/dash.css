@@ -6,6 +6,10 @@
     grid-template-columns: repeat(4,1fr);
 }
 
+.dashboard-cont img.logo.centered{
+    display: none;
+}
+
 .dashboard-cont section main{
     margin:0;
     width: 100%;
@@ -37,6 +41,9 @@ div.list-item button{
 @media screen and (max-width:1000px) {
     .dashboard-cont{
         grid-template-columns: repeat(2,1fr);
+    }
+    .dashboard-cont img.logo.centered{
+        display: unset;
     }
 }
 
