@@ -1,29 +1,30 @@
     import Tutorial from "../../pages/Tutorial"
     import Assessment from "../../pages/Assessment"
     import Review from "../../pages/Review"
-    import React from "react"
     import { formatToday } from "../../utils/date"
     import { useMutation } from "@apollo/client"
     import { FINISH_TUTORIAL } from "../../utils/mutations"
 
-    const Passthru = ({userId,passThrus,setPassThrus}:any)=>{
+    // types
+    import { PassThruProps } from "./types"
+
+
+    const Passthru = ({userId,passThrus,setPassThrus}:PassThruProps)=>{
 
         const {orientated,assessments} = passThrus
         const {habits,queueItems} = passThrus.reviewItems
-        const [finishTutorial,{}] = useMutation(FINISH_TUTORIAL)
-        console.log("passThrus",passThrus);
+
+// I think if it doesn't send back data, the setOriented Object in the typing should just be empty
+
+        const [finishTutorial,{data:finishTutorialData,loading:finishTutorialLoading,error:finishTutorialError}] = useMutation<{setOrientated:{}},{userId:string,value:string}>(FINISH_TUTORIAL)
         
-        
-        const handleNext = async (action:string)=>{
+        const handleNext = async (action:string):Promise<void>=>{
             let newPassThrus = {...passThrus}
             switch(action){
                 case "tutorial":
                     newPassThrus.orientated = true;
-                    const variables = {userId,value:"true"}
-                    console.log(variables);
-                    
-                    const res = await finishTutorial({variables})
-                    console.log(res);
+                    const variables = {userId,value:"true"}                    
+                    finishTutorial({variables})
                     case "assessment":
                     newPassThrus.assessments = [...newPassThrus.assessments].slice(1)
                     break;
