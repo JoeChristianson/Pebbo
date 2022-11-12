@@ -50,15 +50,13 @@ const Main =  ({setHideHeader})=>{
     const variables = {userId,date:formatToday()}
     const [isPopulated,setIsPopulated] = useState(false)
     const {data:datesData,loading:datesLoading,refetch:refetchDates} = useQuery(GET_DATES,{variables:{userId}})
-    console.log(variables);
         const [populateDay,{data:popData,loading:popLoading,error:errPop}]=useMutation(POPULATE_DAY)
         const [populatedAttempt,setPopulatedAttempt] = useState(false)
         const {data:dashData,loading:dashLoading,error:dashError,refetch:refetchDash} = useQuery(GET_DASH,{variables:{userId,date:formatToday()}})
         const {loading:dayLoading,error,data:dayData,refetch:refetchDay} = useQuery(QUERY_DAY,
             {variables:{userId,date:formatToday()}
         })
-        console.log(dayData,error);
-    
+  
         const {data:themeData,refetch:refetchTheme} = useQuery(GET_THEME,{variables:{userId}})
     
     useEffect(()=>{

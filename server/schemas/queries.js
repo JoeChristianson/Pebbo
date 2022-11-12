@@ -3,6 +3,7 @@ const {formatDBDateForComparison, findDay} = require("../utils/date")
 const {queueItemActive} = require("../utils/settings")
 const { Assessment } = require("../models/Assessment");
 const { queueItemCompletionRate } = require("../analysis/queue/completion");
+const { compareIds } = require("../utils/comparisons");
 
 
 const allUsers = async ()=>{
@@ -43,7 +44,16 @@ const getDay = async (parent,{userId,date})=>{
             }
         }
         if (found){
-
+            day.habitDays.forEach(hd=>{
+                hd.habit.isPermanent = false;
+                const habitId = hd.habit._id;
+                for(let permanentHabits of user.permanentHabits){
+                    if (compareIds(permanentHabits._id,habitId)){
+                        hd.habit.isPermanent = true;
+                    }
+                }
+                console.log(habitId);
+            })
             return day
         }
 
