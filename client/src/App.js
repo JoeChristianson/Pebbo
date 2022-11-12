@@ -1,3 +1,5 @@
+import {ContextProvider} from "./context/context"
+
 import './App.css';
 import Header from "./components/Header"
 import Main from "./components/Main"
@@ -51,6 +53,8 @@ function App() {
   return (
     <BrowserRouter>
     <ApolloProvider client={client}>
+    <ContextProvider>
+
     {!loggedIn?<AuthComponent/>:
     
     <div className="App">
@@ -59,6 +63,8 @@ function App() {
       {isMobile&&<BottomNav></BottomNav>}
     </div>
   }
+
+  </ContextProvider>
     </ApolloProvider>
   </BrowserRouter>
   );

@@ -1,3 +1,5 @@
+import Context from "../../context/context"
+import { useContext } from "react"
 import "./dash.css"
 import {QueueDay} from "../../components/QueueDay"
 import { ToDo } from "../../components/ToDo"
@@ -16,6 +18,8 @@ import {Fireworks} from "fireworks/lib/react"
 import Saddy from "../../components/Overlays/Saddy/index.tsx"
 
 const Dash = ({userId,date,data,loading,error,refetch,refetchDay})=>{
+    const {working} = useContext(Context)
+    console.log(working,"it is working");
     useEffect(()=>{
         document.documentElement.style.setProperty("--footer-display","flex");
     },[])
