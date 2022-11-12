@@ -103,7 +103,7 @@ const Main =  ({setHideHeader})=>{
     }
     const {orientated,assessments} = passThrus
     const {habits,queueItems} =passThrus.reviewItems
-    if(!orientated||habits.length>0||assessments.length>0||queueItems.length>0){
+    if(!orientated||habits.length>0||assessments.length===0||queueItems.length>0){
         return(
             <Passthru passThrus={passThrus} setPassThrus={setPassThrus} userId={userId}></Passthru>
         )

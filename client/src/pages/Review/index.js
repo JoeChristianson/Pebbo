@@ -156,8 +156,8 @@ const Review = ({userId,setReviewed,refresh,highlight})=>{
                 })}
                 </div>
             </section>
-                <button className="confirm-btn" onClick={handleConfirm}>Don't</button>
                 </div>
+                <button className="confirm-btn" onClick={handleConfirm}>Confirm</button>
 
         </div>
     )
