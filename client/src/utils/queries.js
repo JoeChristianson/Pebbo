@@ -144,6 +144,7 @@ query Query($userId: ID!, $date: String!) {
       isOn
       isComplete
       ordinal
+      note
     }
     habitDays {
       habit {

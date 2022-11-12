@@ -66,6 +66,7 @@ const typeDefs = gql`
 
   type Queue {
     queueItem: QueueItem
+    notes: String
     ordinal: Int
     offSettings:[
       Setting

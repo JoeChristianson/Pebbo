@@ -80,7 +80,7 @@ if(!data?.getDash){
 }
 
 const {queueDays,habitDays,toDos} = data.getDash
-
+    console.log(queueDays);
     return(
         <div className="dashboard-cont">
         <img className="logo centered" src="/logo.png"></img>
@@ -100,6 +100,7 @@ const {queueDays,habitDays,toDos} = data.getDash
 
         <section className="dash-section">
            {queueDays[0]?<QueueDay handleQueueSkip={handleQueueSkip} handleComplete={handleQueueComplete} queueDay={queueDays[0]}/>:<span>All Done!</span>}
+           {queueDays?.[0]?.note?<div>Notes: <p>{queueDays[0].note}</p></div>:""}
         </section>
             </div>
             <div  className="card">
