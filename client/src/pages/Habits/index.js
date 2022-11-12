@@ -22,11 +22,6 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay,setHideHeader}){
     const [toggleIsComplete,{data:toggleData,loading:toggleLoading,error:toggleError}] = useMutation(TOGGLE_IS_COMPLETE)
     const [makeHabitPermanent,{}] = useMutation(MAKE_HABIT_PERMANENT)
     let data = null;
-    if (dayLoading){
-    }
-    // if(error){
-    //     console.error(error)
-    // }
 
     if(!dayLoading){
         data = dayData.getDay.habitDays
@@ -34,6 +29,8 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay,setHideHeader}){
 
 
     const [habitDays,setHabitDays] = useState(data)
+
+
 
     const handleComplete= async (e)=>{
 
@@ -51,7 +48,6 @@ function Habits({refetchDash,dayLoading,dayData,refetchDay,setHideHeader}){
     }
 
     const openThisModal = (e)=>{
-        console.log("opening");
         const {id} = e.target.dataset;
         setDataId(id)
         setModalOpen(true)

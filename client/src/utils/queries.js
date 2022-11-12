@@ -35,6 +35,7 @@ query Query($userId: ID!, $date: String!) {
           _id
           name
           prohibition
+          isPermanent
         }
         isOn
         isComplete
@@ -149,6 +150,7 @@ query Query($userId: ID!, $date: String!) {
         _id
         name
         prohibition
+        isPermanent
       }
       isOn
       isComplete

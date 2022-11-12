@@ -124,6 +124,7 @@ const typeDefs = gql`
     name: String!
     prohibition: Boolean
     creator: User!
+    isPermanent:Boolean
   }
 
   type Assessment {
