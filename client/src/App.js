@@ -18,8 +18,8 @@ import BottomNav from './components/BottomNav/index.tsx';
 
 const httpLink = createHttpLink({
   // toggle for production/absolute path for development
-  uri: 'http://localhost:3001/graphql'
-  // uri: '/graphql'
+  // uri: 'http://localhost:3001/graphql'
+  uri: '/graphql'
 });
 
 const authLink = setContext((_, { headers }) => {
