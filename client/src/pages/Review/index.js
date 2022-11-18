@@ -132,7 +132,7 @@ const Review = ({userId,setReviewed,refresh,highlight})=>{
     
     
     return(
-        <div className="main-cont">
+        <div className="main-cont review-cont">
             <h2>Review Yesterday</h2>
             <div className="side-by-side">
             <section className="list-cont">

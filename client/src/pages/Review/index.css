@@ -22,6 +22,10 @@ div.review-cont .list{
     font-size: 1.2rem;
     background: var(--light);
     cursor: pointer;
+    border:none;
+    padding:.5em 1em;
+    margin-top: 1em;
+    margin-bottom: 5em;
 }
 
 div.list-item.done{
